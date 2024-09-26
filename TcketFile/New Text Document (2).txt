@@ -1,0 +1,9 @@
+                        <li class="nav-link nav-item  text-primary c-pointer text-center my-dropdown" style="font-size: 25px; width: 150px"><a
+                                    ><i class="bi bi-person-circle"></i>
+                                <span class="size-10"><br>welcome AmirHosein</span>
+                            </a>
+                            <ul class="my-menu p-2">
+                                <li class="pt-1 pb-2 mx-2"><a class="dropdown-item1 my-2 size-15 text-dark" href="?type=profile">Profile</a></li>
+                                <li class="py-2 mx-2"><a class="dropdown-item1 my-2 size-15 pt-3 text-dark" href="?logout=1">LOGOUT</a></li>
+                            </ul>
+                        </li>

@@ -1,0 +1,17 @@
+{
+    "name": "amir_fnw/lottery",
+    "autoload": {
+        "psr-4": {
+            "AmirFnw\\Lottery\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "amir"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.8",
+        "twbs/bootstrap-icons": "^1.11"
+    }
+}

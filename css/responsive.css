@@ -1,0 +1,91 @@
+@media screen and (max-width: 991px){
+    .web-header-section{
+
+    }
+    .dp_io{
+        display: block !important;
+    }
+    .navbar-nav li{
+        margin-left: 15px;
+    }
+    .web-header-section-administrator{
+        direction: rtl;
+    }
+    .collapse_administrator{
+        direction: ltr;
+    }
+    .buy_btn{
+        margin-top: 0px !important;
+    }
+
+    .mxr-0{
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .pyr-0{
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+    .fr-14{
+        font-size: 14px !important;
+    }
+    .fmne{
+        display: block !important;
+    }
+}
+@media screen and (max-width: 500px){
+    .result-thead th{
+        font-size: 10px;
+
+    }
+}
+@media screen and (max-width:389px) {
+    .bt0_pe{
+        font-size: 10px;
+    }
+    .ppp_ppwpe{
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+        font-size: 13px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1200px){
+    .card-style{
+        width: 150px;
+    }
+    .resq{
+        width: 90%;
+    }
+}
+@media screen and (max-width:575px) {
+    .mt_r{
+        margin-top: 5px !important;
+    }
+    .rep1{
+        justify-content: center;
+    }
+    .fontf99{
+        font-size: 9px !important;
+    }
+    .responr{
+        right: 15% !important;
+    }
+}
+@media screen and (max-width:1200px) {
+    .resq{
+        width: 90%;
+    }
+
+}
+@media screen and (max-width:371px) {
+    .rep1
+   {
+        justify-content: center;
+        padding: 0px !important;
+        justify-content: center;
+
+   }
+    .fontf99{
+        font-size: 6px !important;
+    }
+}
