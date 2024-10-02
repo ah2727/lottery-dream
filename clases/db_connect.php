@@ -8,6 +8,7 @@ class db_connect
     private $password;
     private $charset;
 
+    private $port;
     protected function connect()
     {
         $this->severAddress = "localhost";
@@ -15,9 +16,11 @@ class db_connect
         $this->userName = "root";
         $this->password = 'root1234';
         $this->charset = "utf8mb4";
+        $this->port = "3008";
+
         try {
-            $dsn = "mysql:host=$this->severAddress;dbname=$this->dbname;charset=$this->charset";
-            $pdo = new PDO($dsn, $this->userName, $this->password);
+            $dsn = "mysql:host=$this->severAddress;port=$this->port;dbname=$this->dbname;charset=$this->charset";
+            $pdo = new PDO($dsn, username: $this->userName, password: $this->password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (Exception $ex) {

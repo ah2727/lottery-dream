@@ -115,6 +115,7 @@ include_once '../clases/register.php';
     </footer>
 </main>
 <?php
+echo $_SESSION['rand'];
 if (isset($_GET['EditeEmail']))
 {
     ?>

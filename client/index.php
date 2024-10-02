@@ -51,7 +51,10 @@ include_once "../clases/db_connect.php";
         <nav class="navbar navbar-expand-lg  justify-content-around" >
             <li class="dropdown d-flex justify-content-star dp_io"><a class="nav-link nav-item text-dark fw-semibold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i  class="bi bi-person-lines-fill" style="font-size: 25px"></i></a>
                 <ul class="dropdown-menu dm-loi">
+                <a class="nav-item nav-item text-dark text-center  text-uppercase fw-semibold dropdown-item py-2 c-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal1">wallet</a>
+
                     <a class="nav-item nav-item text-dark text-center text-uppercase fw-semibold dropdown-item py-2" href="?menu=profile" >profile</a>
+
                     <a class="nav-item nav-item text-dark text-center  text-uppercase fw-semibold dropdown-item py-2 c-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal1">log out</a>
 
                 </ul>
