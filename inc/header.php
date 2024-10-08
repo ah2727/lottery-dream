@@ -45,6 +45,7 @@ if (!empty($result1)) {
     <!-- responsive -->
     <!-- Style -->
     <link rel="stylesheet" href="css/bf5750195f5b2ba9.css">
+    <link rel="stylesheet" href="css/main.css">
     <!-- responsive -->
     <link rel="stylesheet" href="css/d53016d9c486db61.css">
     <!-- responsive -->

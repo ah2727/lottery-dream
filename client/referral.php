@@ -25,8 +25,5 @@ if (!isset($_SESSION['emailc'])){
 }
 include_once "../clases/db_connect.php";
 ?>
-<div class="d-flex">
-    <div class="wallet"></div>
-
-</div>
+<h1>referral</h1>
 
