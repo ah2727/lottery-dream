@@ -25,5 +25,27 @@ if (!isset($_SESSION['emailc'])){
 }
 include_once "../clases/db_connect.php";
 ?>
-<h1>referral</h1>
+<div class="d-flex justify-content-center mb-5">
+<div class="wallet w-100 h-100 rounded p-3">
+<div class="glassmorphism text-center text-white mx-auto">
+            <!-- Referral Section -->
+            <h5 class="font-weight-bold">Referral</h5>
+            <p class="mb-1">All referrals: 0 | Month: 0</p>
+            <p class="mb-1">Week: 0 | Day: 0</p>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- Referral Commission Section -->
+            <h5 class="font-weight-bold">Referral Commission</h5>
+            <p class="mb-1">All: $0 | Month: $0</p>
+            <p class="mb-1">Week: $0 | Day: $0</p>
+
+            <!-- Persian Text Section -->
+            <p class="mt-4 font-weight-bold text-right">اینجا هم لینک رفرال و کدش با قابلیت کپی شدن یا کلیک</p>
+        </div>
+    </div>
+</div>
+</div>
+
 

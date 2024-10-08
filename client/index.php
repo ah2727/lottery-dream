@@ -34,6 +34,8 @@ include_once "../clases/db_connect.php";
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css?v=0.2">
+
     <!-- Botstrap .Css-->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Style -->
@@ -43,6 +45,7 @@ include_once "../clases/db_connect.php";
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+    
 
 </head>
 <body>
