@@ -32,7 +32,7 @@ include_once "../clases/db_connect.php";
         <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
             <img class="wallet-icon" src="../image/bnb-bnb-logo.png" alt="bnb" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">bnb</h4>
-            <p class="text-light m-0">432 bnb</p>
+            <p class="text-light m-0">432 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
                 <a href="#" class="text-light">deposit</a>
@@ -43,7 +43,7 @@ include_once "../clases/db_connect.php";
         <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
             <img class="wallet-icon" src="../image/bitcoin-btc-logo.png" alt="bitcoin" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">bitcoin</h4>
-            <p class="text-light m-0">.0123 btc</p>
+            <p class="text-light m-0">123 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
                 <a href="#" class="text-light">deposit</a>
@@ -54,7 +54,7 @@ include_once "../clases/db_connect.php";
         <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
             <img class="wallet-icon" src="../image/dogecoin-doge-logo.png" alt="dogecoin" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">dogecoin</h4>
-            <p class="text-light m-0">2000 doge</p>
+            <p class="text-light m-0">2000 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
                 <a href="#" class="text-light">deposit</a>
@@ -65,7 +65,7 @@ include_once "../clases/db_connect.php";
         <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism">
             <img class="wallet-icon" src="../image/toncoin-ton-logo.png" alt="ton" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">ton</h4>
-            <p class="text-light m-0">100 ton</p>
+            <p class="text-light m-0">100 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
                 <a href="#" class="text-light">deposit</a>
@@ -76,7 +76,7 @@ include_once "../clases/db_connect.php";
         <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism">
             <img class="wallet-icon" src="../image/tether-usdt-logo.png" alt="tether" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">tether</h4>
-            <p class="text-light m-0">726 usdt</p>
+            <p class="text-light m-0">726 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
                 <a href="#" class="text-light">deposit</a>

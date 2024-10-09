@@ -4,6 +4,7 @@ session_start();
 ob_start();
 include_once '../clases/db_connect.php';
 include_once '../clases/register.php';
+include_once "../clases/createwallet.php"
 ?>
 <!doctype html>
 <html lang="en">
@@ -164,11 +165,14 @@ if (isset($_POST['ConfirmEmail'])) {
     $code = $_POST['Code'];
     if ($_SESSION['rand'] == $code) {
         $pdo = new register();
+        $wallet = new wallet();
+        $wallet->createwallet($_SESSION['email']);
         $pdo->Signup($_SESSION['email'],$_SESSION['password'],$_SESSION['FirstName'],$_SESSION['LastName'],$_SESSION['Address'],$_SESSION['mother'],$_SESSION['place'],$_SESSION['birthDay'],$_SESSION['Gender'],$_SESSION['phone']);
         session_destroy();
         session_start();
+
         $_SESSION['RegS'] = "Registration was successful";
-        header("Location:../login.php");
+        // header(header: "Location:../login.php");
     }
 }
 
