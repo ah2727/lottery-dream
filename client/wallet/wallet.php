@@ -35,7 +35,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">432 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="#" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=bnb" class="text-light">deposit</a>
             </div>
         </div>
 
@@ -46,7 +46,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">123 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="#" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=bitcoin" class="text-light">deposit</a>
             </div>
         </div>
 
@@ -57,7 +57,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">2000 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="#" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=dogecoin" class="text-light">deposit</a>
             </div>
         </div>
 
@@ -68,7 +68,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">100 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="#" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=ton"class="text-light">deposit</a>
             </div>
         </div>
 
@@ -79,7 +79,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">726 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="#" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
             </div>
         </div>
     </div>

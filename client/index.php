@@ -90,7 +90,10 @@ include_once "../clases/db_connect.php";
                         include_once "Home.php";
                         break;
                     case "wallet":
-                        include_once "wallet.php";
+                        include_once "wallet/wallet.php";
+                        break;
+                    case "deposit":
+                        include_once "wallet/deposit.php";
                         break;
                     case "referral":
                         include_once "referral.php";
