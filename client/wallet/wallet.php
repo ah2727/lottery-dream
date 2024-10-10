@@ -26,7 +26,7 @@ if (!isset($_SESSION['emailc'])) {
 include_once "../clases/db_connect.php";
 ?>
 <div class="d-flex justify-content-center mb-5">
-<div class="wallet w-100 h-100 rounded p-3">
+<div class="gradient-bg w-75 h-100 rounded p-3">
     <div class="row justify-content-center">
         <!-- First Item -->
         <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
@@ -35,7 +35,7 @@ include_once "../clases/db_connect.php";
             <p class="text-light m-0">432 $</p>
             <div class="d-flex gap-3">
                 <a href="#" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=bnb" class="text-light">deposit</a>
+                <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
             </div>
         </div>
 

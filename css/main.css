@@ -1,6 +1,8 @@
-.wallet{
-    background-color: #6f2c91;
+.gradient-bg{
+    background: linear-gradient(90deg, rgba(111,44,144,1) 0%, rgba(236,1,140,1) 40%, rgba(113,173,208,1) 100%);
     color: rgb(249, 249, 249);
+    border-radius: 15px!important; /* Rounded corners */
+
 }
 .wallet-icon{
     width: 10%;
@@ -14,4 +16,64 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Optional shadow */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
     padding: 20px; /* Padding to make it look better */
+}
+.glassmorphism-input {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border-radius: 15px; /* Rounded corners */
+    backdrop-filter: blur(10px); /* Blur effect for the glassy look */
+    -webkit-backdrop-filter: blur(10px); /* Safari support for backdrop-filter */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    padding: 5px; /* Padding to make it look better */
+
+}
+
+/* Styling for the custom payment option */
+.payment-option {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.payment-option img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-option p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.payment-option input[type="radio"]:checked + img {
+    border: 2px solid #007bff5a;
+    border-radius: 10px;
+}
+
+.payment-option input[type="radio"]:checked + p {
+    color: #007bff77;
+}
+
+/* Styling for glassmorphism effect */
+
+
+
+.form-size{
+    width: 25%;
+}
+
+@media screen and (max-width: 750px) {
+    .form-size{
+        width: 80%;
+    }
 }

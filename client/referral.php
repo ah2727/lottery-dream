@@ -26,7 +26,7 @@ if (!isset($_SESSION['emailc'])){
 include_once "../clases/db_connect.php";
 ?>
 <div class="d-flex justify-content-center mb-5">
-<div class="wallet w-100 h-100 rounded p-3">
+<div class="gradient-bg w-100 h-100 rounded p-3">
 <div class="glassmorphism text-center text-white mx-auto">
             <!-- Referral Section -->
             <h5 class="font-weight-bold">Referral</h5>
