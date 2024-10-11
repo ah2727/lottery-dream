@@ -4,6 +4,7 @@ if (isset($_GET['crypto'])) {
     // Get the 'crypto' parameter from the URL
     $crypto = htmlspecialchars($_GET['crypto']);
 }
+include_once "../clases/withdrawl.php"
 ?>
 <div class="d-flex justify-content-center align-items-center my-5 ">
     <form  method="POST" class="w-100 d-flex justify-content-center">
@@ -34,3 +35,16 @@ if (isset($_GET['crypto'])) {
         </form>
     </div>
 </div>
+<?php 
+$withdrawl = new withdrawl();
+$email = $_SESSION["emailc"];
+if (isset($_GET['address'])) {
+    // Get the 'crypto' parameter from the URL
+    $address = htmlspecialchars($_GET['address']);
+}
+if (isset($_GET['amount'])) {
+    // Get the 'crypto' parameter from the URL
+    $amount = htmlspecialchars($_GET['amount']);
+}
+$withdrawl->insertwithdrawl($address,$email,$amount,$crypto)
+?>
