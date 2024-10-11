@@ -9,6 +9,29 @@ use payment\pay;
 if (isset($_GET['crypto'])) {
     // Get the 'crypto' parameter from the URL
     $crypto = htmlspecialchars($_GET['crypto']);
+    switch($crypto){
+    case 'bnb':
+        $currency = 'BNB';
+        break;
+
+    case 'bitcoin':
+        $currency = 'BTC';
+        break;
+
+    case 'dogecoin':
+        $currency = 'DOGE';
+        $description = 'Deposit with Oxapay';
+        break;
+
+    case 'ton':
+        $currency = 'TON';
+        break;
+
+    
+    case 'usdt':
+        $currency = 'USDT';
+        break;
+    }
 }
 ?>
 <div class="d-flex justify-content-center align-items-center my-5">
@@ -65,9 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $amount = htmlspecialchars($_POST['amount']);
     }
     $dep = new deposit();
-    $result = $dep->createorder($email,$amount);
+    $result = $dep->createorder($email,$amount,$crypto);
+    $_SESSION['payid']= $result;
     $pay = new pay();
     $payment = $pay->oxPay($amount,$email,$result,"test");
+    print_r($payment);
     header("Location: " . $payment->payLink);
 
 }

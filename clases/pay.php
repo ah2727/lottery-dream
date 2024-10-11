@@ -7,16 +7,19 @@ class pay
 
     function oxPay($amount, $email, $ORDid, $description)
     {
-        $url = 'https://api.oxapay.com/merchants/request';
+        $url = 'https://api.oxapay.com/merchants/request/';
         $data = array(
-            'merchant' => 'Z20EPV-XEC2LL-MNN56M-H0TSHF',
+            // 'merchant' => 'Z20EPV-XEC2LL-MNN56M-H0TSHF',
+            'merchant' => 'sandbox',
             'amount' => $amount,
             'currency' => 'USD',
             'lifeTime' => 30,
             'feePaidByPayer' => 1,
             'underPaidCover' => 2.5,
-            'callbackUrl' => 'https://lottery.re/callBack.php',
-            'returnUrl' => 'https://lottery.re/sucsess.php',
+            // 'callbackUrl' => 'https://lottery.re/callBack.php',
+            // 'returnUrl' => 'https://lottery.re/sucsess.php',
+            'callbackUrl' => 'http://localhost:8000/callBack.php',
+            'returnUrl' => 'http://localhost:8000/sucsess.php',
             'description' => $description,
             'orderId' => $ORDid,
             'email' => $email
