@@ -1,6 +1,10 @@
 <?php
 
 include_once "../clases/deposit.php";
+include_once "../clases/pay.php";
+
+use payment\pay;
+
 // Check if the 'crypto' parameter is present in the URL
 if (isset($_GET['crypto'])) {
     // Get the 'crypto' parameter from the URL
@@ -60,10 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['amount'])) {
         $amount = htmlspecialchars($_POST['amount']);
     }
+    $dep = new deposit();
+    $result = $dep->createorder($email,$amount);
+    $pay = new pay();
+    $payment = $pay->oxPay($amount,$email,$result,"test");
+    header("Location: " . $payment->payLink);
+
 }
-$dep = new deposit();
-$result = $dep->createorder($email,$amount);
+
 ?>
-<?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
-<?php echo $result ?>
-        <?php endif; ?>

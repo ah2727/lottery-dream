@@ -1,6 +1,6 @@
 <?php
 
-namespace dbconnect;
+namespace payment;
 class pay
 {
 
