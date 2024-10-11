@@ -26,59 +26,59 @@ if (!isset($_SESSION['emailc'])) {
 include_once "../clases/db_connect.php";
 ?>
 <div class="d-flex justify-content-center mb-5">
-<div class="gradient-bg w-75 h-100 rounded p-3">
+<div class="gradient-bg w-75 h-100 rounded p-3 shadow-lg">
     <div class="row justify-content-center">
         <!-- First Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
+        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
             <img class="wallet-icon" src="../image/bnb-bnb-logo.png" alt="bnb" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">bnb</h4>
             <p class="text-light m-0">432 $</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
+                <a href="index.php?menu=withdrawl&crypto=bnb" class="text-light">withdraw</a>
+                <a href="index.php?menu=deposit&crypto=bnb" class="text-light">deposit</a>
             </div>
         </div>
 
         <!-- Second Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
+        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
             <img class="wallet-icon" src="../image/bitcoin-btc-logo.png" alt="bitcoin" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">bitcoin</h4>
             <p class="text-light m-0">123 $</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdrawl&crypto=bitcoin" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=bitcoin" class="text-light">deposit</a>
             </div>
         </div>
 
         <!-- Third Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism">
+        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
             <img class="wallet-icon" src="../image/dogecoin-doge-logo.png" alt="dogecoin" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">dogecoin</h4>
             <p class="text-light m-0">2000 $</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdrawl&crypto=dogecoin" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=dogecoin" class="text-light">deposit</a>
             </div>
         </div>
 
         <!-- Fourth Item -->
-        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism">
+        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
             <img class="wallet-icon" src="../image/toncoin-ton-logo.png" alt="ton" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">ton</h4>
             <p class="text-light m-0">100 $</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdrawl&crypto=ton" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=ton"class="text-light">deposit</a>
             </div>
         </div>
 
         <!-- Fifth Item -->
-        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism">
+        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
             <img class="wallet-icon" src="../image/tether-usdt-logo.png" alt="tether" style="width: 50px; height: 50px;">
             <h4 class="text-light m-2">tether</h4>
             <p class="text-light m-0">726 $</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdrawl&crypto=usdt" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
             </div>
         </div>

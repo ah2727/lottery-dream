@@ -1,4 +1,6 @@
 <?php
+
+include_once "../clases/deposit.php";
 // Check if the 'crypto' parameter is present in the URL
 if (isset($_GET['crypto'])) {
     // Get the 'crypto' parameter from the URL
@@ -7,20 +9,20 @@ if (isset($_GET['crypto'])) {
 ?>
 <div class="d-flex justify-content-center align-items-center my-5">
     <form  method="POST" class="w-100 d-flex justify-content-center">
-    <div class="d-flex justify-content-center flex-column gradient-bg p-4 form-size rounded">
+    <div class="d-flex justify-content-center flex-column gradient-bg shadow-lg p-4 form-size rounded">
         <h3 class="text-center mb-4">Deposit</h3>
         <h6 class="text-center mb-3">
             Selected Crypto: <strong><?php echo $crypto; ?></strong>
         </h6>
 
         <!-- Email Input -->
-        <div class="form-group glassmorphism-input mb-3">
+        <div class="form-group glassmorphism-input mb-3 shadow-lg">
             <label for="email">Email:</label>
             <input id="email" type="email" name="email" class="form-control" placeholder="Enter your email" required>
         </div>
 
         <!-- Amount Input -->
-        <div class="form-group glassmorphism-input mb-3">
+        <div class="form-group glassmorphism-input mb-3 shadow-lg">
             <label for="amount">Amount:</label>
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
         </div>
@@ -39,7 +41,7 @@ if (isset($_GET['crypto'])) {
 
         <!-- Submit Button -->
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-50">Submit</button>
+            <button type="submit" class="btn btn-primary w-50 shadow-lg">Submit</button>
         </div>
         </form>
     </div>
@@ -59,11 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $amount = htmlspecialchars($_POST['amount']);
     }
 }
-
+$dep = new deposit();
+$result = $dep->createorder($email,$amount);
 ?>
 <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
-            <div class="alert alert-success">
-                <p><strong>Email:</strong> <?php echo $email; ?></p>
-                <p><strong>Amount:</strong> <?php echo $amount; ?></p>
-            </div>
+<?php echo $result ?>
         <?php endif; ?>
