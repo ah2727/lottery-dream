@@ -49,11 +49,39 @@ include_once "../clases/db_connect.php";
             <label for="amount">Amount:</label>
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
         </div>
+        <div class="custom-dropdown">
+    <!-- The button for the dropdown -->
+    <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
+    <span id="dropdownText">Select Option</span>
+    <span>&#9660;</span> <!-- Down arrow icon -->
+    </div>
 
-        <div class="form-group  mb-3 shadow-lg">
-            <label for="amount">Amount:</label>
-            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+    <!-- Dropdown menu -->
+    <div class="dropdown-menu-down">
+        <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
+            <img src="/image/bnb-bnb-logo.png" alt="Option 1">
+            bnb
         </div>
+        <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
+            <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
+            dogecoin
+        </div>
+        <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
+            <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
+            bitcoin
+        </div>
+        <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
+            <img src="/image/tether-usdt-logo.png" alt="Option 3">
+            tether
+        </div>
+        <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
+            <img src="/image/toncoin-ton-logo.png" alt="Option 3">
+            toncoin
+        </div>
+    </div>
+    <input type="hidden" id="selectedOption" name="selectedOption" value="">
+
+</div>
 
         <!-- Submit Button -->
         <div class="d-flex justify-content-center">
@@ -92,6 +120,32 @@ include_once "../clases/db_connect.php";
 
 </div>
 <script>
+        function toggleDropdown() {
+        var dropdownMenu = document.querySelector('.dropdown-menu-down');
+        dropdownMenu.classList.toggle('show');
+    }
+
+    // Select an option and display it
+    function selectOption(optionText, imgSrc) {
+        var dropdownBtn = document.querySelector('.dropdown-menu-down');
+        var dropdownText = document.getElementById('dropdownText');
+
+        dropdownText.innerHTML = '<img src="' + imgSrc + '" style="width: 24px; height: 24px; margin-right: 10px; border-radius: 50%;" alt="Selected">' + optionText;
+        selectedInput.value = optionText;
+
+        // Close the dropdown
+        toggleDropdown();
+    }
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function(event) {
+        var dropdown = document.querySelector('.custom-dropdown');
+        var dropdownMenu = document.querySelector('.dropdown-menu-down');
+        
+        // Check if the clicked target is inside the dropdown, if not, close the dropdown
+        if (!dropdown.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }})
     // Function to switch between tabs
     function openTab(evt, tabName) {
         // Get all elements with class="tab-content" and hide them
