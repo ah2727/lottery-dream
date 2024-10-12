@@ -92,8 +92,8 @@ include_once "../clases/db_connect.php";
                     case "wallet":
                         include_once "wallet/wallet.php";
                         break;
-                    case "withdrawl":
-                        include_once "wallet/withdrawl.php";
+                    case "withdraw":
+                        include_once "wallet/withdraw.php";
                         break;
                     case "deposit":
                         include_once "wallet/deposit.php";

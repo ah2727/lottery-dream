@@ -38,13 +38,13 @@ include_once "../clases/withdrawl.php"
 <?php 
 $withdrawl = new withdrawl();
 $email = $_SESSION["emailc"];
-if (isset($_GET['address'])) {
+if (isset($_POST['address'])) {
     // Get the 'crypto' parameter from the URL
-    $address = htmlspecialchars($_GET['address']);
+    $address = htmlspecialchars($_POST['address']);
 }
-if (isset($_GET['amount'])) {
+if (isset($_POST['amount'])) {
     // Get the 'crypto' parameter from the URL
-    $amount = htmlspecialchars($_GET['amount']);
+    $amount = htmlspecialchars($_POST['amount']);
 }
 $withdrawl->insertwithdrawl($address,$email,$amount,$crypto)
 ?>

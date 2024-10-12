@@ -34,7 +34,7 @@ include_once "../clases/db_connect.php";
             <h4 class="text-light m-2">bnb</h4>
             <p class="text-light m-0">432 $</p>
             <div class="d-flex gap-3">
-                <a href="index.php?menu=withdrawl&crypto=bnb" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdraw&crypto=bnb" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=bnb" class="text-light">deposit</a>
             </div>
         </div>
@@ -45,7 +45,7 @@ include_once "../clases/db_connect.php";
             <h4 class="text-light m-2">bitcoin</h4>
             <p class="text-light m-0">123 $</p>
             <div class="d-flex gap-3">
-                <a href="index.php?menu=withdrawl&crypto=bitcoin" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdraw&crypto=bitcoin" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=bitcoin" class="text-light">deposit</a>
             </div>
         </div>
@@ -56,7 +56,7 @@ include_once "../clases/db_connect.php";
             <h4 class="text-light m-2">dogecoin</h4>
             <p class="text-light m-0">2000 $</p>
             <div class="d-flex gap-3">
-                <a href="index.php?menu=withdrawl&crypto=dogecoin" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdraw&crypto=dogecoin" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=dogecoin" class="text-light">deposit</a>
             </div>
         </div>
@@ -67,7 +67,7 @@ include_once "../clases/db_connect.php";
             <h4 class="text-light m-2">ton</h4>
             <p class="text-light m-0">100 $</p>
             <div class="d-flex gap-3">
-                <a href="index.php?menu=withdrawl&crypto=ton" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdraw&crypto=ton" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=ton"class="text-light">deposit</a>
             </div>
         </div>
@@ -78,7 +78,7 @@ include_once "../clases/db_connect.php";
             <h4 class="text-light m-2">tether</h4>
             <p class="text-light m-0">726 $</p>
             <div class="d-flex gap-3">
-                <a href="index.php?menu=withdrawl&crypto=usdt" class="text-light">withdraw</a>
+                <a href="index.php?menu=withdraw&crypto=usdt" class="text-light">withdraw</a>
                 <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
             </div>
         </div>
