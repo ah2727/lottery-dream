@@ -1,9 +1,9 @@
 <?php
 ob_start();
-include_once '../../clases/db_connect.php';
-include_once '../../clases/readingData.php';
-include_once '../../clases/Cheak.php';
-include_once '../../clases/Update_Database.php';
+include_once '../clases/db_connect.php';
+include_once '../clases/readingData.php';
+include_once '../clases/Cheak.php';
+include_once '../clases/Update_Database.php';
 $update = new Update_Database();
 
 
@@ -26,10 +26,10 @@ if (!isset($_SESSION['emailc'])) {
 include_once "../clases/db_connect.php";
 ?>
 <div class="d-flex justify-content-center mb-5">
-<div class="bg-dark card-size vh-100 rounded p-3 shadow-lg">
+<div class="bg-dark  vh-100 rounded p-3 shadow-lg wallet-container">
 <h1 class="text-light fs-1 d-flex justify-content-center glassmorphism">wallet</h1>
     <div class="d-flex align-items-center justify-content-center text-center h-50 items-center">
-        <h4 class="text-light fs-1 pt-22">450$</h4>
+        <h4 class="text-light fs-1 pt-22 portfolio-value">450$</h4>
     </div>
     <div class="tab-navigation">
         <button class="tab-button active" onclick="openTab(event, 'send')">Send</button>
@@ -37,18 +37,40 @@ include_once "../clases/db_connect.php";
         <button class="tab-button" onclick="openTab(event, 'history')">History</button>
     </div>
     <div id="send" class="tab-content active">
-        <p class="text-light ">This is the Send tab content.</p>
-    </div>
+    <form  method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
+        <!-- Email Input -->
+        <div class="form-group  mb-3 shadow-lg">
+            <label for="address">address:</label>
+            <input id="address" type="text" name="address" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Amount Input -->
+        <div class="form-group  mb-3 shadow-lg">
+            <label for="amount">Amount:</label>
+            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+        </div>
+
+        <div class="form-group  mb-3 shadow-lg">
+            <label for="amount">Amount:</label>
+            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-50">Submit</button>
+            </div>
+        </form>  
+      </div>
     <div id="receive" class="tab-content">
     <form  action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
         <!-- Email Input -->
-        <div class="form-group glassmorphism-input mb-3 shadow-lg">
+        <div class="form-group  mb-3 shadow-lg">
             <label class="text-light" for="email">Email:</label>
             <input id="email" type="email" name="email" class="form-control" placeholder="Enter your email" required>
         </div>
 
         <!-- Amount Input -->
-        <div class="form-group glassmorphism-input mb-3 shadow-lg">
+        <div class="form-group  mb-3 shadow-lg">
             <label class="text-light" for="amount">Amount:</label>
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
         </div>

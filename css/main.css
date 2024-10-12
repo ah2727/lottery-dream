@@ -77,41 +77,73 @@
         width: 80%;
     }
 }
-/* Tabs navigation */
+
+/* Wallet container */
+.wallet-container {
+    background-color: #161b22; /* Dark card background */
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Soft shadow */
+}
+
+/* Portfolio value */
+.portfolio-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #58a6ff; /* Bright color for the value */
+    margin-bottom: 5px;
+}
+
+.portfolio-text {
+    font-size: 1rem;
+    color: #8b949e; /* Light gray for the description */
+    margin-bottom: 25px;
+}
+
+/* Tab navigation */
 .tab-navigation {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 10px;
+    border-bottom: 1px solid #30363d; /* Line under the tabs */
+    margin-bottom: 20px;
 }
 
 .tab-navigation button {
     background: none;
     border: none;
-    color: #fff;
+    color: #8b949e; /* Inactive tab text color */
     font-size: 1rem;
     padding: 10px 20px;
     cursor: pointer;
     position: relative;
+    transition: color 0.3s;
+}
+
+.tab-navigation button:hover {
+    color: #58a6ff; /* Hover color */
 }
 
 .tab-navigation button.active {
-    font-weight: bold;
-    color: #fff;
+    color: #58a6ff; /* Active tab color */
 }
 
 .tab-navigation button.active::after {
     content: "";
     width: 100%;
     height: 2px;
-    background-color: #3b82f6; /* Blue color for the active tab underline */
+    background-color: #58a6ff; /* Blue underline for active tab */
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
-/* Content for each tab */
+/* Tab content */
 .tab-content {
     display: none;
+    color: #c9d1d9; /* Light gray for content */
+    font-size: 1rem;
 }
 
 .tab-content.active {
