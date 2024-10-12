@@ -95,9 +95,6 @@ include_once "../clases/db_connect.php";
                     case "withdraw":
                         include_once "wallet/withdraw.php";
                         break;
-                    case "deposit":
-                        include_once "wallet/deposit.php";
-                        break;
                     case "referral":
                         include_once "referral.php";
                         break;

@@ -1,9 +1,9 @@
 <?php
 ob_start();
-include_once '../clases/db_connect.php';
-include_once '../clases/readingData.php';
-include_once '../clases/Cheak.php';
-include_once '../clases/Update_Database.php';
+include_once '../../clases/db_connect.php';
+include_once '../../clases/readingData.php';
+include_once '../../clases/Cheak.php';
+include_once '../../clases/Update_Database.php';
 $update = new Update_Database();
 
 
@@ -26,62 +26,68 @@ if (!isset($_SESSION['emailc'])) {
 include_once "../clases/db_connect.php";
 ?>
 <div class="d-flex justify-content-center mb-5">
-<div class="gradient-bg w-75 h-100 rounded p-3 shadow-lg">
-    <div class="row justify-content-center">
-        <!-- First Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
-            <img class="wallet-icon" src="../image/bnb-bnb-logo.png" alt="bnb" style="width: 50px; height: 50px;">
-            <h4 class="text-light m-2">bnb</h4>
-            <p class="text-light m-0">432 $</p>
-            <div class="d-flex gap-3">
-                <a href="index.php?menu=withdraw&crypto=bnb" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=bnb" class="text-light">deposit</a>
-            </div>
+<div class="bg-dark card-size vh-100 rounded p-3 shadow-lg">
+<h1 class="text-light fs-1 d-flex justify-content-center glassmorphism">wallet</h1>
+    <div class="d-flex align-items-center justify-content-center text-center h-50 items-center">
+        <h4 class="text-light fs-1 pt-22">450$</h4>
+    </div>
+    <div class="tab-navigation">
+        <button class="tab-button active" onclick="openTab(event, 'send')">Send</button>
+        <button class="tab-button" onclick="openTab(event, 'receive')">Receive</button>
+        <button class="tab-button" onclick="openTab(event, 'history')">History</button>
+    </div>
+    <div id="send" class="tab-content active">
+        <p class="text-light ">This is the Send tab content.</p>
+    </div>
+    <div id="receive" class="tab-content">
+    <form  action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
+        <!-- Email Input -->
+        <div class="form-group glassmorphism-input mb-3 shadow-lg">
+            <label class="text-light" for="email">Email:</label>
+            <input id="email" type="email" name="email" class="form-control" placeholder="Enter your email" required>
         </div>
 
-        <!-- Second Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
-            <img class="wallet-icon" src="../image/bitcoin-btc-logo.png" alt="bitcoin" style="width: 50px; height: 50px;">
-            <h4 class="text-light m-2">bitcoin</h4>
-            <p class="text-light m-0">123 $</p>
-            <div class="d-flex gap-3">
-                <a href="index.php?menu=withdraw&crypto=bitcoin" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=bitcoin" class="text-light">deposit</a>
-            </div>
+        <!-- Amount Input -->
+        <div class="form-group glassmorphism-input mb-3 shadow-lg">
+            <label class="text-light" for="amount">Amount:</label>
+            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
         </div>
 
-        <!-- Third Item -->
-        <div class="col-md-3 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
-            <img class="wallet-icon" src="../image/dogecoin-doge-logo.png" alt="dogecoin" style="width: 50px; height: 50px;">
-            <h4 class="text-light m-2">dogecoin</h4>
-            <p class="text-light m-0">2000 $</p>
-            <div class="d-flex gap-3">
-                <a href="index.php?menu=withdraw&crypto=dogecoin" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=dogecoin" class="text-light">deposit</a>
-            </div>
-        </div>
+        <!-- Select Payment Gateway with Images -->
 
-        <!-- Fourth Item -->
-        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
-            <img class="wallet-icon" src="../image/toncoin-ton-logo.png" alt="ton" style="width: 50px; height: 50px;">
-            <h4 class="text-light m-2">ton</h4>
-            <p class="text-light m-0">100 $</p>
-            <div class="d-flex gap-3">
-                <a href="index.php?menu=withdraw&crypto=ton" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=ton"class="text-light">deposit</a>
-            </div>
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-50 mt-10 shadow-lg">Submit</button>
         </div>
-
-        <!-- Fifth Item -->
-        <div class="col-md-4 d-flex flex-column align-items-center m-3 text-center glassmorphism shadow-lg">
-            <img class="wallet-icon" src="../image/tether-usdt-logo.png" alt="tether" style="width: 50px; height: 50px;">
-            <h4 class="text-light m-2">tether</h4>
-            <p class="text-light m-0">726 $</p>
-            <div class="d-flex gap-3">
-                <a href="index.php?menu=withdraw&crypto=usdt" class="text-light">withdraw</a>
-                <a href="index.php?menu=deposit&crypto=usdt" class="text-light">deposit</a>
-            </div>
+        </form>
         </div>
+    <div id="history" class="tab-content">
+        <p class="text-light ">This is the History tab content.</p>
     </div>
 </div>
 </div>
+    <!-- Tabs Content -->
+
+</div>
+<script>
+    // Function to switch between tabs
+    function openTab(evt, tabName) {
+        // Get all elements with class="tab-content" and hide them
+        var tabContent = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContent.length; i++) {
+            tabContent[i].classList.remove("active");
+        }
+
+        // Get all elements with class="tab-button" and remove the class "active"
+        var tabButtons = document.getElementsByClassName("tab-button");
+        for (var i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        // Show the current tab and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // By default, the first tab is active
+</script>

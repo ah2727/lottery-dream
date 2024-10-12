@@ -10,7 +10,7 @@ class deposit extends db_connect {
         $pdo = $this->connect();
         
         // Prepare and execute the insert query
-        $stmt = $pdo->prepare("INSERT INTO transaction (amount, type, email, success, datetime,crypto) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $pdo->prepare(query: "INSERT INTO transaction (amount, type, email, success, datetime,crypto) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$amount, "deposit", $email, "onpay", $currentDateTime,$crypto]);
         
         // Return the last inserted ID from the same connection
