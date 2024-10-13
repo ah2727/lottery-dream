@@ -14,8 +14,10 @@ include_once "../clases/withdrawl.php"
 <?php 
 $withdrawl = new withdrawl();
 $email = $_SESSION["emailc"];
+if (isset($_POST['crypto'])) {
+    $address = htmlspecialchars($_POST['crypto']);
+}
 if (isset($_POST['address'])) {
-    // Get the 'crypto' parameter from the URL
     $address = htmlspecialchars($_POST['address']);
 }
 if (isset($_POST['amount'])) {

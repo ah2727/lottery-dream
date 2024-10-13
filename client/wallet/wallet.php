@@ -31,7 +31,6 @@ if (!isset($_SESSION['emailc'])) {
 // wallet amount get
 $wallet = new wallet();
 $amount = $wallet->get_amount($_SESSION["emailc"]);
-echo $amount;
 ?>
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  vh-100 rounded p-3 shadow-lg wallet-container">
@@ -49,9 +48,14 @@ echo $amount;
         <!-- Email Input -->
 
         <!-- Amount Input -->
+        <label for="amount">Amount:</label>
         <div class="form-group  mb-3 shadow-lg">
-            <label for="amount">Amount:</label>
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+        </div>
+        <label for="amount">address:</label>
+        <div class="form-group d-flex mb-3 shadow-lg">
+            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
         </div>
         <div class="custom-dropdown">
     <!-- The button for the dropdown -->
@@ -83,7 +87,7 @@ echo $amount;
             toncoin
         </div>
     </div>
-    <input type="hidden" id="selectedOption" name="selectedOption" value="">
+    <input type="hidden" id="crypto" name="crypto" value="">
 
 </div>
 
@@ -94,7 +98,7 @@ echo $amount;
         </form>  
       </div>
     <div id="receive" class="tab-content">
-    <form  action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
+    <form  action="/client/wallet/withdraw.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
         <!-- Email Input -->
 
         <!-- Amount Input -->
@@ -117,7 +121,27 @@ echo $amount;
 </div>
 </div>
     <!-- Tabs Content -->
-
+    <div class="modal fade" id="addaddress" tabindex="-1" aria-labelledby="addaddressLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addaddressLabel">add address</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">address:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">add</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
         function toggleDropdown() {
@@ -129,10 +153,11 @@ echo $amount;
     function selectOption(optionText, imgSrc) {
         var dropdownBtn = document.querySelector('.dropdown-menu-down');
         var dropdownText = document.getElementById('dropdownText');
+        var dropdownInput = document.getElementById('crypto');
+
 
         dropdownText.innerHTML = '<img src="' + imgSrc + '" style="width: 24px; height: 24px; margin-right: 10px; border-radius: 50%;" alt="Selected">' + optionText;
-        selectedInput.value = optionText;
-
+        dropdownInput.value =optionText
         // Close the dropdown
         toggleDropdown();
     }
