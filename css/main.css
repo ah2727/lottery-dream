@@ -157,8 +157,8 @@
 
 /* Dropdown button */
 .dropdown-btn {
-    background-color: #1a1a2e;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: black;
     padding: 10px 15px;
     font-size: 16px;
     border: 1px solid #30363d;
@@ -175,8 +175,9 @@
 .dropdown-menu-down {
     display: none;
     position: absolute;
-    background-color: #161b22;
+    background-color: #ffffff;
     border: 1px solid #30363d;
+    color: black;
     border-radius: 5px;
     width: 100%;
     max-height: 200px;
@@ -190,7 +191,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    color: #ffffff;
+    color: black;
     transition: background-color 0.3s;
 }
 

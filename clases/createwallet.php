@@ -5,11 +5,7 @@ class wallet extends db_connect{
         try {
             // List of wallets to create
             $wallets = [
-                'BNB',
-                'Tether',
-                'TON',
-                'Doge',
-                'Bitcoin'
+                'usdt',
             ];
     
             // Prepare the SQL statement to check if the wallet already exists

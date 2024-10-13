@@ -172,7 +172,7 @@ if (isset($_POST['ConfirmEmail'])) {
         session_start();
 
         $_SESSION['RegS'] = "Registration was successful";
-        // header(header: "Location:../login.php");
+        header(header: "Location:../login.php");
     }
 }
 

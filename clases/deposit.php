@@ -17,34 +17,67 @@ class deposit extends db_connect {
         return $pdo->lastInsertId();
     }
     public function inserttransaction($email, $traceid, $payid) {
-        // Get the PDO connection
+        // Get the PDO connection        
         $pdo = $this->connect();
-        
+    
         try {
             // Start a transaction
             $pdo->beginTransaction();
-
-            // Prepare the UPDATE query to change the status to "paid"
-            $stmt = $pdo->prepare("UPDATE transaction SET success = ? WHERE id = ?");
-            
-            // Execute the UPDATE query
-            $stmt->execute(['paid', $payid]);
-
-            // Check if the update was successful
-            if ($stmt->rowCount() > 0) {
-                // Insert into the oxapaytransactionid table if the update was successful
-                $insertStmt = $pdo->prepare("INSERT INTO oxapaytransactionid (traceid, email) VALUES (?, ?)");
-                $insertStmt->execute([$traceid, $email]);
-
-                // Commit the transaction if both queries succeed
-                $pdo->commit();
-                return "Transaction status updated to paid and oxapay transaction inserted.";
+    
+            // Retrieve the transaction amount from the transaction table using payid
+            $amountStmt = $pdo->prepare("SELECT amount FROM transaction WHERE id = ?");
+            $amountStmt->execute([$payid]);
+    
+            // Fetch the transaction amount
+            $transaction = $amountStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Check if transaction exists
+            if ($transaction) {
+                $transactionAmount = $transaction['amount'];
+    
+                // Prepare the UPDATE query to change the status to "paid"
+                $stmt = $pdo->prepare("UPDATE transaction SET success = ? WHERE id = ?");
+                $stmt->execute(['paid', $payid]);
+    
+                // Check if the update was successful
+                if ($stmt->rowCount() > 0) {
+                    
+                    // Insert into the oxapaytransactionid table if the update was successful
+                    $insertStmt = $pdo->prepare("INSERT INTO oxapaytransactionid (traceid, email) VALUES (?, ?)");
+                    $insertStmt->execute([$traceid, $email]);
+    
+                    // Fetch the current wallet amount for the given email
+                    $walletStmt = $pdo->prepare("SELECT amount FROM wallet WHERE email = ?");
+                    $walletStmt->execute([$email]);
+                    $wallet = $walletStmt->fetch(PDO::FETCH_ASSOC);
+    
+                    if ($wallet) {
+                        // Calculate the new wallet amount
+                        $newAmount = $wallet['amount'] + $transactionAmount;
+    
+                        // Update the wallet with the new amount
+                        $updateWalletStmt = $pdo->prepare("UPDATE wallet SET amount = ? WHERE email = ?");
+                        $updateWalletStmt->execute([$newAmount, $email]);
+                        
+                        // Commit the transaction if everything succeeds
+                        $pdo->commit();
+                        return "Transaction status updated to paid, oxapay transaction inserted, and wallet updated.";
+                    } else {
+                        // Roll back if the wallet is not found
+                        $pdo->rollBack();
+                        return "Wallet not found for the given email.";
+                    }
+                } else {
+                    // Roll back if the update query fails
+                    $pdo->rollBack();
+                    return "Transaction ID not found or already updated.";
+                }
             } else {
-                // Roll back if the update query fails
+                // Roll back if the transaction is not found
                 $pdo->rollBack();
-                return "Transaction ID not found or already updated.";
+                return "Transaction not found.";
             }
-
+    
         } catch (Exception $e) {
             // Roll back the transaction in case of an error
             $pdo->rollBack();
