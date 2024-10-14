@@ -61,9 +61,13 @@ print_r($withdrawl_wallet);
         </div>
         <label for="amount">address:</label>
         <div class="form-group d-flex mb-3 shadow-lg">
-            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
             <?php if (!$withdrawl_wallet): ?>
+                <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
+                <?php endif; ?>
+                <?php if ($withdrawl_wallet): ?>
+                    <input id="amount" type="text" name="amount" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount" readonly>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">edit</button>
                 <?php endif; ?>
         </div>
 
