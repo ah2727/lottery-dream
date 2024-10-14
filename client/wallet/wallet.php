@@ -62,7 +62,9 @@ print_r($withdrawl_wallet);
         <label for="amount">address:</label>
         <div class="form-group d-flex mb-3 shadow-lg">
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
+            <?php if (!$withdrawl_wallet): ?>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
+                <?php endif; ?>
         </div>
 
 
@@ -73,10 +75,7 @@ print_r($withdrawl_wallet);
         </form>  
       </div>
     <div id="receive" class="tab-content">
-    <form  action="/client/wallet/withdraw.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
-        <!-- Email Input -->
-
-        <!-- Amount Input -->
+    <form  action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
         <div class="form-group  mb-3 shadow-lg">
             <label  for="amount">Amount:</label>
             <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
@@ -95,7 +94,7 @@ print_r($withdrawl_wallet);
     </div>
 </div>
 </div>
-    <!-- Tabs Content -->
+    <!-- modal Content -->
     <div class="modal fade" id="addaddress" tabindex="-1" aria-labelledby="addaddressLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -146,9 +145,8 @@ print_r($withdrawl_wallet);
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-<button type="submit" class="btn btn-primary">add</button>
-</div>
 
+            <button type="button" class="btn btn-primary" onclick="enableInput()">Add</button>
         </form>
       </div>
 
