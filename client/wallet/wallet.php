@@ -6,6 +6,7 @@ include_once '../clases/Cheak.php';
 include_once '../clases/Update_Database.php';
 include_once '../clases/wallet.php';
 include_once "../clases/db_connect.php";
+include_once "../clases/withdrawl.php";
 
 $update = new Update_Database();
 
@@ -31,6 +32,12 @@ if (!isset($_SESSION['emailc'])) {
 // wallet amount get
 $wallet = new wallet();
 $amount = $wallet->get_amount($_SESSION["emailc"]);
+
+// withdrawl wallet
+$withdrawl = new withdrawl();
+$withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
+print_r($withdrawl_wallet);
+
 ?>
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  vh-100 rounded p-3 shadow-lg wallet-container">
@@ -44,7 +51,7 @@ $amount = $wallet->get_amount($_SESSION["emailc"]);
         <button class="tab-button" onclick="openTab(event, 'history')">History</button>
     </div>
     <div id="send" class="tab-content active">
-    <form  method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
+    <form  method="POST" action="" class="w-100 d-flex justify-content-center  d-flex flex-column">
         <!-- Email Input -->
 
         <!-- Amount Input -->
@@ -97,10 +104,10 @@ $amount = $wallet->get_amount($_SESSION["emailc"]);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/client/wallet/withdrawwallet.php" method="POST">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">address:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label for="address" class="col-form-label">address:</label>
+            <input type="text" class="form-control" name="address" id="address">
           </div>
           <div class="mb-3">
           <div class="custom-dropdown">
@@ -137,12 +144,14 @@ $amount = $wallet->get_amount($_SESSION["emailc"]);
 
 </div>
 </div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<button type="submit" class="btn btn-primary">add</button>
+</div>
+
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">add</button>
-      </div>
+
     </div>
   </div>
 </div>

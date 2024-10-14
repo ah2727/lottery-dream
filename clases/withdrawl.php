@@ -1,11 +1,51 @@
 <?php
+require_once 'db_connect.php';
+
 class withdrawl extends db_connect{
     public function insertwithdrawwallet($address,$email,$crypto){
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date(format: 'Y-m-d H:i:s');
 
         $pdo = $this->connect();
         $stmt = $pdo->prepare(query: "INSERT INTO withdrawwallet (crypto, address, email, timechanged) VALUES (?, ?, ?, ?)");
         $stmt->execute([$crypto, $address, $email,$currentDateTime]);
 
+    }
+    public function get_wallet($email){
+        try {
+            // Connect to the database
+            $pdo = $this->connect();
+    
+            // Trim and prepare the email
+            $email = trim($email);
+    
+            // Prepare the SQL statement
+            $stmt = $pdo->prepare("
+                SELECT *
+                FROM withdrawwallet
+                WHERE LOWER(email) = LOWER(:email)
+                ORDER BY timechanged DESC
+                LIMIT 1
+            ");
+    
+            // Bind the email parameter
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    
+            // Execute the query
+            $stmt->execute();
+    
+            // Fetch the result
+            $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Check if a wallet was found
+            if ($wallet) {
+                return $wallet; // Return the wallet data
+            } else {
+                return false; // Return false if no wallet found
+            }
+            
+        } catch (PDOException $e) {
+            // Handle the exception
+            return 'Connection failed: ' . $e->getMessage(); // Return error message
+        }
     }
 }
