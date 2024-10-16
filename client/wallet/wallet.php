@@ -67,7 +67,7 @@ print_r($withdrawl_wallet);
                 <?php endif; ?>
                 <?php if ($withdrawl_wallet): ?>
                     <input id="amount" type="text" name="amount" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">edit</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#editaddress" >edit</button>
                 <?php endif; ?>
         </div>
 
@@ -98,7 +98,7 @@ print_r($withdrawl_wallet);
     </div>
 </div>
 </div>
-    <!-- modal Content -->
+<?php if (!$withdrawl_wallet): ?>
     <div class="modal fade" id="addaddress" tabindex="-1" aria-labelledby="addaddressLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -150,13 +150,35 @@ print_r($withdrawl_wallet);
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-            <button type="button" class="btn btn-primary" onclick="enableInput()">Add</button>
+            <button type="submit" class="btn btn-primary" >Add</button>
         </form>
       </div>
 
     </div>
   </div>
 </div>
+                <?php endif; ?>
+                <?php if ($withdrawl_wallet): ?>
+                    <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Modal body content -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+                <?php endif; ?>
+
+
 <script>
         function toggleDropdown() {
         var dropdownMenu = document.querySelector('.dropdown-menu-down');
