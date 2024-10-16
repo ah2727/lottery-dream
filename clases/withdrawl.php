@@ -48,4 +48,52 @@ class withdrawl extends db_connect{
             return 'Connection failed: ' . $e->getMessage(); // Return error message
         }
     }
+    public function update_wallet_if_outdated($email, $newAddress) {
+        try {
+            // Connect to the database
+            $pdo = $this->connect();
+        
+            // Trim and prepare the email
+            $email = trim($email);
+    
+            // Retrieve the wallet
+            $wallet = $this->get_wallet($email);
+    
+            // Check if a wallet exists
+            if ($wallet) {
+                // Get the timechanged from the wallet
+                $lastChanged = new DateTime($wallet['timechanged']);
+                $now = new DateTime();
+    
+                // Calculate the difference in days
+                $interval = $lastChanged->diff($now);
+    
+                // Check if the difference is greater than or equal to 1 day
+                if ($interval->days >= 1) {
+                    // Prepare the SQL statement to update the address
+                    $stmt = $pdo->prepare("
+                        UPDATE withdrawwallet
+                        SET address = :newAddress, timechanged = NOW()
+                        WHERE LOWER(email) = LOWER(:email)
+                    ");
+    
+                    // Bind parameters
+                    $stmt->bindParam(':newAddress', $newAddress, PDO::PARAM_STR);
+                    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    
+                    // Execute the query
+                    $stmt->execute();
+    
+                    return "Address updated successfully.";
+                } else {
+                    return "Address is up-to-date and less than a day old.";
+                }
+            } else {
+                return "Wallet not found for the provided email.";
+            }
+        } catch (Exception $e) {
+            // Handle any errors
+            return "Error: " . $e->getMessage();
+        }
+    }
 }
