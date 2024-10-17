@@ -35,7 +35,6 @@ $transactions = $wallet->get_transactions_by_email($_SESSION["emailc"]);
 // withdrawl wallet
 $withdrawl = new withdrawl();
 $withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
-print_r($transactions)
 ?>
 <p class="mt-4 text-danger"><?= $_SESSION["error"] ?></p>
 
@@ -94,40 +93,21 @@ print_r($transactions)
         </form>
         </div>
     <div id="history" class="tab-content">
-<?php
-if (is_array($transactions) && !empty($transactions)) {
-    // Start of the HTML table
-    echo '<table border="1" class="table table-bordered" cellpadding="10" cellspacing="0">';
-    echo '<thead>';
-    echo '<tr>';
-    echo '<th scope="col">amount</th>';
-    echo '<th scope="col">type</th>';
-    echo '<th scope="col">success</th>';
-    echo '<th scope="col">datetime</th>';
 
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
+    <table border="1" class="table " cellpadding="10" cellspacing="0">
+    <thead>
+    <tr>
+    <th scope="col">amount</th>
+    <th scope="col">type</th>
+    <th scope="col">success</th>
+    <th scope="col">datetime</th>
+    </tr>
+    </thead>
+    <tbody id="transactionTableBody">
+    </tbody>
+    </table>
+    <nav class="d-flex justify-content-center"><ul class="pagination" id="paginationControls"></ul></nav>
 
-    // Loop through each transaction and create a row in the table
-    foreach ($transactions as $transaction) {
-        echo '<tr>';
-        echo '<td>' . $transaction['amount'] . '</td>';             // Email
-        echo '<td>' . $transaction['type'] . '</td>';            // Amount
-        echo '<td>' . $transaction['success'] . '</td>';       // Description (optional)
-        echo '<td>' . $transaction['datetime'] . '</td>';       // Description (optional)
-
-        echo '</tr>';
-    }
-
-    // End of the HTML table
-    echo '</tbody>';
-    echo '</table>';
-} else {
-    // If no transactions are found
-    echo "No transactions found for the provided email.";
-}
-?>
 </div>
 </div>
 </div>
@@ -214,6 +194,62 @@ if (is_array($transactions) && !empty($transactions)) {
 </div>
                 <?php endif; ?>
 
+
+                <script>
+// Parse the JSON data passed from PHP
+const transactions = <?= json_encode($transactions); ?>;
+
+// Set up variables for pagination
+let currentPage = 1;
+const rowsPerPage = 3;
+const totalPages = Math.ceil(transactions.length / rowsPerPage);
+
+// Function to display transactions on the table
+function displayTransactions(page) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const paginatedTransactions = transactions.slice(start, end);
+
+    const tableBody = document.getElementById('transactionTableBody');
+    tableBody.innerHTML = '';
+
+    paginatedTransactions.forEach(transaction => {
+        const row = `<tr>
+            <td>${transaction.amount}</td>
+            <td>${transaction.type}</td>
+            <td>${transaction.success}</td>
+            <td>${transaction.datetime}</td>
+        </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
+// Function to create pagination controls
+function setupPagination() {
+    const paginationControls = document.getElementById('paginationControls');
+    paginationControls.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageItem = `<li class="page-item ${i === currentPage ? 'active' : ''}">
+            <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
+        </li>`;
+        paginationControls.insertAdjacentHTML('beforeend', pageItem);
+    }
+}
+
+// Function to handle page changes
+function goToPage(page) {
+    currentPage = page;
+    displayTransactions(currentPage);
+    setupPagination();
+}
+
+// Initialize the table and pagination on page load
+document.addEventListener('DOMContentLoaded', () => {
+    displayTransactions(currentPage);
+    setupPagination();
+});
+</script>
 
 <script>
         function toggleDropdown() {
