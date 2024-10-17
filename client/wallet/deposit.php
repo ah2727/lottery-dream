@@ -42,15 +42,15 @@ $email = $amount = "";
 // Check if the form is submitted via POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get and sanitize email and amount from POST data
-    if (isset($_POST['email'])) {
-        $email = htmlspecialchars($_POST['email']);
+    if (isset($_SESSION['emailc'])) {
+        $email = htmlspecialchars($_SESSION['emailc']);
     }
 
     if (isset($_POST['amount'])) {
         $amount = htmlspecialchars($_POST['amount']);
     }
     $dep = new deposit();
-    $result = $dep->createorder($email,$amount,$crypto);
+    $result = $dep->createorder($email,$amount);
     $_SESSION['payid']= $result;
     $pay = new pay();
     $payment = $pay->oxPay($amount,$email,$result,"test");

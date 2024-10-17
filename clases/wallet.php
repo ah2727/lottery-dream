@@ -31,4 +31,40 @@ class wallet extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }
+    public function get_transactions_by_email($email) {
+        try {
+            // Establish the PDO connection
+            $pdo = $this->connect();
+    
+            // Prepare the SQL query to fetch all transactions for the given email
+            $stmt = $pdo->prepare("
+                SELECT * 
+                FROM transaction 
+                WHERE email = :email
+                ORDER BY id DESC
+            ");
+    
+            // Bind the email parameter to prevent SQL injection
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    
+            // Execute the query
+            $stmt->execute();
+    
+            // Fetch all results as an associative array
+            $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Check if any transactions were found
+            if ($transactions) {
+                return $transactions; // Return the array of transactions
+            } else {
+                return "No transactions found for the provided email.";
+            }
+    
+        } catch (PDOException $e) {
+            // Handle any errors that occur during the process
+            return "Error: " . $e->getMessage();
+        }
+    }
+    
+
 }

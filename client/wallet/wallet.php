@@ -7,7 +7,6 @@ include_once '../clases/Update_Database.php';
 include_once '../clases/wallet.php';
 include_once "../clases/db_connect.php";
 include_once "../clases/withdrawl.php";
-
 $update = new Update_Database();
 
 
@@ -32,13 +31,14 @@ if (!isset($_SESSION['emailc'])) {
 // wallet amount get
 $wallet = new wallet();
 $amount = $wallet->get_amount($_SESSION["emailc"]);
-
+$transactions = $wallet->get_transactions_by_email($_SESSION["emailc"]);
 // withdrawl wallet
 $withdrawl = new withdrawl();
 $withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
-print_r($withdrawl_wallet);
-
+print_r($transactions)
 ?>
+<p class="mt-4 text-danger"><?= $_SESSION["error"] ?></p>
+
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  vh-100 rounded p-3 shadow-lg wallet-container">
 <h1 class=" fs-1 d-flex justify-content-center ">wallet</h1>
@@ -94,8 +94,41 @@ print_r($withdrawl_wallet);
         </form>
         </div>
     <div id="history" class="tab-content">
-        <p ">This is the History tab content.</p>
-    </div>
+<?php
+if (is_array($transactions) && !empty($transactions)) {
+    // Start of the HTML table
+    echo '<table border="1" class="table table-bordered" cellpadding="10" cellspacing="0">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th scope="col">amount</th>';
+    echo '<th scope="col">type</th>';
+    echo '<th scope="col">success</th>';
+    echo '<th scope="col">datetime</th>';
+
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+
+    // Loop through each transaction and create a row in the table
+    foreach ($transactions as $transaction) {
+        echo '<tr>';
+        echo '<td>' . $transaction['amount'] . '</td>';             // Email
+        echo '<td>' . $transaction['type'] . '</td>';            // Amount
+        echo '<td>' . $transaction['success'] . '</td>';       // Description (optional)
+        echo '<td>' . $transaction['datetime'] . '</td>';       // Description (optional)
+
+        echo '</tr>';
+    }
+
+    // End of the HTML table
+    echo '</tbody>';
+    echo '</table>';
+} else {
+    // If no transactions are found
+    echo "No transactions found for the provided email.";
+}
+?>
+</div>
 </div>
 </div>
 <?php if (!$withdrawl_wallet): ?>

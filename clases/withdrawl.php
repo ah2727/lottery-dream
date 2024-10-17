@@ -84,12 +84,12 @@ class withdrawl extends db_connect{
                     // Execute the query
                     $stmt->execute();
     
-                    return "Address updated successfully.";
+                    return true;
                 } else {
-                    return "Address is up-to-date and less than a day old.";
+                    return false;
                 }
             } else {
-                return "Wallet not found for the provided email.";
+                return false;
             }
         } catch (Exception $e) {
             // Handle any errors
