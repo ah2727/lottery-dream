@@ -36,12 +36,32 @@ $transactions = $wallet->get_transactions_by_email($_SESSION["emailc"]);
 $withdrawl = new withdrawl();
 $withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
 ?>
-<p class="mt-4 text-danger"><?= $_SESSION["error"] ?></p>
+<?php
+if (isset($_SESSION["success"])) {
+?>
+    <div class="alert alert-primary" role="alert" id="successAlert">
+        <?= htmlspecialchars($_SESSION["success"]); ?>
+    </div>
+<?php
+$_SESSION["success"]=null;
+}
+?>
+
+<?php
+if (isset($_SESSION["error"])) {
+?>
+    <div class="alert alert-danger" role="alert" id="serrorAlert">
+        <?= htmlspecialchars( $_SESSION["error"]); ?>
+    </div>
+<?php
+$_SESSION["error"]=null;
+}
+?>
 
 <div class="d-flex justify-content-center mb-5">
-<div class="bg-light bg-gradient  vh-100 rounded p-3 shadow-lg wallet-container">
+<div class="bg-light bg-gradient  wallet rounded p-3 shadow-lg wallet-container">
 <h1 class=" fs-1 d-flex justify-content-center ">wallet</h1>
-    <div class="d-flex align-items-center justify-content-center text-center h-50 items-center">
+    <div class="d-flex align-items-center justify-content-center text-center h-25 items-center">
         <h4 class=" fs-1 pt-22 portfolio-value"><?php echo $amount ?>$</h4>
     </div>
     <div class="tab-navigation">
@@ -50,7 +70,7 @@ $withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
         <button class="tab-button" onclick="openTab(event, 'history')">History</button>
     </div>
     <div id="send" class="tab-content active">
-    <form  method="POST" action="" class="w-100 d-flex justify-content-center  d-flex flex-column">
+    <form  method="POST" action="/client/wallet/withdraw.php" class="w-100 d-flex justify-content-center  d-flex flex-column">
         <!-- Email Input -->
 
         <!-- Amount Input -->
@@ -297,6 +317,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
     }
+// JavaScript to hide the alert after 10 seconds
+setTimeout(function() {
+    var successAlert = document.getElementById('successAlert');
+    if (successAlert) {
+        successAlert.style.display = 'none';  // Hide the alert
+    }
+}, 10000);  // 10 seconds in milliseconds
 
+setTimeout(function() {
+    var successAlert = document.getElementById('serrorAlert');
+    if (successAlert) {
+        successAlert.style.display = 'none';  // Hide the alert
+    }
+}, 10000);  // 10 seconds in milliseconds
     // By default, the first tab is active
 </script>

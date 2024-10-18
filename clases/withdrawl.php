@@ -2,6 +2,20 @@
 require_once 'db_connect.php';
 
 class withdrawl extends db_connect{
+    public function createwithdraw($email, $amount) {
+        // Get the current date and time
+        $currentDateTime = date('Y-m-d H:i:s');
+        
+        // Use the same PDO connection for both the insert and lastInsertId
+        $pdo = $this->connect();
+        
+        // Prepare and execute the insert query
+        $stmt = $pdo->prepare(query: "INSERT INTO transaction (amount, type, email, success, datetime) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$amount, "withdraw", $email, "lottery", $currentDateTime]);
+        
+        // Return the last inserted ID from the same connection
+        return $pdo->lastInsertId();
+    }
     public function insertwithdrawwallet($address,$email,$crypto){
         $currentDateTime = date(format: 'Y-m-d H:i:s');
 
