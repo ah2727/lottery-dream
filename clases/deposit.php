@@ -36,15 +36,13 @@ class deposit extends db_connect {
                 $transactionAmount = $transaction['amount'];
     
                 // Prepare the UPDATE query to change the status to "paid"
-                $stmt = $pdo->prepare("UPDATE transaction SET success = ? WHERE id = ?");
-                $stmt->execute(['paid', $payid]);
+                $stmt = $pdo->prepare("UPDATE transaction SET success = ?, oxapaytraceid = ? WHERE id = ?");
+                $stmt->execute(['paid',$traceid, $payid]);
     
                 // Check if the update was successful
                 if ($stmt->rowCount() > 0) {
                     
                     // Insert into the oxapaytransactionid table if the update was successful
-                    $insertStmt = $pdo->prepare("INSERT INTO oxapaytransactionid (traceid, email) VALUES (?, ?)");
-                    $insertStmt->execute([$traceid, $email]);
     
                     // Fetch the current wallet amount for the given email
                     $walletStmt = $pdo->prepare("SELECT amount FROM wallet WHERE email = ?");

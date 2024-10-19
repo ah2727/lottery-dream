@@ -4,7 +4,9 @@ session_start();
 ob_start();
 include_once '../clases/db_connect.php';
 include_once '../clases/register.php';
-include_once "../clases/createwallet.php"
+include_once "../clases/createwallet.php";
+include_once "../clases/referral.php"
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -167,6 +169,8 @@ if (isset($_POST['ConfirmEmail'])) {
         $pdo = new register();
         $wallet = new wallet();
         $wallet->createwallet($_SESSION['email']);
+        $referal =new referral();
+        $referal->createreferral($_SESSION['email']);
         $pdo->Signup($_SESSION['email'],$_SESSION['password'],$_SESSION['FirstName'],$_SESSION['LastName'],$_SESSION['Address'],$_SESSION['mother'],$_SESSION['place'],$_SESSION['birthDay'],$_SESSION['Gender'],$_SESSION['phone']);
         session_destroy();
         session_start();

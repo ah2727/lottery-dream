@@ -114,13 +114,15 @@ $_SESSION["error"]=null;
         </div>
     <div id="history" class="tab-content">
 
-    <table border="1" class="table " cellpadding="10" cellspacing="0">
+    <table border="1" class="table d-grid" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
     <th scope="col">amount</th>
     <th scope="col">type</th>
     <th scope="col">success</th>
     <th scope="col">datetime</th>
+    <th scope="col">traceid</th>
+
     </tr>
     </thead>
     <tbody id="transactionTableBody">
@@ -239,6 +241,8 @@ function displayTransactions(page) {
             <td>${transaction.type}</td>
             <td>${transaction.success}</td>
             <td>${transaction.datetime}</td>
+            <td>${transaction.oxapaytraceid}</td>
+
         </tr>`;
         tableBody.insertAdjacentHTML('beforeend', row);
     });

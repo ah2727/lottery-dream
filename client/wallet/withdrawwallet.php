@@ -19,7 +19,6 @@ if (isset($_POST['crypto'])) {
     $crypto = htmlspecialchars($_POST['crypto']);
 }
 $withdrawl->insertwithdrawwallet($address,$email,$crypto);
-$_SESSION["success"]="success";
 
 header(header: "Location:/client/index.php?menu=wallet ");
 
