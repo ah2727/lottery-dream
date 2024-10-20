@@ -91,6 +91,17 @@
 .wallet{
     height: 95vh;
 }
+.referral-container {
+    background-color: #161b22; /* Dark card background */
+    padding: 30px;
+    border-radius: 15px;
+    width: 450px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Soft shadow */
+}
+.referral{
+    height: 95vh;
+}
 /* Portfolio value */
 .portfolio-value {
     font-size: 2.5rem;
