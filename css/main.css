@@ -100,10 +100,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Soft shadow */
 }
 .referral-secrtion{
-    height: 50vh;
+    height: 20vh;
 }
 .referral{
     height: 75vh;
+}
+.friends{
+    height: 35vh;
 }
 /* Portfolio value */
 .portfolio-value {
