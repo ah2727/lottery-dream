@@ -61,14 +61,29 @@ $referral_id = $referral->getReferralByEmail($_SESSION['emailc']);
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-    <?php
-        echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral'];
-        ?>
+      <p id="referralLink"><?php echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral']; ?></p>
+      <input type="text" id="hiddenReferralLink" value="<?php echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral']; ?>" readonly style="position:absolute; left:-9999px;">
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">copylink</button>
+        <button onclick="copyReferralLink()" type="button" class="btn btn-primary">copylink</button>
       </div>
     </div>
   </div>
 </div>
+<script>
+    function copyReferralLink() {
+        // Get the hidden input field containing the referral link
+        var copyText = document.getElementById("hiddenReferralLink");
+
+        // Select the input field's text
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text to clipboard
+        document.execCommand("copy");
+
+        // Optionally, alert the user that the link was copied
+    }
+</script>
