@@ -99,8 +99,11 @@
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Soft shadow */
 }
+.referral-secrtion{
+    height: 50vh;
+}
 .referral{
-    height: 95vh;
+    height: 75vh;
 }
 /* Portfolio value */
 .portfolio-value {

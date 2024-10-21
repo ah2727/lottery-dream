@@ -189,6 +189,8 @@ ob_start();
 </body>
 
 <?php
+echo $_GET["referral"];
+$_SESSION["referralid"]=$_GET["referral"];
 if (isset($_POST['submit'])){
     $_SESSION['email'] = $_POST['email'];
     $ph = password_hash($_POST['password'],PASSWORD_ARGON2I);

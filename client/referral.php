@@ -27,26 +27,26 @@ if (!isset($_SESSION['emailc'])){
 }
 $referral= new referral();
 $referral_id = $referral->getReferralByEmail($_SESSION['emailc']);
-echo $referral_id["referral"];
+
 ?>
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  referral rounded p-3 shadow-lg referral-container">
-<div class="text-center  mx-auto">
+    <h1 class=" fs-1 d-flex justify-content-center ">referral</h1>
+<div class="text-center  mx-auto referral-secrtion pt-5">
             <!-- Referral Section -->
-            <h1 class=" fs-1 d-flex justify-content-center ">referral</h1>
             <p class="mb-1">All referrals: 0 | Month: 0</p>
             <p class="mb-1">Week: 0 | Day: 0</p>
 
             <!-- Divider -->
-            <div class="divider"></div>
 
             <!-- Referral Commission Section -->
             <h5 class="font-weight-bold">Referral Commission</h5>
             <p class="mb-1">All: $0 | Month: $0</p>
             <p class="mb-1">Week: $0 | Day: $0</p>
+<div class="shadow-lg text-center rounded mt-4">
+<h1 class=" fs-3 d-flex justify-content-center ">friends</h1>
 
-            <!-- Persian Text Section -->
-            <p class="mt-4 font-weight-bold text-right"></p>
+</div>
         </div>
         <input class="btn btn-primary" type="submit" value="share link" data-bs-toggle="modal" data-bs-target="#sharingmodal">
     </div>
@@ -61,11 +61,13 @@ echo $referral_id["referral"];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+    <?php
+        echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral'];
+        ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-primary">copylink</button>
       </div>
     </div>
   </div>

@@ -54,4 +54,39 @@ class referral extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }
+    public function insertReferral($referral_id,$invited_email){
+        try{
+        $pdo = $this->connect();
+        $sql = "SELECT * FROM userreferral WHERE referral = :referral";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':referral', $referral_id, PDO::PARAM_STR);
+        $stmt->execute();
+        // Fetch the result (returns false if no record is found)
+        $referral = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($referral) {
+            
+            // Prepare insert statement
+            $insert_sql = "INSERT INTO referrallink (inviteremail, invitedemail, inviterreferral) 
+                           VALUES (:inviteremail, :invitedemail, :inviterreferral)";
+            $insert_stmt = $pdo->prepare($insert_sql);
+
+            // Bind values for the insert statement
+            $insert_stmt->bindValue(':inviteremail', $referral['email'], PDO::PARAM_STR);  // Assuming 'email' is the inviter's email in userreferral table
+            $insert_stmt->bindValue(':invitedemail', $invited_email, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':inviterreferral', $referral_id, PDO::PARAM_STR);
+
+            // Execute the insert
+            if ($insert_stmt->execute()) {
+                return "Referral successfully inserted into referrallink table.";
+            } else {
+                return "Failed to insert referral into referrallink table.";
+            }
+        } else {
+            return "No referral found for the provided email.";
+        }
+    } catch (PDOException $e) {
+        return "Error: " . $e->getMessage();
+    }
+
+    }
 }
