@@ -1,4 +1,5 @@
 <?php
+require_once 'db_connect.php';
 
 class referral extends db_connect{
     protected function generateRandomString($length = 32) {
@@ -136,4 +137,44 @@ class referral extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }  
+    public function getInvitedWalletBonus($email) {
+        try {
+            // Get the PDO connection
+            $pdo = $this->connect();
+    
+            // Step 1: Find the invited email using the inviter email
+            $referralStmt = $pdo->prepare("SELECT invitedemail FROM referrallink WHERE inviteremail = ?");
+            $referralStmt->execute([$email]);
+    
+            // Fetch the invited user's email
+            $referral = $referralStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($referral) {
+                $invitedEmail = $referral['invitedemail'];
+    
+                // Step 2: Retrieve the wallet balance for the invited user
+                $walletStmt = $pdo->prepare("SELECT amount FROM wallet WHERE email = ?");
+                $walletStmt->execute([$invitedEmail]);
+    
+                // Fetch the invited user's wallet balance
+                $wallet = $walletStmt->fetch(PDO::FETCH_ASSOC);
+    
+                if ($wallet) {
+                    // Calculate 10% of the invited user's wallet balance
+                    $invitedWalletAmount = $wallet['amount'];
+                    $bonusAmount = $invitedWalletAmount * 0.10;
+    
+                    // Return the 10% bonus
+                    return $bonusAmount;
+                } else {
+                    return "Invited user's wallet not found.";
+                }
+            } else {
+                return "No invited user found for this inviter email.";
+            }
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+    
 }

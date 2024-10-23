@@ -52,10 +52,11 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
         <div class="text-center  mt-5 friends">
 <h1 class=" fs-3 d-flex justify-content-center ">friends</h1>
 
-<table border="1" class="table d-grid" cellpadding="5" cellspacing="0">
+<table border="1" class="table" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
     <th scope="col">friendmail</th>
+    <th scope="col">bonus</th>
     </tr>
     </thead>
     <tbody id="transactionTableBody">
@@ -95,19 +96,36 @@ const totalPages = Math.ceil(friends.length / rowsPerPage);
 function displayFreinds(page) {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    const paginatedFreinds = friends.slice(start, end);
+    const paginatedFriends = friends.slice(start, end);
 
     const tableBody = document.getElementById('transactionTableBody');
     tableBody.innerHTML = '';
-
-    paginatedFreinds.forEach(transaction => {
-        const row = `<tr>
-            <td>${transaction.inviteremail}</td>
-
-
-        </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', row);
-    });
+    
+    paginatedFriends.forEach(friend => {
+    // Fetch the bonus for the inviter email via an AJAX call
+    fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.inviteremail)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();  // Assuming the server returns JSON
+        })
+        .then(data => {
+            const row = `<tr>
+                <td>${friend.inviteremail}</td>
+                <td>${data.bonus}</td>  <!-- Use the returned bonus from the server -->
+            </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        })
+        .catch(error => {
+            console.error('Error fetching wallet bonus:', error);
+            const row = `<tr>
+                <td>${friend.inviteremail}</td>
+                <td>Error retrieving bonus</td>
+            </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+});
 }
 
 // Function to create pagination controls

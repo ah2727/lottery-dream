@@ -81,8 +81,8 @@ class deposit extends db_connect {
                                 $currentDateTime = date('Y-m-d H:i:s');
 
                                 // Insert a transaction for the inviter to log the referral bonus
-                                $insertTransactionStmt = $pdo->prepare("INSERT INTO transaction (email, amount, success, oxapaytraceid, datetime) VALUES (?, ?, ?, ?, ?)");
-                                $insertTransactionStmt->execute([$inviterEmail, $referralBonus, 'bonus', $traceid, $currentDateTime]);
+                                $insertTransactionStmt = $pdo->prepare("INSERT INTO transaction (email, amount,type, success, oxapaytraceid, datetime) VALUES (?,?, ?, ?, ?, ?)");
+                                $insertTransactionStmt->execute([$inviterEmail ,$referralBonus,'bonus','bonus', $traceid, $currentDateTime]);
                             } else {
                                 // If inviter's wallet is not found, roll back
                                 $pdo->rollBack();
