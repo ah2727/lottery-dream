@@ -176,5 +176,65 @@ class referral extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }
+    public function getTransactionSumsByPeriod($email) {
+        try {
+            // Get the PDO connection
+            $pdo = $this->connect();
+    
+            // Sum of transactions for today
+            $dayQuery = "SELECT DATE(datetime) as date, SUM(amount) as totalAmount 
+                         FROM transaction 
+                         WHERE email = :email 
+                         AND DATE(datetime) = CURDATE() 
+                         GROUP BY DATE(datetime)";
+            $dayStmt = $pdo->prepare($dayQuery);
+            $dayStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $dayStmt->execute();
+            $dayTransaction = $dayStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Sum of transactions for the current week
+            $weekQuery = "SELECT YEARWEEK(datetime, 1) as week, SUM(amount) as totalAmount 
+                          FROM transaction 
+                          WHERE email = :email 
+                          AND YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1) 
+                          GROUP BY YEARWEEK(datetime, 1)";
+            $weekStmt = $pdo->prepare($weekQuery);
+            $weekStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $weekStmt->execute();
+            $weekTransaction = $weekStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Sum of transactions for the current month
+            $monthQuery = "SELECT MONTH(datetime) as month, YEAR(datetime) as year, SUM(amount) as totalAmount 
+                           FROM transaction 
+                           WHERE email = :email 
+                           AND MONTH(datetime) = MONTH(CURDATE()) 
+                           AND YEAR(datetime) = YEAR(CURDATE()) 
+                           GROUP BY MONTH(datetime), YEAR(datetime)";
+            $monthStmt = $pdo->prepare($monthQuery);
+            $monthStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $monthStmt->execute();
+            $monthTransaction = $monthStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Sum of all transactions for the email (no date filter)
+            $allQuery = "SELECT SUM(amount) as totalAmount 
+                         FROM transaction 
+                         WHERE email = :email";
+            $allStmt = $pdo->prepare($allQuery);
+            $allStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $allStmt->execute();
+            $allTransaction = $allStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Return the summed transactions for day, week, month, and all time
+            return [
+                'day' => $dayTransaction['totalAmount'] ?? 0,    // Total amount for today
+                'week' => $weekTransaction['totalAmount'] ?? 0,  // Total amount for the week
+                'month' => $monthTransaction['totalAmount'] ?? 0, // Total amount for the month
+                'all' => $allTransaction['totalAmount'] ?? 0     // Total amount for all time
+            ];
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+    
     
 }

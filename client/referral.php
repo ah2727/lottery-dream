@@ -28,9 +28,11 @@ if (!isset($_SESSION['emailc'])){
 $referral= new referral();
 $referral_id = $referral->getReferralByEmail($_SESSION['emailc']);
 $friends = $referral->get_friends($_SESSION['emailc']);
+$periodsumasmount = $referral->getTransactionSumsByPeriod($_SESSION["emailc"]);
 
 $gems = new gems();
 $gemscount= $gems->getGems($_SESSION['emailc']);
+
 ?>
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  referral rounded p-3 shadow-lg referral-container">
@@ -44,8 +46,8 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
 
             <!-- Referral Commission Section -->
             <h5 class="font-weight-bold">Referral Commission</h5>
-            <p class="mb-1">All: $0 | Month: $0</p>
-            <p class="mb-1">Week: $0 | Day: $0</p>
+            <p class="mb-1">All: $<?php echo $periodsumasmount["all"]?> | Month: $<?php echo $periodsumasmount["month"] ?></p>
+            <p class="mb-1">Week: $<?php echo $periodsumasmount["week"]?>  | Day: $<?php echo $periodsumasmount["day"]?> </p>
             <p class="mb-1">gems:<?php echo $gemscount ?></p>
 
         </div>
