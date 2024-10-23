@@ -5,7 +5,7 @@ include_once '../clases/readingData.php';
 include_once '../clases/Cheak.php';
 include_once '../clases/Update_Database.php';
 include_once "../clases/referral.php";
-
+include_once '../clases/gems.php';
 $update = new Update_Database();
 
 
@@ -28,7 +28,9 @@ if (!isset($_SESSION['emailc'])){
 $referral= new referral();
 $referral_id = $referral->getReferralByEmail($_SESSION['emailc']);
 $friends = $referral->get_friends($_SESSION['emailc']);
-print_r($friends);
+
+$gems = new gems();
+$gemscount= $gems->getGems($_SESSION['emailc']);
 ?>
 <div class="d-flex justify-content-center mb-5">
 <div class="bg-light bg-gradient  referral rounded p-3 shadow-lg referral-container">
@@ -44,9 +46,10 @@ print_r($friends);
             <h5 class="font-weight-bold">Referral Commission</h5>
             <p class="mb-1">All: $0 | Month: $0</p>
             <p class="mb-1">Week: $0 | Day: $0</p>
+            <p class="mb-1">gems:<?php echo $gemscount ?></p>
 
         </div>
-        <div class="text-center  mt-4 friends">
+        <div class="text-center  mt-5 friends">
 <h1 class=" fs-3 d-flex justify-content-center ">friends</h1>
 
 <table border="1" class="table d-grid" cellpadding="5" cellspacing="0">

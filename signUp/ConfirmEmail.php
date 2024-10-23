@@ -5,7 +5,9 @@ ob_start();
 include_once '../clases/db_connect.php';
 include_once '../clases/register.php';
 include_once "../clases/createwallet.php";
-include_once "../clases/referral.php"
+include_once "../clases/referral.php";
+include_once "../clases/gems.php"
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -170,9 +172,12 @@ if (isset($_POST['ConfirmEmail'])) {
         $wallet->createwallet($_SESSION['email']);
         $referal =new referral();
         $referal->createreferral($_SESSION['email']);
+        $gems = new gems();
+        $gems->creategems($_SESSION['email']);
         $pdo->Signup($_SESSION['email'],$_SESSION['password'],$_SESSION['FirstName'],$_SESSION['LastName'],$_SESSION['Address'],$_SESSION['mother'],$_SESSION['place'],$_SESSION['birthDay'],$_SESSION['Gender'],$_SESSION['phone']);
         if($_SESSION["referralid"]){
             echo $referal->insertReferral($_SESSION["referralid"],$_SESSION['email']);
+            $gems->addGemsRefrral($_SESSION["referralid"]);
         }
         session_destroy();
         session_start();
