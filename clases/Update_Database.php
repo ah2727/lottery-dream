@@ -1,4 +1,5 @@
 <?php
+require_once 'db_connect.php';
 
 class Update_Database extends db_connect{
     function UpdateAdminSetting($FullName,$Email,$Role,$id){

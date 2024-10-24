@@ -29,7 +29,7 @@ $referral= new referral();
 $referral_id = $referral->getReferralByEmail($_SESSION['emailc']);
 $friends = $referral->get_friends($_SESSION['emailc']);
 $periodsumasmount = $referral->getTransactionSumsByPeriod($_SESSION["emailc"]);
-
+$periodsumreferral = $referral->getReferralSumsByPeriod($_SESSION["emailc"]);
 $gems = new gems();
 $gemscount= $gems->getGems($_SESSION['emailc']);
 
@@ -39,8 +39,8 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
     <h1 class=" fs-1 d-flex justify-content-center ">referral</h1>
 <div class="text-center  mx-auto referral-secrtion pt-5">
             <!-- Referral Section -->
-            <p class="mb-1">All referrals: 0 | Month: 0</p>
-            <p class="mb-1">Week: 0 | Day: 0</p>
+            <p class="mb-1">All referrals: <?php echo $periodsumreferral["all"] ?> | Month: <?php echo $periodsumreferral["month"] ?></p>
+            <p class="mb-1">Week: <?php echo $periodsumreferral["week"] ?> | Day: <?php echo $periodsumreferral["day"] ?></p>
 
             <!-- Divider -->
 
@@ -54,7 +54,7 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
         <div class="text-center  mt-5 friends">
 <h1 class=" fs-3 d-flex justify-content-center ">friends</h1>
 
-<table border="1" class="table" cellpadding="5" cellspacing="0">
+<table border="1" class="table table-bordered" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
     <th scope="col">friendmail</th>

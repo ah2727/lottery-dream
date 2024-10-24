@@ -236,5 +236,64 @@ class referral extends db_connect{
         }
     }
     
+    public function getReferralSumsByPeriod($email) {
+        try {
+            // Get the PDO connection
+            $pdo = $this->connect();
+    
+            // Count of invites for today
+            $dayQuery = "SELECT DATE(dateinvite) as date, COUNT(invitedemail) as totalInvites 
+                         FROM referrallink 
+                         WHERE inviteremail = :email 
+                         AND DATE(dateinvite) = CURDATE() 
+                         GROUP BY DATE(dateinvite)";
+            $dayStmt = $pdo->prepare($dayQuery);
+            $dayStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $dayStmt->execute();
+            $dayTransaction = $dayStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Count of invites for the current week
+            $weekQuery = "SELECT YEARWEEK(dateinvite, 1) as week, COUNT(invitedemail) as totalInvites 
+                          FROM referrallink 
+                          WHERE inviteremail = :email 
+                          AND YEARWEEK(dateinvite, 1) = YEARWEEK(CURDATE(), 1) 
+                          GROUP BY YEARWEEK(dateinvite, 1)";
+            $weekStmt = $pdo->prepare($weekQuery);
+            $weekStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $weekStmt->execute();
+            $weekTransaction = $weekStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Count of invites for the current month
+            $monthQuery = "SELECT MONTH(dateinvite) as month, YEAR(dateinvite) as year, COUNT(invitedemail) as totalInvites 
+                           FROM referrallink 
+                           WHERE inviteremail = :email 
+                           AND MONTH(dateinvite) = MONTH(CURDATE()) 
+                           AND YEAR(dateinvite) = YEAR(CURDATE()) 
+                           GROUP BY MONTH(dateinvite), YEAR(dateinvite)";
+            $monthStmt = $pdo->prepare($monthQuery);
+            $monthStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $monthStmt->execute();
+            $monthTransaction = $monthStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Count of all invites for the email (no date filter)
+            $allQuery = "SELECT COUNT(invitedemail) as totalInvites 
+                         FROM referrallink 
+                         WHERE inviteremail = :email";
+            $allStmt = $pdo->prepare($allQuery);
+            $allStmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $allStmt->execute();
+            $allTransaction = $allStmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Return the summed invites for day, week, month, and all time
+            return [
+                'day' => $dayTransaction['totalInvites'] ?? 0,    // Total invites for today
+                'week' => $weekTransaction['totalInvites'] ?? 0,  // Total invites for the week
+                'month' => $monthTransaction['totalInvites'] ?? 0, // Total invites for the month
+                'all' => $allTransaction['totalInvites'] ?? 0     // Total invites for all time
+            ];
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
     
 }

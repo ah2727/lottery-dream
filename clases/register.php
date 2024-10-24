@@ -1,4 +1,5 @@
 <?php
+require_once 'db_connect.php';
 
 class register extends db_connect
 {

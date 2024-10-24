@@ -112,9 +112,9 @@ $_SESSION["error"]=null;
         </div>
         </form>
         </div>
-    <div id="history" class="tab-content">
+    <div id="history" class="tab-content d-grid">
 
-    <table border="1" class="table d-grid" cellpadding="5" cellspacing="0">
+    <table border="1" class="table table-bordered " cellpadding="5" cellspacing="0">
     <thead>
     <tr>
     <th scope="col">amount</th>

@@ -1,6 +1,6 @@
 <?php
 
-use dbconnect\pay;
+use payment\pay;
 
 session_start();
 ob_start();
@@ -10,6 +10,8 @@ include_once 'inc/header.php';
 include_once 'clases/readingData.php';
 include_once 'clases/pay.php';
 include_once 'clases/register.php';
+require_once 'clases/db_connect.php';
+
 $reggg = new register();
 $pdob = new readingData();
 $pay11 = new pay();
