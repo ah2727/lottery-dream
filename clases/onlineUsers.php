@@ -1,4 +1,6 @@
 <?php
+require_once 'db_connect.php';
+
 class onlineUsers extends db_connect
 {
     function getOnlineUsers()

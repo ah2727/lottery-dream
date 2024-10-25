@@ -64,6 +64,8 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
     <tbody id="transactionTableBody">
     </tbody>
     </table>
+    <nav class="d-flex justify-content-center"><ul class="pagination" id="paginationControls"></ul></nav>
+
 </div>
         <input class="btn btn-primary" type="submit" value="share link" data-bs-toggle="modal" data-bs-target="#sharingmodal">
     </div>
@@ -105,7 +107,7 @@ function displayFreinds(page) {
     
     paginatedFriends.forEach(friend => {
     // Fetch the bonus for the inviter email via an AJAX call
-    fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.inviteremail)}`)
+    fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.invitedemail)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -114,7 +116,7 @@ function displayFreinds(page) {
         })
         .then(data => {
             const row = `<tr>
-                <td>${friend.inviteremail}</td>
+                <td>${friend.invitedemail}</td>
                 <td>${data.bonus}</td>  <!-- Use the returned bonus from the server -->
             </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);
@@ -122,7 +124,7 @@ function displayFreinds(page) {
         .catch(error => {
             console.error('Error fetching wallet bonus:', error);
             const row = `<tr>
-                <td>${friend.inviteremail}</td>
+                <td>${friend.invitedemail}</td>
                 <td>Error retrieving bonus</td>
             </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);

@@ -143,7 +143,7 @@ class referral extends db_connect{
             $pdo = $this->connect();
     
             // Step 1: Find the invited email using the inviter email
-            $referralStmt = $pdo->prepare("SELECT invitedemail FROM referrallink WHERE inviteremail = ?");
+            $referralStmt = $pdo->prepare("SELECT invitedemail FROM referrallink WHERE invitedemail = ?");
             $referralStmt->execute([$email]);
     
             // Fetch the invited user's email

@@ -1,4 +1,5 @@
 <?php
+require_once 'db_connect.php';
 
 class wallet extends db_connect{
     public function createwallet($email) {
