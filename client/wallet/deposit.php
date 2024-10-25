@@ -50,10 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $amount = htmlspecialchars($_POST['amount']);
     }
     $dep = new deposit();
-    $result = $dep->createorder($email,$amount);
+    $result = $dep->createorder($email,$amount*1.1);
     $_SESSION['payid']= $result;
     $pay = new pay();
-    $payment = $pay->oxPay($amount,$email,$result,"test");
+    $payment = $pay->oxPay($amount*1.1,$email,$result,"test");
     print_r($payment);
     header(header: "Location: " . $payment->payLink);
 

@@ -142,36 +142,21 @@ class referral extends db_connect{
             // Get the PDO connection
             $pdo = $this->connect();
     
-            // Step 1: Find the invited email using the inviter email
-            $referralStmt = $pdo->prepare("SELECT invitedemail FROM referrallink WHERE invitedemail = ?");
+            // Step 1: Sum the amount for the specific invited email in the referrallinkamount table
+            $referralStmt = $pdo->prepare("SELECT SUM(amount) as totalReferralAmount FROM referrallinkamount WHERE fromemail = ?");
             $referralStmt->execute([$email]);
     
-            // Fetch the invited user's email
-            $referral = $referralStmt->fetch(PDO::FETCH_ASSOC);
+            // Fetch the total referral amount
+            $referralResult = $referralStmt->fetch(PDO::FETCH_ASSOC);
+            $totalReferralAmount = $referralResult['totalReferralAmount'] ?? 0;
     
-            if ($referral) {
-                $invitedEmail = $referral['invitedemail'];
+            // Step 2: Sum the amount for all users in the user table
+
     
-                // Step 2: Retrieve the wallet balance for the invited user
-                $walletStmt = $pdo->prepare("SELECT amount FROM wallet WHERE email = ?");
-                $walletStmt->execute([$invitedEmail]);
+            // Fetch the total user amount
     
-                // Fetch the invited user's wallet balance
-                $wallet = $walletStmt->fetch(PDO::FETCH_ASSOC);
-    
-                if ($wallet) {
-                    // Calculate 10% of the invited user's wallet balance
-                    $invitedWalletAmount = $wallet['amount'];
-                    $bonusAmount = $invitedWalletAmount * 0.10;
-    
-                    // Return the 10% bonus
-                    return $bonusAmount;
-                } else {
-                    return "Invited user's wallet not found.";
-                }
-            } else {
-                return "No invited user found for this inviter email.";
-            }
+            // Return both sums
+            return $totalReferralAmount;
         } catch (PDOException $e) {
             return "Error: " . $e->getMessage();
         }

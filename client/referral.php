@@ -65,31 +65,18 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
     </tbody>
     </table>
     <nav class="d-flex justify-content-center"><ul class="pagination" id="paginationControls"></ul></nav>
-
-</div>
-        <input class="btn btn-primary" type="submit" value="share link" data-bs-toggle="modal" data-bs-target="#sharingmodal">
-    </div>
-
-</div>
-</div>
-<div class="modal fade" id="sharingmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-scrollable" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+    <div class="modal-body">
       <p id="referralLink"><?php echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral']; ?></p>
       <input type="text" id="hiddenReferralLink" value="<?php echo 'http://localhost:8000/signUp/step1.php?referral=' . $referral_id['referral']; ?>" readonly style="position:absolute; left:-9999px;">
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button onclick="copyReferralLink()" type="button" class="btn btn-primary">copylink</button>
-      </div>
-    </div>
-  </div>
+      <button onclick="copyReferralLink()" type="button" class="btn btn-primary">copylink</button>
+
 </div>
+    </div>
+
+</div>
+</div>
+
 <script>
   const friends = <?= json_encode($friends); ?>;
   let currentPage = 1;

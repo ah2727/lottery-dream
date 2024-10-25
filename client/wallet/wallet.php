@@ -112,7 +112,7 @@ $_SESSION["error"]=null;
         </div>
         </form>
         </div>
-    <div id="history" class="tab-content d-grid">
+    <div id="history" class="tab-content">
 
     <table border="1" class="table table-bordered " cellpadding="5" cellspacing="0">
     <thead>
