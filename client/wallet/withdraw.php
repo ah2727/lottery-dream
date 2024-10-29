@@ -12,9 +12,12 @@ if (isset($_POST['amount'])) {
     // Get the 'crypto' parameter from the URL
     $amount = htmlspecialchars($_POST['amount']);
 }
+if($address && $amount){
 $withdrawl->createwithdraw($email,$amount);
-$_SESSION["success"]="success";
 
+}else{
+    $_SESSION["error"]="not success";
+}
 header(header: "Location:/client/index.php?menu=wallet ");
 
 ?>

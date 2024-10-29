@@ -86,49 +86,63 @@ const rowsPerPage = 3;
 const totalPages = Math.ceil(friends.length / rowsPerPage);
 
 // Function to display Freinds on the table
-function displayFreinds(page) {
+function displayFriends(page) {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const paginatedFriends = friends.slice(start, end);
 
     const tableBody = document.getElementById('transactionTableBody');
     tableBody.innerHTML = '';
-    let index = 1; // Start an index counter
+    let index = 1; // Start an index counter for each page
 
-    paginatedFriends.forEach(friend => {
-    // Fetch the bonus for the inviter email via an AJAX call
-    fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.invitedemail)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();  // Assuming the server returns JSON
-        })
-        .then(data => {
-            const row = `<tr>
-            <td>${index}</td>
-                <td>${friend.invitedemail}</td>
-                <td>${data.bonus}</td>  <!-- Use the returned bonus from the server -->
-            </tr>`;
-            tableBody.insertAdjacentHTML('beforeend', row);
-            index++;
+    const bonusData = [];  // Array to store friend and bonus information
 
-        })
-        .catch(error => {
-            console.error('Error fetching wallet bonus:', error);
-            const row = `<tr>
-                    <td>${index}</td> <!-- Add index here -->
-
-                <td>${friend.invitedemail}</td>
-                <td>Error retrieving bonus</td>
-            </tr>`;
-            tableBody.insertAdjacentHTML('beforeend', row);
-         // Increment index even in case of error
-
-         index++;
+    // Fetch bonus data for each friend in paginatedFriends
+    Promise.all(
+        paginatedFriends.map((friend) =>
+            fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.invitedemail)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    bonusData.push({
+                        index: index++,  // Increment the index for each friend
+                        invitedemail: friend.invitedemail,
+                        bonus: data.bonus
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching wallet bonus:', error);
+                    bonusData.push({
+                        index: index++,  // Increment the index even in case of error
+                        invitedemail: friend.invitedemail,
+                        bonus: "Error retrieving bonus"
+                    });
+                })
+        )
+    ).then(() => {
+        // Sort the bonusData array by bonus value (errors treated as 0 for sorting)
+        bonusData.sort((a, b) => {
+            const bonusA = isNaN(a.bonus) ? 0 : a.bonus;
+            const bonusB = isNaN(b.bonus) ? 0 : b.bonus;
+            return bonusB - bonusA;  // Sort in descending order
         });
-});
+
+        // Render sorted data into the table
+        bonusData.forEach(rowData => {
+            const row = `<tr>
+                <td>${rowData.index}</td>
+                <td>${rowData.invitedemail}</td>
+                <td>${rowData.bonus}</td>
+            </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    });
 }
+
 
 // Function to create pagination controls
 function setupPagination() {
@@ -146,13 +160,13 @@ function setupPagination() {
 // Function to handle page changes
 function goToPage(page) {
     currentPage = page;
-    displayFreinds(currentPage);
+    displayFriends(currentPage);
     setupPagination();
 }
 
 // Initialize the table and pagination on page load
 document.addEventListener('DOMContentLoaded', () => {
-    displayFreinds(currentPage);
+    displayFriends(currentPage);
     setupPagination();
 });
     function copyReferralLink() {

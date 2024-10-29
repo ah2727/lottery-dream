@@ -3,18 +3,38 @@ require_once 'db_connect.php';
 
 class withdrawl extends db_connect{
     public function createwithdraw($email, $amount) {
+    
         // Get the current date and time
         $currentDateTime = date('Y-m-d H:i:s');
-        
-        // Use the same PDO connection for both the insert and lastInsertId
+    
+        // Use the PDO connection
         $pdo = $this->connect();
-        
-        // Prepare and execute the insert query
-        $stmt = $pdo->prepare(query: "INSERT INTO transaction (amount, type, email, success, datetime) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$amount, "withdraw", $email, "lottery", $currentDateTime]);
-        
-        // Return the last inserted ID from the same connection
-        return $pdo->lastInsertId();
+    
+        // Step 1: Check wallet balance
+        $stmt = $pdo->prepare("SELECT amount FROM wallet WHERE email = ?");
+        $stmt->execute([$email]);
+        $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        // Check if wallet exists and if the balance is sufficient
+        if ($wallet && $wallet['amount'] >= $amount) {
+            
+            // Step 2: Execute the withdrawal if balance is sufficient
+            $stmt = $pdo->prepare("INSERT INTO transaction (amount, type, email, success, datetime) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$amount, "withdraw", $email, "lottery", $currentDateTime]);
+    
+            // Get the last inserted ID for the transaction
+            $transactionId = $pdo->lastInsertId();
+    
+            // Step 3: Deduct the amount from the wallet
+            $stmt = $pdo->prepare("UPDATE wallet SET amount = amount - ? WHERE email = ?");
+            $stmt->execute([$amount, $email]);
+            $_SESSION["success"]="success";
+            return $transactionId; // Return the transaction ID for reference
+        } else {
+            // Set an error message in the session if the balance is insufficient
+            $_SESSION['error'] = "Insufficient balance in wallet.";
+            return false; // Return false to indicate failure
+        }
     }
     public function insertwithdrawwallet($address,$email,$crypto){
         $currentDateTime = date(format: 'Y-m-d H:i:s');
@@ -83,7 +103,7 @@ class withdrawl extends db_connect{
                 $interval = $lastChanged->diff($now);
     
                 // Check if the difference is greater than or equal to 1 day
-                if ($interval->days >= 1) {
+                if ($interval->days >= 1 || ($interval->days == 0 && $interval->h < 1)) {
                     // Prepare the SQL statement to update the address
                     $stmt = $pdo->prepare("
                         UPDATE withdrawwallet
