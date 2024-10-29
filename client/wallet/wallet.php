@@ -205,6 +205,41 @@ $_SESSION["error"]=null;
       <form action="/client/wallet/changewithdrawwallet.php" method="POST">
 
       <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount">
+      <div class="mb-3">
+          <div class="custom-dropdown">
+    <!-- The button for the dropdown -->
+    <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
+    <span id="dropdownText">Select Option</span>
+    <span>&#9660;</span> <!-- Down arrow icon -->
+    </div>
+
+    <!-- Dropdown menu -->
+    <div class="dropdown-menu-down">
+        <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
+            <img src="/image/bnb-bnb-logo.png" alt="Option 1">
+            bnb
+        </div>
+        <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
+            <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
+            dogecoin
+        </div>
+        <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
+            <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
+            bitcoin
+        </div>
+        <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
+            <img src="/image/tether-usdt-logo.png" alt="Option 3">
+            tether
+        </div>
+        <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
+            <img src="/image/toncoin-ton-logo.png" alt="Option 3">
+            toncoin
+        </div>
+    </div>
+    <input type="hidden" id="crypto" name="crypto" value="">
+
+</div>
+</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>

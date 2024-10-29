@@ -143,7 +143,7 @@ class referral extends db_connect{
             $pdo = $this->connect();
     
             // Step 1: Sum the amount for the specific invited email in the referrallinkamount table
-            $referralStmt = $pdo->prepare("SELECT SUM(amount) as totalReferralAmount FROM referrallinkamount WHERE fromemail = ?");
+            $referralStmt = $pdo->prepare("SELECT SUM(amount) as totalReferralAmount FROM referrallinkamount WHERE fromemail = ? ORDER BY datetime DESC");
             $referralStmt->execute([$email]);
     
             // Fetch the total referral amount
@@ -166,44 +166,48 @@ class referral extends db_connect{
             // Get the PDO connection
             $pdo = $this->connect();
     
-            // Sum of transactions for today
+            // Sum of transactions for today with success = 'bonus'
             $dayQuery = "SELECT DATE(datetime) as date, SUM(amount) as totalAmount 
                          FROM transaction 
                          WHERE email = :email 
                          AND DATE(datetime) = CURDATE() 
+                         AND success = 'bonus'
                          GROUP BY DATE(datetime)";
             $dayStmt = $pdo->prepare($dayQuery);
             $dayStmt->bindValue(':email', $email, PDO::PARAM_STR);
             $dayStmt->execute();
             $dayTransaction = $dayStmt->fetch(PDO::FETCH_ASSOC);
     
-            // Sum of transactions for the current week
+            // Sum of transactions for the current week with success = 'bonus'
             $weekQuery = "SELECT YEARWEEK(datetime, 1) as week, SUM(amount) as totalAmount 
                           FROM transaction 
                           WHERE email = :email 
                           AND YEARWEEK(datetime, 1) = YEARWEEK(CURDATE(), 1) 
+                          AND success = 'bonus'
                           GROUP BY YEARWEEK(datetime, 1)";
             $weekStmt = $pdo->prepare($weekQuery);
             $weekStmt->bindValue(':email', $email, PDO::PARAM_STR);
             $weekStmt->execute();
             $weekTransaction = $weekStmt->fetch(PDO::FETCH_ASSOC);
     
-            // Sum of transactions for the current month
+            // Sum of transactions for the current month with success = 'bonus'
             $monthQuery = "SELECT MONTH(datetime) as month, YEAR(datetime) as year, SUM(amount) as totalAmount 
                            FROM transaction 
                            WHERE email = :email 
                            AND MONTH(datetime) = MONTH(CURDATE()) 
                            AND YEAR(datetime) = YEAR(CURDATE()) 
+                           AND success = 'bonus'
                            GROUP BY MONTH(datetime), YEAR(datetime)";
             $monthStmt = $pdo->prepare($monthQuery);
             $monthStmt->bindValue(':email', $email, PDO::PARAM_STR);
             $monthStmt->execute();
             $monthTransaction = $monthStmt->fetch(PDO::FETCH_ASSOC);
     
-            // Sum of all transactions for the email (no date filter)
+            // Sum of all transactions for the email with success = 'bonus' (no date filter)
             $allQuery = "SELECT SUM(amount) as totalAmount 
                          FROM transaction 
-                         WHERE email = :email";
+                         WHERE email = :email 
+                         AND success = 'bonus'";
             $allStmt = $pdo->prepare($allQuery);
             $allStmt->bindValue(':email', $email, PDO::PARAM_STR);
             $allStmt->execute();
@@ -220,6 +224,7 @@ class referral extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }
+    
     
     public function getReferralSumsByPeriod($email) {
         try {

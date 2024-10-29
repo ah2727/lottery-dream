@@ -57,6 +57,8 @@ $gemscount= $gems->getGems($_SESSION['emailc']);
 <table border="1" class="table table-bordered" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
+    <th scope="col"></th>
+
     <th scope="col">friendmail</th>
     <th scope="col">bonus</th>
     </tr>
@@ -91,7 +93,8 @@ function displayFreinds(page) {
 
     const tableBody = document.getElementById('transactionTableBody');
     tableBody.innerHTML = '';
-    
+    let index = 1; // Start an index counter
+
     paginatedFriends.forEach(friend => {
     // Fetch the bonus for the inviter email via an AJAX call
     fetch(`/client/getBonus.php?email=${encodeURIComponent(friend.invitedemail)}`)
@@ -103,18 +106,26 @@ function displayFreinds(page) {
         })
         .then(data => {
             const row = `<tr>
+            <td>${index}</td>
                 <td>${friend.invitedemail}</td>
                 <td>${data.bonus}</td>  <!-- Use the returned bonus from the server -->
             </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);
+            index++;
+
         })
         .catch(error => {
             console.error('Error fetching wallet bonus:', error);
             const row = `<tr>
+                    <td>${index}</td> <!-- Add index here -->
+
                 <td>${friend.invitedemail}</td>
                 <td>Error retrieving bonus</td>
             </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);
+         // Increment index even in case of error
+
+         index++;
         });
 });
 }

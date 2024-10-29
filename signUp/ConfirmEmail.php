@@ -173,11 +173,10 @@ if (isset($_POST['ConfirmEmail'])) {
         $referal =new referral();
         $referal->createreferral($_SESSION['email']);
         $gems = new gems();
-        $gems->creategems($_SESSION['email']);
+        $gems->creategems(email: $_SESSION['email']);
         $pdo->Signup($_SESSION['email'],$_SESSION['password'],$_SESSION['FirstName'],$_SESSION['LastName'],$_SESSION['Address'],$_SESSION['mother'],$_SESSION['place'],$_SESSION['birthDay'],$_SESSION['Gender'],$_SESSION['phone']);
         if($_SESSION["referralid"]){
             echo $referal->insertReferral($_SESSION["referralid"],$_SESSION['email']);
-            $gems->addGemsRefrral($_SESSION["referralid"]);
         }
         session_destroy();
         session_start();

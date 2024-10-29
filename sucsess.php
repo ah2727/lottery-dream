@@ -1,5 +1,7 @@
 <?php
 include_once "./clases/deposit.php";
+include_once "./clases/gems.php";
+
 session_start();
 
 if(isset($_GET['trackId'])){
@@ -15,6 +17,8 @@ if ($success == 1){
 }
 $email= $_SESSION['emailc'];
 $payid=  $_SESSION['payid'];
+$gems=new gems();
+$gems->addGemsRefrral($email);
 $dep = new deposit();
 $dep->inserttransaction($email,$trackId,$payid);
 var_dump($rss);
