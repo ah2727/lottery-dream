@@ -1,5 +1,6 @@
 <?php
 ob_start();
+
 include_once '../clases/db_connect.php';
 include_once '../clases/readingData.php';
 include_once '../clases/Cheak.php';
@@ -26,7 +27,6 @@ $Winners = $shop->selWinnerEmail($_SESSION['emailc']);
 if (!isset($_SESSION['emailc'])) {
     header("Location:../login");
 }
-
 
 // wallet amount get
 $wallet = new wallet();
@@ -209,7 +209,7 @@ $_SESSION["error"]=null;
           <div class="custom-dropdown">
     <!-- The button for the dropdown -->
     <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
-    <span id="dropdownText">Select Option</span>
+    <span id="dropdownText"><?= isset($withdrawl_wallet["crypto"]) ? $withdrawl_wallet["crypto"] : ''; ?></span>
     <span>&#9660;</span> <!-- Down arrow icon -->
     </div>
 

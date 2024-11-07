@@ -82,7 +82,7 @@ class withdrawl extends db_connect{
             return 'Connection failed: ' . $e->getMessage(); // Return error message
         }
     }
-    public function update_wallet_if_outdated($email, $newAddress) {
+    public function update_wallet_if_outdated($email, $newAddress,$crypto) {
         try {
             // Connect to the database
             $pdo = $this->connect();
@@ -92,29 +92,30 @@ class withdrawl extends db_connect{
     
             // Retrieve the wallet
             $wallet = $this->get_wallet($email);
-    
             // Check if a wallet exists
             if ($wallet) {
                 // Get the timechanged from the wallet
-                $lastChanged = new DateTime($wallet['timechanged']);
-                $now = new DateTime();
-    
-                // Calculate the difference in days
+                $lastChanged = new DateTime($wallet['timechanged'], new DateTimeZone("Asia/Tehran"));
+                $now = new DateTime("now", new DateTimeZone("Asia/Tehran"));
+            
+                // Calculate the difference
                 $interval = $lastChanged->diff($now);
-    
+            
+            
                 // Check if the difference is greater than or equal to 1 day
                 if ($interval->days >= 1 || ($interval->days == 0 && $interval->h < 1)) {
                     // Prepare the SQL statement to update the address
                     $stmt = $pdo->prepare("
                         UPDATE withdrawwallet
-                        SET address = :newAddress, timechanged = NOW()
+                        SET address = :newAddress, timechanged = NOW(),crypto= :crypto
                         WHERE LOWER(email) = LOWER(:email)
                     ");
     
                     // Bind parameters
                     $stmt->bindParam(':newAddress', $newAddress, PDO::PARAM_STR);
                     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    
+                    $stmt->bindParam(':crypto', $crypto, PDO::PARAM_STR);
+
                     // Execute the query
                     $stmt->execute();
     

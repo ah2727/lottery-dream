@@ -331,7 +331,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
 
                                     ?>
 
-                                    <div class="flex flex-col space-y-4 mt-3 block1" style="margin-left: 35px">
+                                    <div id="block1" class="flex flex-col space-y-4 mt-3 block1" style="margin-left: 35px">
                                         <button class="relative text-center rounded-full p-2 border border-gray-300 hover:shadow-hover cursor-pointer bg-white w-min" ">
                                         <div class="inline-flex justify-center z-2 pt-1 mx-1 space-x-1">
                                             <div style="background-color: unset"
@@ -379,6 +379,9 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                         </div>
                                         </button>
                                     </div>
+                                    <div id="block2" class="flex flex-col space-y-4 mt-3 block2 hidden" style="margin-left: 35px">
+
+                                    </div>
                                     <p class="mt-4 text-danger"><?= $Error_MSG ?></p>
                                 </div>
                             </div>
@@ -400,14 +403,14 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
             <form action="" method="post">
                 <div class="justify-between md:justify-end w-full flex flex-row w-full md:w-auto">
 
-                    <a type="reset" href="basket.php"
+                    <input type="button" value="Back " onclick="showBlock1()"
                        class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov  text-blue-800 bg-white active:bg-green-400"
                        data-selected="false">
-                        Back
-                    </a>
-                    <input type="submit" value="PAY NOW" name="paysubmit"
+                        
+                    </input>
+                    <input type="button" value="continue " onclick="showBlock2()" name="paysubmit"
                            class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov  text-blue-800 bg-green-500 border-green-400 active:bg-green-400"
-                           data-selected="false">
+                           data-selected="false" id="toggleButton">
                     <?php
                     if (isset($_POST['submitPay'])) {
 
@@ -545,6 +548,21 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
         </div>
         <script>
         </script>
+            <script>
+        function showBlock2() {
+            document.getElementById('block1').classList.add('hidden');
+            document.getElementById('block2').classList.remove('hidden');
+            document.getElementById('toggleButton').value = "pay";
+
+        }
+
+        function showBlock1() {
+            document.getElementById('block2').classList.add('hidden');
+            document.getElementById('block1').classList.remove('hidden');
+            document.getElementById('toggleButton').value = "continue";
+
+        }
+    </script>
         <script>
             let count = document.getElementById('count');
             let num =0;

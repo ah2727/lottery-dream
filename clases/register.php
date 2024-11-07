@@ -99,8 +99,8 @@ class register extends db_connect
 
     function  insertTrak($email,$track,$orderid)
     {
-        $pdo = $this->connect()->prepare("insert into trackid(trackID,Email,orderId) values(?,?,?)");
-        $pdo->execute([$track,$email,$orderid]);
+        $pdo = $this->connect()->prepare("insert into trackid(trackID,Email,orderId,status) values(?,?,?,?)");
+        $pdo->execute([$track,$email,$orderid,0]);
     }
 
 }
