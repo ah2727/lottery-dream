@@ -157,7 +157,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                     <div class="flex flex-col mb-4 mx-4 mt-6 md:mt-9 lg:m-4 w-full md:w-125 lg:w-5/12 self-center lg:flex-grow">
                         <div class="md:px-0 z-10 w-full">
                             <div class="bg-white rounded-lg shadow w-full p-4 md:p-8 mb-8 flex flex-col">
-                                <div class="flex flex-col items-start mb-4">
+                                <div  class="flex flex-col items-start mb-4">
                                     <div class="flex flex-row space-x-2 pb-1"><h1 class="font-black text-2xl capitalize"
                                                                                   aria-level="3">
                                             Play <?= $result['CardName'] ?></h1>
@@ -178,7 +178,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                     <h2 class="text-blue">Pick lines of 6 numbers .</h2></div>
                                 <ol class="hidden" aria-hidden="true"></ol>
                                 <div class="flex justify-center">
-                                    <div class="flex flex-col items-center mb-9 w-min">
+                                    <div id="block1" class="flex flex-col items-center mb-9 w-min">
                                         <?php
                                         if (isset($_SESSION['PayShop'])) {
                                         foreach ($_SESSION['PayShop'] as $kay => $val) {
@@ -226,7 +226,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                                              class="Overlays_modal__X3QSB Overlays_is-open__xwDvf undefined overflow-y-auto"><span
                                                                     data-focus-scope-start="true" hidden=""></span>
                                                             <div class="relative h-full">
-                                                                <div class="flex flex-col h-24 md:h-28 lg:rounded-t-lg sticky top-0 z-1 bg-game-daily-light">
+                                                                <div  class="flex flex-col h-24 md:h-28 lg:rounded-t-lg sticky top-0 z-1 bg-game-daily-light">
                                                                     <div class="flex justify-center py-3 relative">
                                                                     <span class="m-4 absolute top-0 right-0 c-pointer close">
                                     <svg class="transform rotate-45 w-3 h-3" width="14" height="14" viewBox="0 0 14 14"
@@ -331,7 +331,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
 
                                     ?>
 
-                                    <div id="block1" class="flex flex-col space-y-4 mt-3 block1" style="margin-left: 35px">
+                                    <div  class="flex flex-col space-y-4 mt-3 block1" style="margin-left: 35px">
                                         <button class="relative text-center rounded-full p-2 border border-gray-300 hover:shadow-hover cursor-pointer bg-white w-min" ">
                                         <div class="inline-flex justify-center z-2 pt-1 mx-1 space-x-1">
                                             <div style="background-color: unset"
@@ -379,11 +379,12 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                         </div>
                                         </button>
                                     </div>
-                                    <div id="block2" class="flex flex-col space-y-4 mt-3 block2 hidden" style="margin-left: 35px">
 
-                                    </div>
                                     <p class="mt-4 text-danger"><?= $Error_MSG ?></p>
                                 </div>
+                                <div id="block2" class="flex flex-col w-100 space-y-4 mt-3 block2 hidden" style="margin-left: 35px">
+                                     <h1 style="width: 20vh;">Into how many parts should it be divided?</h1>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -402,19 +403,17 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
             </div>
             <form action="" method="post">
                 <div class="justify-between md:justify-end w-full flex flex-row w-full md:w-auto">
-
-                    <input type="button" value="Back " onclick="showBlock1()"
-                       class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov  text-blue-800 bg-white active:bg-green-400"
-                       data-selected="false">
-                        
-                    </input>
-                    <input type="button" value="continue " onclick="showBlock2()" name="paysubmit"
-                           class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov  text-blue-800 bg-green-500 border-green-400 active:bg-green-400"
-                           data-selected="false" id="toggleButton">
+                <input type="button" value="Back" onclick="showBlock1()"
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-white active:bg-green-400"
+                   data-selected="false">
+            <input type="button" value="Continue" onclick="showBlock2()" id="toggleButton"
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-green-500 border-green-400 active:bg-green-400">
+            <input type="submit" name="paysubmit" value="paysubmit" id="submitPay" data-selected="false" data-selected="false"
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-white bg-green-600 border-green-400 active:bg-green-400 hidden">
                     <?php
                     if (isset($_POST['submitPay'])) {
 
-                    }
+                    } 
                     ?>
                 </div>
             </form>
@@ -537,7 +536,8 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                             <input type="reset" data-elem-reset-num-button="true" id="re2" value="Reset" onclick="oncr()"
                                    class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-1/2 mx-2 cursor-default bg-white border-blue-800 border-gray-400"
                                    data-selected="false">
-                            <input type="submit" data-elem-add-num-button="true" value="Add numbers"
+                            <input type="submit" data-elem-add-num-button="true" value="pay"
+                            data-selected="false"
                                    name="submitshop"
                                    class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-1/2 mx-2 cursor-default bg-green-500 border-green-400 border-gray-400"
                                    data-selected="false">
@@ -548,21 +548,28 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
         </div>
         <script>
         </script>
-            <script>
-        function showBlock2() {
-            document.getElementById('block1').classList.add('hidden');
-            document.getElementById('block2').classList.remove('hidden');
-            document.getElementById('toggleButton').value = "pay";
 
-        }
+<script>
+    function showBlock1() {
+        document.getElementById('block1').classList.remove('hidden');
+        document.getElementById('block2').classList.add('hidden');
+        document.getElementById('toggleButton').value = "Continue";
+        document.getElementById('submitPay').classList.add('hidden'); // Hide submit button
+        const button = document.getElementById('toggleButton').classList.remove("hidden");
 
-        function showBlock1() {
-            document.getElementById('block2').classList.add('hidden');
-            document.getElementById('block1').classList.remove('hidden');
-            document.getElementById('toggleButton').value = "continue";
+    }
 
-        }
-    </script>
+    function showBlock2() {
+        document.getElementById('block1').classList.add('hidden');
+        document.getElementById('block2').classList.remove('hidden');
+        const button = document.getElementById('toggleButton').classList.add("hidden");
+
+        
+        // Show submit button if moving to "Pay" step
+        const submitButton = document.getElementById('submitPay');
+        submitButton.classList.remove('hidden');
+    }
+</script>
         <script>
             let count = document.getElementById('count');
             let num =0;
