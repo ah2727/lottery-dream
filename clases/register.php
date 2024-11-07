@@ -92,9 +92,23 @@ class register extends db_connect
         $pdo = $this->connect()->prepare("insert into support(email,subject,cardToken,text) values (?,?,?,?)");
         $pdo->execute([$email,$subject,$cardToken,$text]);
     }
-    function InsertOrderTabel($Email,$balls1,$balls2,$balls3,$balls4,$balls5,$balls6,$orderid,$randcode,$CardName,$price,$now){
-        $pdo = $this->connect()->prepare("Insert into ordertable(Email,balls1,balls2,bals3,balls4,balls5,balls6,orderid,randcode,CardName,price,status,Datet) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        $pdo->execute([$Email,$balls1,$balls2,$balls3,$balls4,$balls5,$balls6,$orderid,$randcode,$CardName,$price,0,$now]);
+    function InsertOrderTabel($Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now) {
+        $pdo = $this->connect();
+        
+        // Prepare and execute the insert query
+        $stmt = $pdo->prepare("INSERT INTO ordertable (Email, balls1, balls2, bals3, balls4, balls5, balls6, orderid, randcode, CardName, price, status, Datet) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
+        $stmt->execute([$Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now]);
+        
+        // Fetch the last inserted ID
+        $lastInsertId = $pdo->lastInsertId();
+        
+        // Retrieve the inserted record based on the last insert ID
+        $stmt = $pdo->prepare("SELECT * FROM ordertable WHERE id = ?");
+        $stmt->execute([$lastInsertId]);
+        $insertedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $insertedRecord;
     }
 
     function  insertTrak($email,$track,$orderid)

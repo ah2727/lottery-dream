@@ -11,6 +11,7 @@ include_once 'clases/readingData.php';
 include_once 'clases/pay.php';
 include_once 'clases/register.php';
 require_once 'clases/db_connect.php';
+require_once 'clases/division.php';
 
 $reggg = new register();
 $pdob = new readingData();
@@ -384,6 +385,59 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                 </div>
                                 <div id="block2" class="flex flex-col w-100 space-y-4 mt-3 block2 hidden" style="margin-left: 35px">
                                      <h1 style="width: 20vh;">Into how many parts should it be divided?</h1>
+                                     <div>
+<div class="radio-container">
+    <h2>Select an Option</h2>
+    
+    <!-- Radio buttons for selection -->
+    <label class="radio-option">1
+        <input type="radio" name="selectedOption" value="1" onclick="selectOption(this.value)">
+        <span class="checkmark"></span>
+    </label>
+    <label class="radio-option">2
+        <input type="radio" name="selectedOption" value="2" onclick="selectOption(this.value)">
+        <span class="checkmark"></span>
+    </label>
+    <label class="radio-option">3
+        <input type="radio" name="selectedOption" value="3" onclick="selectOption(this.value)">
+        <span class="checkmark"></span>
+    </label>
+    <label class="radio-option">4
+        <input type="radio" name="selectedOption" value="4" onclick="selectOption(this.value)">
+        <span class="checkmark"></span>
+    </label>
+    <label class="radio-option">5
+        <input type="radio" name="selectedOption" value="5" onclick="selectOption(this.value)">
+        <span class="checkmark"></span>
+    </label>
+</div>
+
+<script>
+       // Function to set the selected option in a cookie
+       function selectOption(value) {
+        document.cookie = "selectedOption=" + value + "; path=/"; // Set cookie for the selected option
+        displaySelectedOption(); // Display the selected option without reload
+    }
+
+    // Function to get a cookie value by name
+    function getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    // Function to display the selected option from the cookie
+    function displaySelectedOption() {
+        const selectedOption = getCookie("selectedOption");
+        document.getElementById('selectedValueDisplay').innerText = "Selected Value: " + (selectedOption || "None");
+    }
+
+    // Display the cookie value on page load if already set
+    displaySelectedOption();
+</script>
+</script>
+
+                                     </div>
                                     </div>
                             </div>
                         </div>
@@ -417,6 +471,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                     ?>
                 </div>
             </form>
+
             <?php
             if (isset($_POST['paysubmit'])){
                 if (isset($_SESSION['PayShop'])) {
@@ -424,9 +479,13 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                         if (isset($_SESSION['emailc'])) {
                             $ordayid = rand(10000000, 99999999);
                             $now = time();
+                            $div = new division();
                             foreach ($_SESSION['PayShop'] as $paybu) {
                                 $randCode = rand(1000, 9999);
-                                $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now);
+                                $order = $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now);
+                                print_r($order);
+                                $div->inserted_division($order["orderId"],htmlspecialchars($_COOKIE['selectedOption']) // Sanitize the cookie value
+                            );
                             }
                             $rgb = count($_SESSION['PayShop']);
                             $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);

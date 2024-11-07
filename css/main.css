@@ -176,57 +176,100 @@
 }
 
 /* Dropdown button */
-.dropdown-btn {
+.radio-container {
     background-color: #ffffff;
-    color: black;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #30363d;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-/* Dropdown menu */
-.dropdown-menu-down {
-    display: none;
+.radio-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling radio buttons */
+.radio-option {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+}
+
+/* Hide the default radio button */
+.radio-option input {
     position: absolute;
-    background-color: #ffffff;
-    border: 1px solid #30363d;
-    color: black;
-    border-radius: 5px;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-}
-
-/* Dropdown option */
-.dropdown-option {
-    padding: 10px;
-    display: flex;
-    align-items: center;
+    opacity: 0;
     cursor: pointer;
-    color: black;
-    transition: background-color 0.3s;
 }
 
-.dropdown-option img {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #e6e6e6;
     border-radius: 50%;
 }
 
-.dropdown-option:hover {
-    background-color: #d8f8f9;
+/* On mouse-over, add a grey background color */
+.radio-option:hover input ~ .checkmark {
+    background-color: #ccc;
 }
 
-/* Show the dropdown when open */
-.dropdown-menu-down.show {
+/* When the radio button is checked */
+.radio-option input:checked ~ .checkmark {
+    background-color: #4CAF50;
+}
+
+/* Create the indicator (the dot/circle inside the radio button) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator when checked */
+.radio-option input:checked ~ .checkmark:after {
     display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-option .checkmark:after {
+    top: 7px;
+    left: 7px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Submit button styling */
+.submit-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Display the selected option */
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
 }
