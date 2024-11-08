@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once "../../clases/deposit.php";
 include_once "../../clases/pay.php";
 

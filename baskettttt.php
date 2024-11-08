@@ -439,6 +439,9 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
 
                                      </div>
                                     </div>
+                                    <div id="block3" class="flex flex-col w-100 space-y-4 mt-3 block2 hidden">
+                                        <h1>block3</h1>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -461,9 +464,11 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                    class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-white active:bg-green-400"
                    data-selected="false">
             <input type="button" value="Continue" onclick="showBlock2()" id="toggleButton"
-                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-green-500 border-green-400 active:bg-green-400">
-            <input type="submit" name="paysubmit" value="paysubmit" id="submitPay" data-selected="false" data-selected="false"
-                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-white bg-green-600 border-green-400 active:bg-green-400 hidden">
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-green-600 border-green-400 active:bg-green-400">
+                   <input type="button" value="Continue" onclick="showBlock3()" id="toggleButton1"
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-green-600 border-green-400 active:bg-green-400 hidden">
+            <input type="submit" name="paysubmit" value="paysubmit" id="submitPay" data-selected="false" 
+                   class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase active font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-white bg-green-500 border-green-400  hidden">
                     <?php
                     if (isset($_POST['submitPay'])) {
 
@@ -621,12 +626,25 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
     function showBlock2() {
         document.getElementById('block1').classList.add('hidden');
         document.getElementById('block2').classList.remove('hidden');
+        
         const button = document.getElementById('toggleButton').classList.add("hidden");
+        const button1 = document.getElementById('toggleButton1').classList.remove("hidden");
 
         
         // Show submit button if moving to "Pay" step
+
+    }
+    function showBlock3() {
+        document.getElementById('block1').classList.add('hidden');
+        document.getElementById('block2').classList.add('hidden');
+        document.getElementById('block3').classList.remove('hidden');
+
+        const button = document.getElementById('toggleButton1').classList.add("hidden");
         const submitButton = document.getElementById('submitPay');
         submitButton.classList.remove('hidden');
+        
+        // Show submit button if moving to "Pay" step
+
     }
 </script>
         <script>

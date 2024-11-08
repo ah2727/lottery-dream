@@ -10,16 +10,7 @@ $update = new Update_Database();
 
 
 $shop = new readingData();
-$chek = new Cheak();
-$resTrak = $shop->SelTrack($_SESSION['emailc']);
-foreach ($resTrak as $key => $trak){
-   $ressss = $chek->CheakPay($trak['trackID']);
-   if ($ressss->status == 'Expired'){
-       $update->DeleteTrack($ressss->trackId);
-   }else if ($ressss->status == 'Paid' || $ressss->status == 'Confirming'){
-       $update->UpdateTrack($ressss->trackId);
-   }
-}
+
 $AllShop = $shop->ReadShop($_SESSION['emailc']);
 $Winners = $shop->selWinnerEmail($_SESSION['emailc']);
 if (!isset($_SESSION['emailc'])){
