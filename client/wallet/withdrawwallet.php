@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Check if the 'crypto' parameter is present in the URL
 
 include_once "../../clases/withdrawl.php"
