@@ -96,7 +96,7 @@ class register extends db_connect
         $pdo = $this->connect();
     
         // Step 1: Check gem balance for the given email
-        $stmt = $pdo->prepare("SELECT gems FROM gems WHERE Email = ?");
+        $stmt = $pdo->prepare("SELECT gems FROM gems WHERE email = ?");
         $stmt->execute([$Email]);
         $userGemRecord = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -113,11 +113,11 @@ class register extends db_connect
     
         // Step 3: Deduct the gems from the user's balance
         $newGemBalance = $currentGemBalance - $gems;
-        $stmt = $pdo->prepare("UPDATE gem_table SET gems = ? WHERE Email = ?");
+        $stmt = $pdo->prepare("UPDATE gems SET gems = ? WHERE email = ?");
         $stmt->execute([$newGemBalance, $Email]);
     
         // Step 4: Insert the order into the order table
-        $stmt = $pdo->prepare("INSERT INTO ordertable (Email, balls1, balls2, balls3, balls4, balls5, balls6, orderid, randcode, CardName, price, status, Datet, gems, division) 
+        $stmt = $pdo->prepare("INSERT INTO ordertable (Email, balls1, balls2, bals3, balls4, balls5, balls6, orderid, randcode, CardName, price, status, Datet, gems, division) 
                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)");
         $stmt->execute([$Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now, $gems, $div]);
     
