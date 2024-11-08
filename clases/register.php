@@ -92,24 +92,44 @@ class register extends db_connect
         $pdo = $this->connect()->prepare("insert into support(email,subject,cardToken,text) values (?,?,?,?)");
         $pdo->execute([$email,$subject,$cardToken,$text]);
     }
-    function InsertOrderTabel($Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now) {
+    function InsertOrderTabel($Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now, $gems, $div) {
         $pdo = $this->connect();
-        
-        // Prepare and execute the insert query
-        $stmt = $pdo->prepare("INSERT INTO ordertable (Email, balls1, balls2, bals3, balls4, balls5, balls6, orderid, randcode, CardName, price, status, Datet) 
-                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
-        $stmt->execute([$Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now]);
-        
-        // Fetch the last inserted ID
+    
+        // Step 1: Check gem balance for the given email
+        $stmt = $pdo->prepare("SELECT gems FROM gems WHERE Email = ?");
+        $stmt->execute([$Email]);
+        $userGemRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if (!$userGemRecord) {
+            return "Error: User gem balance not found."; // User has no gem record
+        }
+    
+        $currentGemBalance = $userGemRecord['gems'];
+    
+        // Step 2: Check if the user has enough gems
+        if ($currentGemBalance < $gems) {
+            return "Error: Not enough gems to complete this transaction.";
+        }
+    
+        // Step 3: Deduct the gems from the user's balance
+        $newGemBalance = $currentGemBalance - $gems;
+        $stmt = $pdo->prepare("UPDATE gem_table SET gems = ? WHERE Email = ?");
+        $stmt->execute([$newGemBalance, $Email]);
+    
+        // Step 4: Insert the order into the order table
+        $stmt = $pdo->prepare("INSERT INTO ordertable (Email, balls1, balls2, balls3, balls4, balls5, balls6, orderid, randcode, CardName, price, status, Datet, gems, division) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)");
+        $stmt->execute([$Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now, $gems, $div]);
+    
+        // Step 5: Fetch and return the inserted order record
         $lastInsertId = $pdo->lastInsertId();
-        
-        // Retrieve the inserted record based on the last insert ID
         $stmt = $pdo->prepare("SELECT * FROM ordertable WHERE id = ?");
         $stmt->execute([$lastInsertId]);
         $insertedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+    
         return $insertedRecord;
     }
+    
 
     function  insertTrak($email,$track,$orderid)
     {

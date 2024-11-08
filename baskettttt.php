@@ -11,7 +11,6 @@ include_once 'clases/readingData.php';
 include_once 'clases/pay.php';
 include_once 'clases/register.php';
 require_once 'clases/db_connect.php';
-require_once 'clases/division.php';
 
 $reggg = new register();
 $pdob = new readingData();
@@ -435,13 +434,40 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
     // Display the cookie value on page load if already set
     displaySelectedOption();
 </script>
-</script>
 
                                      </div>
                                     </div>
-                                    <div id="block3" class="flex flex-col w-100 space-y-4 mt-3 block2 hidden">
-                                        <h1>block3</h1>
+                                    <div id="block3"  class="flex flex-col w-100 space-y-4 mt-3 block2 hidden">
+                                        <span>do you want use gem for more chance?</span>
+
+                                    <input type="text" onchange="changeOption(this.value)" name="gems" class="form-control" required /> 
+
+                                  <br>
                                     </div>
+                                    <script>
+    // Function to set the entered gem count in a cookie
+    function changeOption(value) {
+        document.cookie = "inputOption=" + value + "; path=/"; // Set cookie for the entered gem count
+        displaychangeOption(); // Display the entered gem count immediately
+    }
+
+    // Function to get a cookie value by name
+    function getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    // Function to display the entered gem count from the cookie
+    function displaychangeOption() {
+        const selectedOption = getCookie("inputOption");
+        displayElement.textContent = selectedOption
+
+    }
+
+    // Display the cookie value on page load if already set
+    displaychangeOption();
+</script>
                             </div>
                         </div>
                     </div>
@@ -484,19 +510,26 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                         if (isset($_SESSION['emailc'])) {
                             $ordayid = rand(10000000, 99999999);
                             $now = time();
-                            $div = new division();
                             foreach ($_SESSION['PayShop'] as $paybu) {
                                 $randCode = rand(1000, 9999);
-                                $order = $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now);
-                                print_r($order);
-                                $div->inserted_division($order["orderId"],htmlspecialchars($_COOKIE['selectedOption']) // Sanitize the cookie value
-                            );
+                                $order = $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"]);
+                                if (is_string($order) && str_contains($order, "Error")) {
+                                    // If an error message is returned, set error flag and break the loop
+                                    $hasError = true;
+                                    echo $order; // Display the error message
+                                    break;
+                                } else {
+                                    // If no error, print the order details for debugging or logging
+                                    print_r($order);
+                                }
                             }
+                            if (!$hasError) {
                             $rgb = count($_SESSION['PayShop']);
                             $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);
                             $reggg->insertTrak($_SESSION['emailc'],$_SESSION['payy']->trackId,$ordayid);
                             unset($_SESSION['PayShop']);
                             header("Location:PaySubmit.php");
+                            }
 
                         }else{
                             header("Location:login.php");
@@ -617,6 +650,9 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
     function showBlock1() {
         document.getElementById('block1').classList.remove('hidden');
         document.getElementById('block2').classList.add('hidden');
+        document.getElementById('block3').classList.add('hidden');
+        const button1 = document.getElementById('toggleButton1').classList.add("hidden");
+
         document.getElementById('toggleButton').value = "Continue";
         document.getElementById('submitPay').classList.add('hidden'); // Hide submit button
         const button = document.getElementById('toggleButton').classList.remove("hidden");
