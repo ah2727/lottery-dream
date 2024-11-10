@@ -60,11 +60,17 @@ class readingData extends db_connect
         $res = $pdo->fetch(PDO::FETCH_ASSOC);
         return $res;
     }
-    function ReadToken($CardName){
-        $pdo = $this->connect()->prepare('SELECT * FROM ordertable where CardName = ? AND status=? order BY RAND() LIMIT 1');
-        $pdo->execute([$CardName,1]);
-        $res = $pdo->fetch(PDO::FETCH_ASSOC);
-        return $res;
+    function ReadToken($CardName, $count, $gems) {
+        $results = [];
+        for ($i = 0; $i < $count; $i++) {
+            $pdo = $this->connect()->prepare('SELECT * FROM ordertable WHERE CardName = ? AND status = ? ORDER BY RAND() LIMIT 1');
+            $pdo->execute([$CardName, 1]);
+            $res = $pdo->fetch(PDO::FETCH_ASSOC);
+            if ($res) {
+                $results[] = $res;
+            }
+        }
+        return $results;
     }
     function selProfile($email){
         $pdo = $this->connect()->prepare("select * from register where email = ?");

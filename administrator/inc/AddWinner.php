@@ -14,18 +14,11 @@ if (isset($_POST['random'])){
 
     }else{
 
-        $res = $redT->ReadToken($C_Name);
+        $res = $redT->ReadToken($C_Name,$_POST["count"],$_POST["gems"]);
+        print_r($res);
         if (!empty($res)){
-            $_SESSION['EmailWinner'] = $res['Email'];
-            $_SESSION['balls1'] = $res['balls1'];
-            $_SESSION['balls2'] = $res['balls2'];
-            $_SESSION['bals3'] = $res['bals3'];
-            $_SESSION['balls4'] = $res['balls4'];
-            $_SESSION['balls5']= $res['balls5'];
-            $_SESSION['balls6'] = $res['balls6'];
-            $_SESSION['orderId'] = $res['orderId'];
-            $_SESSION['randcode'] = $res['randcode'];
-            $_SESSION['CardName'] = $res['CardName'];
+            $_SESSION['winner'] = $res;
+
         }
     }
 }
@@ -50,9 +43,20 @@ if (isset($_POST['random'])){
                 ?>
 
             </select>
-            <div class="d-flex justify-content-center">
-                <input type="submit" class="btn btn-outline-success mt-3 mx-3" value="Random" name="random">
+            <div class="d-flex justify-content-center pt-2">
+                <div>
+            <label for="count">count of users?</label>
+                <input type="text" class="form-control" name="count" placeholder="enter count of winner" value="1">
+                </div>
+                <div class="px-4 d-grid justify-center items-center">
+                <label for="gems">use gems?</label>
+                <input type="checkbox"  name="gmes">
+                </div>
             </div>
+                <div class="d-flex justify-content-center pt-2">
+                <input type="submit" class="btn btn-outline-success mt-3 mx-3" value="Random" name="random" >
+                </div>
+
         </div>
     </form>
 </div>
@@ -74,47 +78,60 @@ if (isset($_POST['random'])){
     </tr>
     </thead>
     <thead>
-    <?php
-
+        <?php
+    foreach ($res as $re){
     ?>
     <tr>
         <td class="text-center">
-            <?php if (isset($res['id'])){
-            echo $res['id'];
-            }?>
-        </td>
-        <td class="text-center"><?php if (isset($res['Email'])){
-                echo $res['Email'];
-            }?>
+            <?php if (isset($re['id'])) {
+                echo $re['id'];
+            } ?>
         </td>
         <td class="text-center">
-            <?php if (isset($res['balls1'])){
-                echo $res['balls1'] .'-'.$res['balls2'].'-'.$res['bals3'].'-'.$res['balls4'].'-'.$res['balls5'].'-'.$res['balls6'];
-            }?></td>
-        <td class="text-center"><?php if (isset($res['randcode'])){
-                echo $res['randcode'];
-            }?></td>
-        <td class="text-center"><?php if (isset($res['orderId'])){
-                echo $res['orderId'];
-            }?></td>
-        <td class="text-center"><?php if (isset($res['CardName'])){
-                echo $res['CardName'];
-            }?></td>
-                    <td class="text-center"><?php if (isset($res['gems'])){
-                echo $res['gems'];
-            }?></td>
-            <td class="text-center"><?php if (isset($res['division'])){
-                echo $res['division'];
-            }?></td>
-        <td class="text-center"><?php
-        if (isset($res['CardName'])){
-            ?>
-            <a href="?type=AddWinner&ConWinner=1"><i class="bi bi-check-circle text-success m-2" style="font-size: 20px"></i></a>
-            <?php
-        }
-        ?>
+            <?php if (isset($re['Email'])) {
+                echo $re['Email'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['balls1'])) {
+                echo $re['balls1'] . '-' . $re['balls2'] . '-' . $re['bals3'] . '-' . $re['balls4'] . '-' . $re['balls5'] . '-' . $re['balls6'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['randcode'])) {
+                echo $re['randcode'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['orderId'])) {
+                echo $re['orderId'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['CardName'])) {
+                echo $re['CardName'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['gems'])) {
+                echo $re['gems'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['division'])) {
+                echo $re['division'];
+            } ?>
+        </td>
+        <td class="text-center">
+            <?php if (isset($re['CardName'])) { ?>
+                <a href="?type=AddWinner&ConWinner=1"><i class="bi bi-check-circle text-success m-2" style="font-size: 20px"></i></a>
+            <?php } ?>
         </td>
     </tr>
+    <?php
+}
+?>
+
     </thead>
 </table>
 </div>
