@@ -183,6 +183,25 @@ $_SESSION["error"]=null;
     </div>
   </div>
 </div>
+<div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="otpVerificationModalLabel">OTP Verification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="otpForm">
+                    <div class="mb-3">
+                        <label for="otp" class="form-label">Enter OTP</label>
+                        <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP" required>
+                    </div>
+                    <button type="button" onclick="verifyOTP()" class="btn btn-primary">Verify</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                 <?php endif; ?>
                 <?php if ($withdrawl_wallet): ?>
                     <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
@@ -192,6 +211,7 @@ $_SESSION["error"]=null;
         <h5 class="modal-title" id="myModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      
       <div class="modal-body">
       <form action="/client/wallet/changewithdrawwallet.php" method="POST">
 
@@ -300,7 +320,58 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPagination();
 });
 </script>
+<script>
+    // Display OTP modal before edit address modal
+    document.querySelector('#editaddress').addEventListener('show.bs.modal', function (event) {
+        event.preventDefault();  // Prevent the address edit modal from showing directly
+        var otpModal = new bootstrap.Modal(document.getElementById('otpVerificationModal'));
+        otpModal.show();  // Show the OTP verification modal
+    });
 
+    // Verify OTP function
+    function verifyOTP() {
+        const otp = document.getElementById('otp').value;
+        
+        // Send OTP to server for verification
+        fetch('/client/wallet/verifyotp.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'otp=' + otp
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('walletForm').style.display = 'block';
+                var otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
+                otpModal.hide();  // Hide OTP modal
+                var editAddressModal = new bootstrap.Modal(document.getElementById('editaddress'));
+                editAddressModal.show();  // Show address edit modal
+                alert('OTP verified successfully');
+            } else {
+                alert('Invalid OTP. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function toggleDropdown() {
+        document.querySelector('.dropdown-menu-down').classList.toggle('show');
+    }
+
+    function selectOption(optionText, imgSrc) {
+        document.getElementById('dropdownText').innerHTML = `<img src="${imgSrc}" style="width: 24px; height: 24px; margin-right: 10px; border-radius: 50%;" alt="Selected"> ${optionText}`;
+        document.getElementById('crypto').value = optionText;
+        toggleDropdown();
+    }
+
+    document.addEventListener('click', function(event) {
+        const dropdown = document.querySelector('.custom-dropdown');
+        const dropdownMenu = document.querySelector('.dropdown-menu-down');
+        if (!dropdown.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+</script>
 <script>
         function toggleDropdown() {
         var dropdownMenu = document.querySelector('.dropdown-menu-down');

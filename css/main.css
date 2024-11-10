@@ -176,6 +176,61 @@
 }
 
 /* Dropdown button */
+.dropdown-btn {
+    background-color: #ffffff;
+    color: black;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Dropdown menu */
+.dropdown-menu-down {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #30363d;
+    color: black;
+    border-radius: 5px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+/* Dropdown option */
+.dropdown-option {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+.dropdown-option img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.dropdown-option:hover {
+    background-color: #d8f8f9;
+}
+
+/* Show the dropdown when open */
+.dropdown-menu-down.show {
+    display: block;
+}
+/* Dropdown button */
 .radio-container {
     background-color: #ffffff;
     padding: 20px 30px;
