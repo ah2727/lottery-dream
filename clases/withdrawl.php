@@ -95,37 +95,28 @@ class withdrawl extends db_connect{
             // Check if a wallet exists
             if ($wallet) {
                 // Get the timechanged from the wallet
-                $lastChanged = new DateTime($wallet['timechanged'], new DateTimeZone("Asia/Tehran"));
-                $now = new DateTime("now", new DateTimeZone("Asia/Tehran"));
-            
-                // Calculate the difference
-                $interval = $lastChanged->diff($now);
-            
             
                 // Check if the difference is greater than or equal to 1 day
-                if ($interval->days >= 1 || ($interval->days == 0 && $interval->h < 1)) {
                     // Prepare the SQL statement to update the address
-                    $stmt = $pdo->prepare("
-                        UPDATE withdrawwallet
-                        SET address = :newAddress, timechanged = NOW(),crypto= :crypto
-                        WHERE LOWER(email) = LOWER(:email)
-                    ");
-    
-                    // Bind parameters
-                    $stmt->bindParam(':newAddress', $newAddress, PDO::PARAM_STR);
-                    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-                    $stmt->bindParam(':crypto', $crypto, PDO::PARAM_STR);
+                $stmt = $pdo->prepare("
+                    UPDATE withdrawwallet
+                    SET address = :newAddress, timechanged = NOW(),crypto= :crypto
+                    WHERE LOWER(email) = LOWER(:email)
+                ");
 
-                    // Execute the query
-                    $stmt->execute();
+                    // Bind parameters
+                $stmt->bindParam(':newAddress', $newAddress, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':crypto', $crypto, PDO::PARAM_STR);
+
+                // Execute the query
+                $stmt->execute();
     
                     return true;
                 } else {
                     return false;
                 }
-            } else {
-                return false;
-            }
+            
         } catch (Exception $e) {
             // Handle any errors
             return "Error: " . $e->getMessage();

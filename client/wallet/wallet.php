@@ -77,7 +77,7 @@ $_SESSION["error"]=null;
                 <?php endif; ?>
                 <?php if ($withdrawl_wallet): ?>
                     <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter address" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#editaddress" >edit</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#otpVerificationModal" >edit</button>
                 <?php endif; ?>
         </div>
 
@@ -183,7 +183,10 @@ $_SESSION["error"]=null;
     </div>
   </div>
 </div>
-<div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
+
+                <?php endif; ?>
+                <?php if ($withdrawl_wallet): ?>
+                    <div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,9 +205,37 @@ $_SESSION["error"]=null;
         </div>
     </div>
 </div>
-                <?php endif; ?>
-                <?php if ($withdrawl_wallet): ?>
                     <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
+                        <script>
+                            let otpVerified = false;  // Flag to track OTP verification
+
+// Event listener for Edit button to open OTP modal first
+
+
+// OTP verification function
+function verifyOTP() {
+    // Generate a random 6-digit OTP for testing purposes
+    const randomOtp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+    alert('Generated OTP for testing: ' + randomOtp);
+
+    // Simulate a successful OTP verification without a fetch call
+    const isVerified = true; // Set this to true to simulate success
+
+    if (isVerified) {
+        alert('OTP verified successfully'); // Simulate success message
+
+        // Hide the OTP modal (if using Bootstrap)
+        const otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
+        otpModal.hide();
+
+        // Show the Edit Address modal
+        const editAddressModal = new bootstrap.Modal(document.getElementById('editaddress'));
+        editAddressModal.show();
+    } else {
+        alert('Invalid OTP. Please try again.');
+    }
+}
+                        </script>
 <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -260,6 +291,7 @@ $_SESSION["error"]=null;
     </div>
   </div>
 </div>
+
                 <?php endif; ?>
 
 
@@ -320,39 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupPagination();
 });
 </script>
-<script>
-    // Display OTP modal before edit address modal
-    document.querySelector('#editaddress').addEventListener('show.bs.modal', function (event) {
-        event.preventDefault();  // Prevent the address edit modal from showing directly
-        var otpModal = new bootstrap.Modal(document.getElementById('otpVerificationModal'));
-        otpModal.show();  // Show the OTP verification modal
-    });
-
-    // Verify OTP function
-    function verifyOTP() {
-        const otp = document.getElementById('otp').value;
-        
-        // Send OTP to server for verification
-        fetch('/client/wallet/verifyotp.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'otp=' + otp
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('walletForm').style.display = 'block';
-                var otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
-                otpModal.hide();  // Hide OTP modal
-                var editAddressModal = new bootstrap.Modal(document.getElementById('editaddress'));
-                editAddressModal.show();  // Show address edit modal
-                alert('OTP verified successfully');
-            } else {
-                alert('Invalid OTP. Please try again.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+<script>    
+    // Send OTP to server for verification
 
     function toggleDropdown() {
         document.querySelector('.dropdown-menu-down').classList.toggle('show');
