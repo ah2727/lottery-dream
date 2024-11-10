@@ -68,6 +68,8 @@ if (isset($_POST['random'])){
         <th class="fw-normal text-uppercase text-center">Random Code</th>
         <th class="fw-normal text-uppercase text-center">orderId</th>
         <th class="fw-normal text-uppercase text-center">CardName</th>
+        <th class="fw-normal text-uppercase text-center">gems</th>
+        <th class="fw-normal text-uppercase text-center">division</th>
         <th class="fw-normal text-uppercase text-center">Confirm winner</th>
     </tr>
     </thead>
@@ -97,6 +99,12 @@ if (isset($_POST['random'])){
             }?></td>
         <td class="text-center"><?php if (isset($res['CardName'])){
                 echo $res['CardName'];
+            }?></td>
+                    <td class="text-center"><?php if (isset($res['gems'])){
+                echo $res['gems'];
+            }?></td>
+            <td class="text-center"><?php if (isset($res['division'])){
+                echo $res['division'];
             }?></td>
         <td class="text-center"><?php
         if (isset($res['CardName'])){
