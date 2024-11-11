@@ -63,9 +63,27 @@ class readingData extends db_connect
     function ReadToken($CardName, $count, $gems) {
         $results = [];
         for ($i = 0; $i < $count; $i++) {
-            $pdo = $this->connect()->prepare('SELECT * FROM ordertable WHERE CardName = ? AND status = ? ORDER BY RAND() LIMIT 1');
+            if ($gems) {
+                // When gems are true, give rows with higher gems more chance in the random selection
+                $pdo = $this->connect()->prepare(
+                    'SELECT * FROM ordertable 
+                     WHERE CardName = ? AND status = ? 
+                     ORDER BY RAND() * (1 + gems) DESC 
+                     LIMIT 1'
+                );
+            } else {
+                // When gems are not required, perform a normal random selection
+                $pdo = $this->connect()->prepare(
+                    'SELECT * FROM ordertable 
+                     WHERE CardName = ? AND status = ? 
+                     ORDER BY RAND() 
+                     LIMIT 1'
+                );
+            }
+    
             $pdo->execute([$CardName, 1]);
             $res = $pdo->fetch(PDO::FETCH_ASSOC);
+    
             if ($res) {
                 $results[] = $res;
             }

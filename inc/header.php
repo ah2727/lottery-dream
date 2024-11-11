@@ -43,6 +43,8 @@ if (!empty($result1)) {
     <!-- Style -->
     <link rel="stylesheet" href="css/148011a395061c55.css">
     <!-- responsive -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Style -->
     <link rel="stylesheet" href="css/bf5750195f5b2ba9.css">
     <link rel="stylesheet" href="css/main.css">

@@ -390,28 +390,29 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
     
     <!-- Radio buttons for selection -->
     <label class="radio-option">1
-        <input type="radio" name="selectedOption" value="1" onclick="selectOption(this.value)">
+        <input type="radio" class="selectedOption" name="selectedOption" value="1" onclick="selectOption(this.value)">
         <span class="checkmark"></span>
     </label>
     <label class="radio-option">2
-        <input type="radio" name="selectedOption" value="2" onclick="selectOption(this.value)">
+        <input type="radio" class="selectedOption" name="selectedOption" value="2" onclick="selectOption(this.value)">
         <span class="checkmark"></span>
     </label>
     <label class="radio-option">3
-        <input type="radio" name="selectedOption" value="3" onclick="selectOption(this.value)">
+        <input type="radio" class="selectedOption" name="selectedOption" value="3" onclick="selectOption(this.value)">
         <span class="checkmark"></span>
     </label>
     <label class="radio-option">4
-        <input type="radio" name="selectedOption" value="4" onclick="selectOption(this.value)">
+        <input type="radio" class="selectedOption" name="selectedOption" value="4" onclick="selectOption(this.value)">
         <span class="checkmark"></span>
     </label>
     <label class="radio-option">5
-        <input type="radio" name="selectedOption" value="5" onclick="selectOption(this.value)">
+        <input type="radio" class="selectedOption" name="selectedOption" value="5" onclick="selectOption(this.value)">
         <span class="checkmark"></span>
     </label>
 </div>
 
 <script>
+    
        // Function to set the selected option in a cookie
        function selectOption(value) {
         document.cookie = "selectedOption=" + value + "; path=/"; // Set cookie for the selected option
@@ -633,7 +634,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                             <input type="reset" data-elem-reset-num-button="true" id="re2" value="Reset" onclick="oncr()"
                                    class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-1/2 mx-2 cursor-default bg-white border-blue-800 border-gray-400"
                                    data-selected="false">
-                            <input type="submit" data-elem-add-num-button="true" value="pay"
+                            <input type="submit" data-elem-add-num-button="true" value="add"
                             data-selected="false"
                                    name="submitshop"
                                    class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-1/2 mx-2 cursor-default bg-green-500 border-green-400 border-gray-400"
@@ -660,17 +661,46 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
     }
 
     function showBlock2() {
-        document.getElementById('block1').classList.add('hidden');
-        document.getElementById('block2').classList.remove('hidden');
-        
-        const button = document.getElementById('toggleButton').classList.add("hidden");
-        const button1 = document.getElementById('toggleButton1').classList.remove("hidden");
-
-        
-        // Show submit button if moving to "Pay" step
-
+    // Get the value of n3 input
+    const n3 = document.querySelector('.sp-1').innerText;
+    // Check if n3 is empty
+    if (!n3) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Value',
+            text: 'The span element does not have a value!',
+            confirmButtonText: 'OK'
+        });        
+        return; // Stop function execution if n3 is missing
     }
+
+    // Hide other blocks and show block2
+    document.getElementById('block1').classList.add('hidden');
+    document.getElementById('block2').classList.remove('hidden');
+    
+    // Toggle button visibility
+    document.getElementById('toggleButton').classList.add('hidden');
+    document.getElementById('toggleButton1').classList.remove('hidden');
+
+}
     function showBlock3() {
+        const selectedoption= document.querySelectorAll(".selectedOption")
+        let isSelected = false;
+        selectedoption.forEach(option => {
+        if (option.checked) {
+            isSelected = true;
+        }
+    });
+
+        if (!isSelected) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Missing Value',
+            text: 'The span element does not have a value!',
+            confirmButtonText: 'OK'
+        });        
+        return; // Stop function execution if n3 is missing
+    }
         document.getElementById('block1').classList.add('hidden');
         document.getElementById('block2').classList.add('hidden');
         document.getElementById('block3').classList.remove('hidden');
