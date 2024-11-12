@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pay = new pay();
     $payment = $pay->oxPay($amount*1.1,$email,$result,"test");
     $_SESSION["payy"]=$payment;
-    header(header: "Location: " . "/PaySubmit.php");
+    header(header: "Location: " . $payment->payLink);
 
 }
 
