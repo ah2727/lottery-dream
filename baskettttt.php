@@ -687,6 +687,30 @@ function setMax() {
         </script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const spanElement = document.querySelector('.sp-1');
+    const buttonElement = document.querySelector('#toggleButton'); // Replace with the actual button ID or class
+    
+
+    function checkAndChangeButtonColor() {
+        const n3 = spanElement.innerText.trim(); // Trim any whitespace
+        
+        // Check if span has a value and change button color accordingly
+        if (n3) {
+
+            buttonElement.style.backgroundColor = 'rgba(196, 220, 51, 1)';
+        } 
+    }
+
+    // Set up MutationObserver to listen for changes in span content
+    const observer = new MutationObserver(checkAndChangeButtonColor);
+    observer.observe(spanElement, { childList: true, characterData: true, subtree: true });
+
+    // Debug: Log initial state
+    checkAndChangeButtonColor();
+});
+// Alternatively, if using an input element to update span, add an input event listener
+document.querySelector('.input-class').addEventListener('input', checkAndChangeButtonColor);
     function showBlock1() {
         document.getElementById('block1').classList.remove('hidden');
         document.getElementById('block2').classList.add('hidden');
