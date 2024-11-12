@@ -92,7 +92,7 @@ class register extends db_connect
         $pdo = $this->connect()->prepare("insert into support(email,subject,cardToken,text) values (?,?,?,?)");
         $pdo->execute([$email,$subject,$cardToken,$text]);
     }
-    function InsertOrderTabel($Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now, $gems, $div) {
+    function InsertOrderTabel($Email, $balls1, $balls2, $balls3, $balls4, $balls5, $balls6, $orderid, $randcode, $CardName, $price, $now, $div,$gems=0) {
         $pdo = $this->connect();
     
         // Step 1: Check gem balance for the given email

@@ -11,7 +11,10 @@ include_once 'clases/readingData.php';
 include_once 'clases/pay.php';
 include_once 'clases/register.php';
 require_once 'clases/db_connect.php';
+require_once 'clases/gems.php';
 
+$gems=new gems();
+$usergems = $gems->getGems($_SESSION['emailc']);
 $reggg = new register();
 $pdob = new readingData();
 $pay11 = new pay();
@@ -442,14 +445,46 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                         <span>do you want use gem for more chance?</span>
 
                                         <div class="input-group mb-3">
+                                        <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">💎</span>
   </div>
-  <input type="text" class="form-control" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1">
+  
+  <input type="text" onchange="changeOption(this.value)" class="form-control" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1" value="0" id="gemInput">
+  
+  <!-- Increment, Decrement, and Max buttons -->
+  <div class="input-group-append pl-2">
+    <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
+    <button class="btn btn-outline-secondary" type="button" onclick="increment()">+</button>
+    <button class="btn btn-outline-secondary" type="button" onclick="setMax()">Max</button>
+  </div>
 </div>
                                   <br>
                                     </div>
                                     <script>
+                                        function increment() {
+    const input = document.getElementById("gemInput");
+    let value = parseInt(input.value, 10) || 0;
+    input.value = value + 1;
+    changeOption(input.value); // Call your onchange function if needed
+}
+
+function decrement() {
+    const input = document.getElementById("gemInput");
+    let value = parseInt(input.value, 10) || 0;
+    if (value > 0) { // Optional: Prevent going below 0
+        input.value = value - 1;
+        changeOption(input.value);
+    }
+}
+
+function setMax() {
+    MAX_VALUE = <?php echo $usergems ?>
+
+    const input = document.getElementById("gemInput");
+    input.value = MAX_VALUE;
+    changeOption(input.value);
+}
     // Function to set the entered gem count in a cookie
     function changeOption(value) {
         document.cookie = "inputOption=" + value + "; path=/"; // Set cookie for the entered gem count
@@ -517,7 +552,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                             $now = time();
                             foreach ($_SESSION['PayShop'] as $paybu) {
                                 $randCode = rand(1000, 9999);
-                                $order = $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"]);
+                                $order = $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$_GET['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"] ? $_COOKIE["inputOption"]:0);
                                 if (is_string($order) && str_contains($order, "Error")) {
                                     // If an error message is returned, set error flag and break the loop
                                     $hasError = true;
@@ -533,7 +568,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                             $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);
                             $reggg->insertTrak($_SESSION['emailc'],$_SESSION['payy']->trackId,$ordayid);
                             unset($_SESSION['PayShop']);
-                            header("Location:PaySubmit.php");
+                            header("Location:". $_SESSION['payy']->payLink );
                             }
 
                         }else{

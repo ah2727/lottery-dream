@@ -1,6 +1,7 @@
 <?php
+use payment\pay;
 include_once 'clases/pay.php';
-$payyyy = new \dbconnect\pay();
+$payyyy = new pay();
 session_start();
 ob_start();
 include_once 'inc/header.php';
@@ -504,14 +505,16 @@ if (isset($_POST['buynow'])){
              $now = time();
                 foreach ($_SESSION['PayShop'] as $paybu) {
                     $randCode = rand(1000, 9999);
-                    $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$paybu['CardName'],$_SESSION['pay'],$now);
+                    $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$paybu['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"] ? $_COOKIE["inputOption"]:0);
+                    $_COOKIE["inputOption"]="";
+
                                         unset($_SESSION['PayShop']);
                 }
                 $ttk = $_SESSION['payy']->trackId;
             $_SESSION['payy'] = $payyyy->oxPay($_SESSION['money'],$_SESSION['emailc'],$ordayid,'');
             $reggg->insertTrak($_SESSION['emailc'],$ttk,$ordayid);
             unset($_SESSION['payshop']);
-            header("Location:PaySubmit.php");
+            header("Location:" . $_SESSION['payy']->payLink);
     }
     }else{
         header("Location:login.php");
