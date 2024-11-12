@@ -441,8 +441,12 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])){
                                     <div id="block3"  class="flex flex-col w-100 space-y-4 mt-3 block2 hidden">
                                         <span>do you want use gem for more chance?</span>
 
-                                    <input type="text" onchange="changeOption(this.value)" name="gems" class="form-control" required /> 
-
+                                        <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">💎</span>
+  </div>
+  <input type="text" class="form-control" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1">
+</div>
                                   <br>
                                     </div>
                                     <script>

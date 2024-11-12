@@ -5,7 +5,7 @@ include_once '../clases/db_connect.php';
 include_once '../clases/readingData.php';
 include_once '../clases/Cheak.php';
 include_once '../clases/Update_Database.php';
-
+$menu = $_GET['menu'] ?? 'Home'; 
 ?>
 <!doctype html>
 <html lang="en">
@@ -51,10 +51,10 @@ include_once '../clases/Update_Database.php';
             </button>
             <div class="collapse justify-content-lg-start navbar-collapse flex-grow-0" id="navbarSupportedContent" style="direction: ltr">
                 <div class="navbar-nav align-items-center">
-                <li class="w-100 justify-content-star"><a class="nav-item nav-link text-dark fw-semibold " href="?menu=Home">Home</a></li>
-                <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  " href="?menu=support">Support</a></li>
-                    <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  " href="?menu=orders">Orders</a></li>
-                    <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  " href="../basket.php">Shop</a></li>
+                <li class="w-100 justify-content-star"><a class="nav-item nav-link text-dark fw-semibold <?php echo $menu === 'Home' ? 'active' : ''; ?>" href="?menu=Home">Home</a></li>
+                <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  <?php echo $menu === 'support' ? 'active' : ''; ?>" href="?menu=support">Support</a></li>
+                    <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  <?php echo $menu === 'orders' ? 'active' : ''; ?>" href="?menu=orders">Orders</a></li>
+                    <li class="w-100 justify-content-start"><a class="nav-link nav-item text-dark fw-semibold  <?php echo strpos($_SERVER['REQUEST_URI'], 'basket.php') !== false ? 'active' : ''; ?>" href="../basket.php">Shop</a></li>
             </div>
             </div>
         </nav>
