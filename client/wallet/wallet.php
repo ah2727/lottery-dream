@@ -77,7 +77,7 @@ $_SESSION["error"]=null;
                 <?php endif; ?>
                 <?php if ($withdrawl_wallet): ?>
                     <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter address" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#otpVerificationModal" >edit</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#editaddress" >edit</button>
                 <?php endif; ?>
         </div>
 
@@ -186,6 +186,7 @@ $_SESSION["error"]=null;
 
                 <?php endif; ?>
                 <?php if ($withdrawl_wallet): ?>
+
                     <div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -206,36 +207,52 @@ $_SESSION["error"]=null;
     </div>
 </div>
                     <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
-                        <script>
-                            let otpVerified = false;  // Flag to track OTP verification
+                        <!-- Save changes button now triggers openOTPModal() -->
 
-// Event listener for Edit button to open OTP modal first
+<script>
+    let otpVerified = false;  // Flag to track OTP verification
 
+    // Open the OTP modal
+    function openOTPModal() {
+        // Show the OTP modal
+        const editAddressModalElement = document.getElementById('editaddress');
+    const editAddressModal = bootstrap.Modal.getInstance(editAddressModalElement);
 
-// OTP verification function
-function verifyOTP() {
-    // Generate a random 6-digit OTP for testing purposes
-    const randomOtp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
-    alert('Generated OTP for testing: ' + randomOtp);
-
-    // Simulate a successful OTP verification without a fetch call
-    const isVerified = true; // Set this to true to simulate success
-
-    if (isVerified) {
-        alert('OTP verified successfully'); // Simulate success message
-
-        // Hide the OTP modal (if using Bootstrap)
-        const otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
-        otpModal.hide();
-
-        // Show the Edit Address modal
-        const editAddressModal = new bootstrap.Modal(document.getElementById('editaddress'));
-        editAddressModal.show();
-    } else {
-        alert('Invalid OTP. Please try again.');
+    // Hide the 'editaddress' modal if it's open
+    if (editAddressModal) {
+        editAddressModal.hide();
+    }        bootstrap.Modal.getInstance()
+        const otpModal = new bootstrap.Modal(document.getElementById('otpVerificationModal'));
+        otpModal.show();
+        
     }
-}
-                        </script>
+
+    // OTP verification function
+    function verifyOTP() {
+        // Generate a random 6-digit OTP for testing purposes
+        const randomOtp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+        alert('Generated OTP for testing: ' + randomOtp);
+
+        // Here, replace the hardcoded OTP verification with real verification logic
+        const enteredOtp = document.getElementById('otp').value; // Get the OTP entered by the user
+        
+        // Simulate a successful OTP verification
+        if (enteredOtp == randomOtp) {
+            otpVerified = true; // Mark as verified
+            alert('OTP verified successfully');
+
+            // Hide the OTP modal
+            const otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
+            otpModal.hide();
+
+            // Submit the form after successful OTP verification
+            document.getElementById('editForm').submit(); // Submit the form
+        } else {
+            alert('Invalid OTP. Please try again.');
+        }
+    }
+</script>
+
 <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -244,7 +261,7 @@ function verifyOTP() {
       </div>
       
       <div class="modal-body">
-      <form action="/client/wallet/changewithdrawwallet.php" method="POST">
+      <form id="editForm" action="/client/wallet/changewithdrawwallet.php" method="POST">
 
       <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount">
       <div class="mb-3">
@@ -284,8 +301,8 @@ function verifyOTP() {
 </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+    </form>
+    <button type="button"  onclick="openOTPModal()" class="btn btn-primary">Save changes</button>
 
       </div>
     </div>
