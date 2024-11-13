@@ -181,4 +181,17 @@ class readingData extends db_connect
         $res =$pdo->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
+    function getAverageDivision() {
+        // Prepare the SQL query
+        $pdo = $this->connect()->prepare("SELECT AVG(division) AS average_division FROM ordertable");
+        
+        // Execute the query
+        $pdo->execute();
+        
+        // Fetch the result as an associative array
+        $res = $pdo->fetch(PDO::FETCH_ASSOC);
+        
+        // Return the average division value
+        return $res['average_division'] ?? null; // Return null if no result
+    }
 }

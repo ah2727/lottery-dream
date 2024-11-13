@@ -25,7 +25,7 @@ $amount = $wallet->get_amount($_SESSION["emailc"]);
 $transactions = $wallet->get_transactions_by_email($_SESSION["emailc"]);
 // withdrawl wallet
 $withdrawl = new withdrawl();
-$withdrawl_wallet= $withdrawl->get_wallet($_SESSION['emailc']);
+$withdrawl_wallet = $withdrawl->get_wallet($_SESSION['emailc']);
 ?>
 <?php
 if (isset($_SESSION["success"])) {
@@ -34,7 +34,7 @@ if (isset($_SESSION["success"])) {
         <?= htmlspecialchars($_SESSION["success"]); ?>
     </div>
 <?php
-$_SESSION["success"]=null;
+    $_SESSION["success"] = null;
 }
 ?>
 
@@ -42,296 +42,299 @@ $_SESSION["success"]=null;
 if (isset($_SESSION["error"])) {
 ?>
     <div class="alert alert-danger" role="alert" id="serrorAlert">
-        <?= htmlspecialchars( $_SESSION["error"]); ?>
+        <?= htmlspecialchars($_SESSION["error"]); ?>
     </div>
 <?php
-$_SESSION["error"]=null;
+    $_SESSION["error"] = null;
 }
 ?>
 
 <div class="d-flex justify-content-center mb-5">
-<div class="bg-light bg-gradient  wallet rounded p-3 shadow-lg wallet-container">
-<h1 class=" fs-1 d-flex justify-content-center ">wallet</h1>
-    <div class="d-flex align-items-center justify-content-center text-center h-25 items-center">
-        <h4 class=" fs-1 pt-22 portfolio-value"><?php echo $amount ?>$</h4>
+    <div class="bg-light bg-gradient  wallet rounded p-3 shadow-lg wallet-container">
+        <h1 class=" fs-1 d-flex justify-content-center ">wallet</h1>
+        <div class="d-flex align-items-center justify-content-center text-center h-25 items-center">
+            <h4 class=" fs-1 pt-22 portfolio-value"><?php echo $amount ?>$</h4>
+        </div>
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="openTab(event, 'send')">whitdraw</button>
+            <button class="tab-button" onclick="openTab(event, 'receive')">deposit</button>
+            <button class="tab-button" onclick="openTab(event, 'history')">History</button>
+        </div>
+        <div id="send" class="tab-content active">
+            <form method="POST" action="/client/wallet/withdraw.php" class="w-100 d-flex justify-content-center  d-flex flex-column">
+                <!-- Email Input -->
+
+                <!-- Amount Input -->
+                <label for="amount">Amount:</label>
+                <div class="form-group  mb-3 shadow-lg">
+                    <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+                </div>
+                <label for="amount">address:</label>
+                <div class="form-group d-flex mb-3 shadow-lg">
+                    <?php if (!$withdrawl_wallet): ?>
+                        <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
+                    <?php endif; ?>
+                    <?php if ($withdrawl_wallet): ?>
+                        <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter address" readonly>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editaddress">edit</button>
+                    <?php endif; ?>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary w-50">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="receive" class="tab-content">
+            <form action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
+                <div class="form-group  mb-3 shadow-lg">
+                    <label for="amount">Amount:</label>
+                    <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
+                </div>
+
+                <!-- Select Payment Gateway with Images -->
+
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary w-50 mt-10 shadow-lg">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="history" class="tab-content">
+
+            <table border="1" class="table table-bordered " cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">amount</th>
+                        <th scope="col">type</th>
+                        <th scope="col">success</th>
+                        <th scope="col">datetime</th>
+                        <th scope="col">traceid</th>
+
+                    </tr>
+                </thead>
+                <tbody id="transactionTableBody">
+                </tbody>
+            </table>
+            <nav class="d-flex justify-content-center">
+                <ul class="pagination" id="paginationControls"></ul>
+            </nav>
+
+        </div>
     </div>
-    <div class="tab-navigation">
-        <button class="tab-button active" onclick="openTab(event, 'send')">whitdraw</button>
-        <button class="tab-button" onclick="openTab(event, 'receive')">deposit</button>
-        <button class="tab-button" onclick="openTab(event, 'history')">History</button>
-    </div>
-    <div id="send" class="tab-content active">
-    <form  method="POST" action="/client/wallet/withdraw.php" class="w-100 d-flex justify-content-center  d-flex flex-column">
-        <!-- Email Input -->
-
-        <!-- Amount Input -->
-        <label for="amount">Amount:</label>
-        <div class="form-group  mb-3 shadow-lg">
-            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
-        </div>
-        <label for="amount">address:</label>
-        <div class="form-group d-flex mb-3 shadow-lg">
-            <?php if (!$withdrawl_wallet): ?>
-                <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" readonly>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addaddress">Add</button>
-                <?php endif; ?>
-                <?php if ($withdrawl_wallet): ?>
-                    <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter address" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#editaddress" >edit</button>
-                <?php endif; ?>
-        </div>
-
-
-        <!-- Submit Button -->
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-50">Submit</button>
-            </div>
-        </form>  
-      </div>
-    <div id="receive" class="tab-content">
-    <form  action="/client/wallet/deposit.php" method="POST" class="w-100 d-flex justify-content-center  d-flex flex-column">
-        <div class="form-group  mb-3 shadow-lg">
-            <label  for="amount">Amount:</label>
-            <input id="amount" type="number" name="amount" class="form-control" placeholder="Enter amount" required>
-        </div>
-
-        <!-- Select Payment Gateway with Images -->
-
-        <!-- Submit Button -->
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-50 mt-10 shadow-lg">Submit</button>
-        </div>
-        </form>
-        </div>
-    <div id="history" class="tab-content">
-
-    <table border="1" class="table table-bordered " cellpadding="5" cellspacing="0">
-    <thead>
-    <tr>
-    <th scope="col">amount</th>
-    <th scope="col">type</th>
-    <th scope="col">success</th>
-    <th scope="col">datetime</th>
-    <th scope="col">traceid</th>
-
-    </tr>
-    </thead>
-    <tbody id="transactionTableBody">
-    </tbody>
-    </table>
-    <nav class="d-flex justify-content-center"><ul class="pagination" id="paginationControls"></ul></nav>
-
-</div>
-</div>
 </div>
 <?php if (!$withdrawl_wallet): ?>
     <div class="modal fade" id="addaddress" tabindex="-1" aria-labelledby="addaddressLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addaddressLabel">add address</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="/client/wallet/withdrawwallet.php" method="POST">
-          <div class="mb-3">
-            <label for="address" class="col-form-label">address:</label>
-            <input type="text" class="form-control" name="address" id="address">
-          </div>
-          <div class="mb-3">
-          <div class="custom-dropdown">
-    <!-- The button for the dropdown -->
-    <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
-    <span id="dropdownText">Select Option</span>
-    <span>&#9660;</span> <!-- Down arrow icon -->
-    </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addaddressLabel">add address</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/client/wallet/withdrawwallet.php" method="POST">
+                        <div class="mb-3">
+                            <label for="address" class="col-form-label">address:</label>
+                            <input type="text" class="form-control" name="address" id="address">
+                        </div>
+                        <div class="mb-3">
+                            <div class="custom-dropdown">
+                                <!-- The button for the dropdown -->
+                                <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
+                                    <span id="dropdownText">Select Option</span>
+                                    <span>&#9660;</span> <!-- Down arrow icon -->
+                                </div>
 
-    <!-- Dropdown menu -->
-    <div class="dropdown-menu-down">
-        <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
-            <img src="/image/bnb-bnb-logo.png" alt="Option 1">
-            bnb
-        </div>
-        <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
-            <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
-            dogecoin
-        </div>
-        <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
-            <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
-            bitcoin
-        </div>
-        <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
-            <img src="/image/tether-usdt-logo.png" alt="Option 3">
-            tether
-        </div>
-        <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
-            <img src="/image/toncoin-ton-logo.png" alt="Option 3">
-            toncoin
-        </div>
-    </div>
-    <input type="hidden" id="crypto" name="crypto" value="">
+                                <!-- Dropdown menu -->
+                                <div class="dropdown-menu-down">
+                                    <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
+                                        <img src="/image/bnb-bnb-logo.png" alt="Option 1">
+                                        bnb
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
+                                        <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
+                                        dogecoin
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
+                                        <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
+                                        bitcoin
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
+                                        <img src="/image/tether-usdt-logo.png" alt="Option 3">
+                                        tether
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
+                                        <img src="/image/toncoin-ton-logo.png" alt="Option 3">
+                                        toncoin
+                                    </div>
+                                </div>
+                                <input type="hidden" id="crypto" name="crypto" value="">
 
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-            <button type="submit" class="btn btn-primary" >Add</button>
-        </form>
-      </div>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
 
-    </div>
-  </div>
-</div>
-
-                <?php endif; ?>
-                <?php if ($withdrawl_wallet): ?>
-
-                    <div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="otpVerificationModalLabel">OTP Verification</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="otpForm">
-                    <div class="mb-3">
-                        <label for="otp" class="form-label">Enter OTP</label>
-                        <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP" required>
-                    </div>
-                    <button type="button" onclick="verifyOTP()" class="btn btn-primary">Verify</button>
-                </form>
             </div>
         </div>
     </div>
-</div>
-                    <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
-                        <!-- Save changes button now triggers openOTPModal() -->
+
+<?php endif; ?>
+<?php if ($withdrawl_wallet): ?>
+
+    <div class="modal fade" id="otpVerificationModal" tabindex="-1" aria-labelledby="otpVerificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="otpVerificationModalLabel">OTP Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="otpForm">
+                        <div class="mb-3">
+                            <label for="otp" class="form-label">Enter OTP</label>
+                            <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP" required>
+                        </div>
+                        <button type="button" onclick="verifyOTP()" class="btn btn-primary">Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editaddress" tabindex="-1" aria-labelledby="editaddressLabel" aria-hidden="true">
+        <!-- Save changes button now triggers openOTPModal() -->
+
+        <script>
+            let otpVerified = false; // Flag to track OTP verification
+
+            // Open the OTP modal
+            function openOTPModal() {
+                // Show the OTP modal
+                const editAddressModalElement = document.getElementById('editaddress');
+                const editAddressModal = bootstrap.Modal.getInstance(editAddressModalElement);
+
+                // Hide the 'editaddress' modal if it's open
+                if (editAddressModal) {
+                    editAddressModal.hide();
+                }
+                bootstrap.Modal.getInstance()
+                const otpModal = new bootstrap.Modal(document.getElementById('otpVerificationModal'));
+                otpModal.show();
+
+            }
+
+            // OTP verification function
+            function verifyOTP() {
+                // Generate a random 6-digit OTP for testing purposes
+                const randomOtp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+                alert('Generated OTP for testing: ' + randomOtp);
+
+                // Here, replace the hardcoded OTP verification with real verification logic
+                const enteredOtp = document.getElementById('otp').value; // Get the OTP entered by the user
+
+                // Simulate a successful OTP verification
+                if (enteredOtp == randomOtp) {
+                    otpVerified = true; // Mark as verified
+                    alert('OTP verified successfully');
+
+                    // Hide the OTP modal
+                    const otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
+                    otpModal.hide();
+
+                    // Submit the form after successful OTP verification
+                    document.getElementById('editForm').submit(); // Submit the form
+                } else {
+                    alert('Invalid OTP. Please try again.');
+                }
+            }
+        </script>
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="editForm" action="/client/wallet/changewithdrawwallet.php" method="POST">
+
+                        <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount">
+                        <div class="mb-3">
+                            <div class="custom-dropdown">
+                                <!-- The button for the dropdown -->
+                                <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
+                                    <span id="dropdownText"><?= isset($withdrawl_wallet["crypto"]) ? $withdrawl_wallet["crypto"] : ''; ?></span>
+                                    <span>&#9660;</span> <!-- Down arrow icon -->
+                                </div>
+
+                                <!-- Dropdown menu -->
+                                <div class="dropdown-menu-down">
+                                    <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
+                                        <img src="/image/bnb-bnb-logo.png" alt="Option 1">
+                                        bnb
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
+                                        <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
+                                        dogecoin
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
+                                        <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
+                                        bitcoin
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
+                                        <img src="/image/tether-usdt-logo.png" alt="Option 3">
+                                        tether
+                                    </div>
+                                    <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
+                                        <img src="/image/toncoin-ton-logo.png" alt="Option 3">
+                                        toncoin
+                                    </div>
+                                </div>
+                                <input type="hidden" id="crypto" name="crypto" value="">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </form>
+                    <button type="button" onclick="openOTPModal()" class="btn btn-primary">Save changes</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
 
 <script>
-    let otpVerified = false;  // Flag to track OTP verification
+    // Parse the JSON data passed from PHP
+    const transactions = <?= json_encode($transactions); ?>;
 
-    // Open the OTP modal
-    function openOTPModal() {
-        // Show the OTP modal
-        const editAddressModalElement = document.getElementById('editaddress');
-    const editAddressModal = bootstrap.Modal.getInstance(editAddressModalElement);
+    // Set up variables for pagination
+    let currentPage = 1;
+    const rowsPerPage = 3;
+    const totalPages = Math.ceil(transactions.length / rowsPerPage);
 
-    // Hide the 'editaddress' modal if it's open
-    if (editAddressModal) {
-        editAddressModal.hide();
-    }        bootstrap.Modal.getInstance()
-        const otpModal = new bootstrap.Modal(document.getElementById('otpVerificationModal'));
-        otpModal.show();
-        
-    }
+    // Function to display transactions on the table
+    function displayTransactions(page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedTransactions = transactions.slice(start, end);
 
-    // OTP verification function
-    function verifyOTP() {
-        // Generate a random 6-digit OTP for testing purposes
-        const randomOtp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
-        alert('Generated OTP for testing: ' + randomOtp);
+        const tableBody = document.getElementById('transactionTableBody');
+        tableBody.innerHTML = '';
 
-        // Here, replace the hardcoded OTP verification with real verification logic
-        const enteredOtp = document.getElementById('otp').value; // Get the OTP entered by the user
-        
-        // Simulate a successful OTP verification
-        if (enteredOtp == randomOtp) {
-            otpVerified = true; // Mark as verified
-            alert('OTP verified successfully');
-
-            // Hide the OTP modal
-            const otpModal = bootstrap.Modal.getInstance(document.getElementById('otpVerificationModal'));
-            otpModal.hide();
-
-            // Submit the form after successful OTP verification
-            document.getElementById('editForm').submit(); // Submit the form
-        } else {
-            alert('Invalid OTP. Please try again.');
-        }
-    }
-</script>
-
-<div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-      <form id="editForm" action="/client/wallet/changewithdrawwallet.php" method="POST">
-
-      <input id="address" type="text" name="address" value="<?= isset($withdrawl_wallet["address"]) ? $withdrawl_wallet["address"] : ''; ?>" class="form-control" placeholder="Enter amount">
-      <div class="mb-3">
-          <div class="custom-dropdown">
-    <!-- The button for the dropdown -->
-    <div class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
-    <span id="dropdownText"><?= isset($withdrawl_wallet["crypto"]) ? $withdrawl_wallet["crypto"] : ''; ?></span>
-    <span>&#9660;</span> <!-- Down arrow icon -->
-    </div>
-
-    <!-- Dropdown menu -->
-    <div class="dropdown-menu-down">
-        <div class="dropdown-option" onclick="selectOption('bnb', '/image/bnb-bnb-logo.png')">
-            <img src="/image/bnb-bnb-logo.png" alt="Option 1">
-            bnb
-        </div>
-        <div class="dropdown-option" onclick="selectOption('dogecoin', '/image/dogecoin-doge-logo.png')">
-            <img src="/image/dogecoin-doge-logo.png" alt="Option 2">
-            dogecoin
-        </div>
-        <div class="dropdown-option" onclick="selectOption('bitcoin', '/image/bitcoin-btc-logo.png')">
-            <img src="/image/bitcoin-btc-logo.png" alt="Option 3">
-            bitcoin
-        </div>
-        <div class="dropdown-option" onclick="selectOption('tether', '/image/tether-usdt-logo.png')">
-            <img src="/image/tether-usdt-logo.png" alt="Option 3">
-            tether
-        </div>
-        <div class="dropdown-option" onclick="selectOption('toncoin', '/image/toncoin-ton-logo.png')">
-            <img src="/image/toncoin-ton-logo.png" alt="Option 3">
-            toncoin
-        </div>
-    </div>
-    <input type="hidden" id="crypto" name="crypto" value="">
-
-</div>
-</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    </form>
-    <button type="button"  onclick="openOTPModal()" class="btn btn-primary">Save changes</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-                <?php endif; ?>
-
-
-                <script>
-// Parse the JSON data passed from PHP
-const transactions = <?= json_encode($transactions); ?>;
-
-// Set up variables for pagination
-let currentPage = 1;
-const rowsPerPage = 3;
-const totalPages = Math.ceil(transactions.length / rowsPerPage);
-
-// Function to display transactions on the table
-function displayTransactions(page) {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedTransactions = transactions.slice(start, end);
-
-    const tableBody = document.getElementById('transactionTableBody');
-    tableBody.innerHTML = '';
-
-    paginatedTransactions.forEach(transaction => {
-        const row = `<tr>
+        paginatedTransactions.forEach(transaction => {
+            const row = `<tr>
             <td>${transaction.amount}</td>
             <td>${transaction.type}</td>
             <td>${transaction.success}</td>
@@ -339,37 +342,37 @@ function displayTransactions(page) {
             <td>${transaction.oxapaytraceid}</td>
 
         </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', row);
-    });
-}
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    }
 
-// Function to create pagination controls
-function setupPagination() {
-    const paginationControls = document.getElementById('paginationControls');
-    paginationControls.innerHTML = '';
+    // Function to create pagination controls
+    function setupPagination() {
+        const paginationControls = document.getElementById('paginationControls');
+        paginationControls.innerHTML = '';
 
-    for (let i = 1; i <= totalPages; i++) {
-        const pageItem = `<li class="page-item ${i === currentPage ? 'active' : ''}">
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = `<li class="page-item ${i === currentPage ? 'active' : ''}">
             <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
         </li>`;
-        paginationControls.insertAdjacentHTML('beforeend', pageItem);
+            paginationControls.insertAdjacentHTML('beforeend', pageItem);
+        }
     }
-}
 
-// Function to handle page changes
-function goToPage(page) {
-    currentPage = page;
-    displayTransactions(currentPage);
-    setupPagination();
-}
+    // Function to handle page changes
+    function goToPage(page) {
+        currentPage = page;
+        displayTransactions(currentPage);
+        setupPagination();
+    }
 
-// Initialize the table and pagination on page load
-document.addEventListener('DOMContentLoaded', () => {
-    displayTransactions(currentPage);
-    setupPagination();
-});
+    // Initialize the table and pagination on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        displayTransactions(currentPage);
+        setupPagination();
+    });
 </script>
-<script>    
+<script>
     // Send OTP to server for verification
 
     function toggleDropdown() {
@@ -391,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 </script>
 <script>
-        function toggleDropdown() {
+    function toggleDropdown() {
         var dropdownMenu = document.querySelector('.dropdown-menu-down');
         dropdownMenu.classList.toggle('show');
     }
@@ -404,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         dropdownText.innerHTML = '<img src="' + imgSrc + '" style="width: 24px; height: 24px; margin-right: 10px; border-radius: 50%;" alt="Selected">' + optionText;
-        dropdownInput.value =optionText
+        dropdownInput.value = optionText
         // Close the dropdown
         toggleDropdown();
     }
@@ -413,11 +416,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', function(event) {
         var dropdown = document.querySelector('.custom-dropdown');
         var dropdownMenu = document.querySelector('.dropdown-menu-down');
-        
+
         // Check if the clicked target is inside the dropdown, if not, close the dropdown
         if (!dropdown.contains(event.target)) {
             dropdownMenu.classList.remove('show');
-        }})
+        }
+    })
     // Function to switch between tabs
     function openTab(evt, tabName) {
         // Get all elements with class="tab-content" and hide them
@@ -436,19 +440,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
     }
-// JavaScript to hide the alert after 10 seconds
-setTimeout(function() {
-    var successAlert = document.getElementById('successAlert');
-    if (successAlert) {
-        successAlert.style.display = 'none';  // Hide the alert
-    }
-}, 10000);  // 10 seconds in milliseconds
+    // JavaScript to hide the alert after 10 seconds
+    setTimeout(function() {
+        var successAlert = document.getElementById('successAlert');
+        if (successAlert) {
+            successAlert.style.display = 'none'; // Hide the alert
+        }
+    }, 10000); // 10 seconds in milliseconds
 
-setTimeout(function() {
-    var successAlert = document.getElementById('serrorAlert');
-    if (successAlert) {
-        successAlert.style.display = 'none';  // Hide the alert
-    }
-}, 10000);  // 10 seconds in milliseconds
+    setTimeout(function() {
+        var successAlert = document.getElementById('serrorAlert');
+        if (successAlert) {
+            successAlert.style.display = 'none'; // Hide the alert
+        }
+    }, 10000); // 10 seconds in milliseconds
     // By default, the first tab is active
 </script>

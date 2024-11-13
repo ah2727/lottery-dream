@@ -6,7 +6,10 @@ $redT = new readingData();
 $selcard = $redT->readCardsAll();
 $cardHead = $redT->selCard();
 $ins = new register();
+$avfwinner = $redT->getAverageDivision();
+
 ?>
+
 <?php
 if (isset($_POST['random'])){
     $C_Name = $_POST['C_Name'];
@@ -52,10 +55,15 @@ if (isset($_POST['random'])){
                 <label for="gems">use gems?</label>
                 <input type="checkbox"  name="gmes">
                 </div>
+                <div class="px-4 d-grid justify-center items-center">
+                <label for="avg">division avg?</label>
+                <span name="avg"><?php echo $avfwinner ?></span>
+            </div>
             </div>
                 <div class="d-flex justify-content-center pt-2">
                 <input type="submit" class="btn btn-outline-success mt-3 mx-3" value="Random" name="random" >
                 </div>
+                
 
         </div>
     </form>
