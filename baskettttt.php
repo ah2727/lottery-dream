@@ -21,6 +21,7 @@ $pay11 = new pay();
 $resssss = $pdob->selAllby();
 if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
     $result = $pdob->selCarsWithName($_GET['CardName']);
+    print_r($result);
     if (empty($result)) {
         $result = $pdob->selCarsWithName1($_GET['CardName']);
         if (empty($result)) {
@@ -197,7 +198,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                                                     $n = $i;
                                                                 ?>
                                                                     <div
-                                                                        class="self-auto flex font-bold rounded-full justify-center bg-game-daily bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                        class="self-auto flex font-bold rounded-full justify-center bg-game-daily bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                         <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                                             aria-hidden="true" class="sp-1">
                                                                             <?= $val['bal' . $i] ?>
@@ -567,7 +568,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         $now = time();
                         foreach ($_SESSION['PayShop'] as $paybu) {
                             $randCode = rand(1000, 9999);
-                            $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"] ? $_COOKIE["inputOption"] : 0);
+                            $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"]?? 0);
                             if (is_string($order) && str_contains($order, "Error")) {
                                 // If an error message is returned, set error flag and break the loop
                                 $hasError = true;
@@ -580,7 +581,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         }
                         if (!$hasError) {
                             $rgb = count($_SESSION['PayShop']);
-                            $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);
+                            $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);                            
                             $reggg->insertTrak($_SESSION['emailc'], $_SESSION['payy']->trackId, $ordayid);
                             unset($_SESSION['PayShop']);
                             header("Location:" . $_SESSION['payy']->payLink);

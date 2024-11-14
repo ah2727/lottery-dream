@@ -39,6 +39,10 @@ $pdo1 = new register();
             <input type="number" class="form-control mt-2" id="time" name="count" >
         </div>
         <div class="mt-3">
+            <label for="" class="text-primary size-20">card color</label>
+            <input type="text" class="form-control mt-2" id="time" name="color" >
+        </div>
+        <div class="mt-3">
             <label for="" class="text-primary size-20">Card Price</label>
             <input type="number" class="form-control mt-2" id="money" name="money" required >
         </div>
@@ -59,6 +63,7 @@ $pdo1 = new register();
 if (isset($_POST['confirm'])){
     $card_Header = $_POST['card_Header'];
     $money = $_POST['money'];
+    $color = $_POST['color'];
     $winner_money = $_POST['winner_money'];
     $bg_image = $_FILES['Bg_Image']['name'];
     $Basket = $_FILES['Basket']['name'];
@@ -85,7 +90,7 @@ if (isset($_POST['confirm'])){
         move_uploaded_file($_FILES['result']["tmp_name"],"../image/CardsImage/".$_FILES['result']['name']);
         move_uploaded_file($_FILES['Bg_Image']["tmp_name"],"../image/CardsImage/".$_FILES['Bg_Image']['name']);
         move_uploaded_file($_FILES['image']["tmp_name"],"../image/CardsImage/".$_FILES['image']['name']);
-        $pdo1->addnewCard($imageName,$card_Header,$newTimeStamp,$money,$winner_money,$token,$CardName,$bg_image,$ResultName,$count,$Basket,$winnermoney_Head);
+        $pdo1->addnewCard($imageName,$card_Header,$newTimeStamp,$money,$winner_money,$token,$CardName,$bg_image,$ResultName,$count,$Basket,$winnermoney_Head,$color);
         header("Location:".$_SERVER['PHP_SELF'] ."?type=addNewCards");
     }
 }

@@ -505,7 +505,7 @@ if (isset($_POST['buynow'])){
              $now = time();
                 foreach ($_SESSION['PayShop'] as $paybu) {
                     $randCode = rand(1000, 9999);
-                    $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$paybu['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"] ? $_COOKIE["inputOption"]:0);
+                    $reggg->InsertOrderTabel($_SESSION['emailc'],$paybu['bal1'],$paybu['bal2'],$paybu['bal3'],$paybu['bal4'],$paybu['bal5'],$paybu['bal6'],$ordayid,$randCode,$paybu['CardName'],$_SESSION['pay'],$now,$_COOKIE["selectedOption"],$_COOKIE["inputOption"] ?? 0);
                     $_COOKIE["inputOption"]="";
                                         unset($_SESSION['PayShop']);
                 }

@@ -4,37 +4,48 @@
     </div>
     <div class="col-lg-6">
         <h5 class="text-center text-uppercase fw-semibold">Your Price Status</h5>
-        <table class="table table-bordered mt-4 display" id="myTable">
-            <thead>
-            <tr>
-                <th class="fw-semibold text-uppercase size-13 text-center">id</th>
-                <th class="fw-semibold text-uppercase size-13 text-center">Card Name</th>
-                <th class="fw-semibold text-uppercase size-13 text-center">Token</th>
-                <th class="fw-semibold text-uppercase size-13 text-center">order Id</th>
-                <th class="fw-semibold text-uppercase size-13 text-center">Win Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            foreach ($Winners as $res){
+        <div class="bg-white w-100 h-75 d-flex border justify-content-center">
+    <?php
+    include_once '../clases/readingData.php';
+    $shop = new readingData();
+    $Winners = $shop->selWinnerEmail($_SESSION['emailc']);
 
-                ?>
-                <tr>
-                    <td class="text-center"><?=$res['id']?></td>
-                    <td class="text-center"><?=$res['CardName']?></td>
-                    <td class="text-center"><?=$res['BALLS1'].'-'.$res['BALLS2'].'-'.$res['BALLS3'].'-'.$res['BALLS4'].'-'.$res['BALLS5'].'-'.$res['BALLS6'].'-'.$res['BALLS1']?></td>
-                    <td class="text-center"><?=$res['ORDERID']?></td>
-                    <td class="text-center text-success">
-                        <?php
-                        echo "Winnneer"
-                        ?>
-                    </td>
-                </tr>
-                <?php
+    // Debugging: Print structure to verify data
+
+
+    if (empty($Winners)) {
+        echo "no card.";
+    } else {
+        foreach ($Winners as $res) {
+            if (empty($res['CardName']) && empty($res['BALLS1']) && empty($res['BALLS2']) && empty($res['BALLS3']) && empty($res['BALLS4']) && empty($res['BALLS5']) && empty($res['BALLS6']) && empty($res['WIN_STATUS'])) {
+                echo "No card";
+            } else {
+                // Display card name if it exists
+                if (!empty($res['CardName'])) {
+                    echo "Card Name: " . htmlspecialchars($res['CardName']) . "<br>";
+                }
+
+                // Display balls if available
+                if (!empty($res['BALLS1']) || !empty($res['BALLS2']) || !empty($res['BALLS3']) || !empty($res['BALLS4']) || !empty($res['BALLS5']) || !empty($res['BALLS6'])) {
+                    echo "Balls: " . htmlspecialchars($res['BALLS1']) . '-' . htmlspecialchars($res['BALLS2']) . '-' .
+                         htmlspecialchars($res['BALLS3']) . '-' . htmlspecialchars($res['BALLS4']) . '-' .
+                         htmlspecialchars($res['BALLS5']) . '-' . htmlspecialchars($res['BALLS6']) . "<br>";
+                }
+
+                // Check win status
+                if (!empty($res['WIN_STATUS']) && $res['WIN_STATUS'] === "won") {
+                    echo "Status: Winner";
+                } else {
+                    echo "Status: Haven't won yet";
+                }
             }
-            ?>
-            </tbody>
-        </table></div>
+            echo "<hr>"; // Separator for each record
+        }
+    }
+    ?>
+</div>
+
+    </div>
 </div>
 
 <div class="row justify-content-center align-items-center">

@@ -56,10 +56,10 @@ class register extends db_connect
         }
     }
 
-    function addnewCard($cardImage,$cardHeader,$times,$money,$winnerMoney,$token,$CardName,$bg_Image,$result_Image,$countstamp,$Basket,$winnermoby_head)
+    function addnewCard($cardImage,$cardHeader,$times,$money,$winnerMoney,$token,$CardName,$bg_Image,$result_Image,$countstamp,$Basket,$winnermoby_head,$color)
     {
-        $pdo = $this->connect()->prepare("insert into cards(cardImage,cardHeader,times,Money,winnermoney,CardToken,CardName,bg_Image,result_Image,countstamp,Basket_Image,winnermoney_head) values (?,?,?,?,?,?,?,?,?,?,?,?)");
-        $res = $pdo->execute([$cardImage,$cardHeader,$times,$money,$winnerMoney,$token,$CardName,$bg_Image,$result_Image,$countstamp,$Basket,$winnermoby_head]);
+        $pdo = $this->connect()->prepare("insert into cards(cardImage,cardHeader,times,Money,winnermoney,CardToken,CardName,bg_Image,result_Image,countstamp,Basket_Image,winnermoney_head,color) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $res = $pdo->execute([$cardImage,$cardHeader,$times,$money,$winnerMoney,$token,$CardName,$bg_Image,$result_Image,$countstamp,$Basket,$winnermoby_head,$color]);
         if ($res){
             return true;
         }else{
