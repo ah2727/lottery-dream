@@ -80,6 +80,8 @@ if (isset($_SESSION['email'])) {
                                 <li><a class="dropdown-item my-2" href="?type=adminSetting">Admin Setting</a></li>
                                 <li><a class="dropdown-item my-2" href="?type=AddWinner">Add Winner</a></li>
                                 <li><a class="dropdown-item my-2" href="?type=WinnerStatus">Winner Status</a></li>
+                                <li><a class="dropdown-item my-2" href="?type=adddivision">add division</a></li>
+
                             </ul>
                         </li>
                         <li class="dropdown"><a class="nav-link nav-item text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cards Setting</a>
@@ -87,6 +89,7 @@ if (isset($_SESSION['email'])) {
                                 <li><a class="dropdown-item my-2" href="?type=addNewCards">Add New Cards</a></li>
                                 <li><a class="dropdown-item my-2" href="?type=addNewCardsHead">Add New Cards Head</a></li>
                                 <li><a class="dropdown-item my-2" href="?type=cardsStatus">Cards Status</a></li>
+
                             </ul>
                         </li>
                         <li><a class="nav-link nav-item text-dark" href="?type=messages">messages</a></li>
@@ -163,6 +166,9 @@ if (isset($_SESSION['email'])) {
                                 case "WinnerStatus":
                                     include_once "inc/winnerSetting.php";
                                     break;
+                                case "adddivision":
+                                    include_once "inc/adddivision.php";
+                                    break;
                                 default:
                                     include_once "inc/charts.php";
                             }
@@ -176,7 +182,6 @@ if (isset($_SESSION['email'])) {
         </div>
         <footer class="web-footer-section bg-primary mt-5">
             <div class="container">
-                <p class="text-whit1e text-center"  style="text-transform: uppercase">developer by AmirHosein &copy;</p>
             </div>
         </footer>
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"

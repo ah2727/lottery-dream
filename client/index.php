@@ -26,7 +26,27 @@ $menu = $_GET['menu'] ?? 'Home';
     <!-- Bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
-    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Style -->
+    <!-- Style -->
+    <link rel="stylesheet" href="../css/87e1e548f220918d.css">
+    <!-- responsive -->
+    <!-- Style -->
+    <link rel="stylesheet" href="../css/0a8acb52cdb1f962.css">
+    <!-- responsive -->
+    <!-- Style -->
+    <link rel="stylesheet" href="../css/148011a395061c55.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Style -->
+    <link rel="stylesheet" href="../css/bf5750195f5b2ba9.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="../css/d53016d9c486db61.css">
+    <!-- responsive -->
+    <!-- responsive -->
+    <link rel="stylesheet" href="../css/e210c8fb9235f783.css">
+    <!-- responsive -->
 
 </head>
 <body>
