@@ -179,7 +179,7 @@ if (isset($_GET['UpdateCardHead'])){
             </div>
             <div class="mt-3">
                 <label for="" class="text-primary size-20">Pick Date To Go</label>
-                <input type="datetime-local" class="form-control mt-2" id="time" onchange="number()" name="dateUpdate" value="<?php
+                <input type="datetime-local" class="form-control mt-2" id="datetime" onchange="number()" name="dateUpdate" value="<?php
                 if (!empty($restime)){
                     echo $restime;
                 }
@@ -202,6 +202,10 @@ if (isset($_GET['UpdateCardHead'])){
                 <label for="" class="text-primary size-20">winnermoney_head</label>
                 <input type="text" class="form-control mt-2" id="winner" onkeyup="number()" name="winnermoney_head" required value="<?=$redCardHeadId['winnermoney_head']?>">
             </div>
+            <div class="mt-3">
+                <label for="" class="text-primary size-20">color</label>
+                <input type="text" class="form-control mt-2" id="color1" name="color1" required value="<?=$redCardHeadId['color']?>">
+            </div>
             <div class="d-flex justify-content-center mt-4">
                 <input type="submit" class="btn btn-outline-primary fw-bold mx-2" value="Confirm" name="cardUpdate11">
                 <input type="reset" class="btn btn-outline-danger fw-bold mx-2" value="Cancel">
@@ -212,6 +216,7 @@ if (isset($_GET['UpdateCardHead'])){
 }
 ?>
 <?php
+
 if (isset($_POST['confirm_Card'])){
     $CardName = $_POST['CardName'];
     $card_HeaderUpdate =$_POST['card_Header'];
@@ -224,10 +229,10 @@ if (isset($_POST['confirm_Card'])){
     $winner_moneyUpdate = $_POST['winner_money'];
     $count = $_POST['count'];
     if (!empty($newTimeStamp)){
-        $update->UpdateCard($_GET['UpdateCard'],$card_HeaderUpdate,$newTimeStamp,$moneyUpdate,$winner_moneyUpdate,$CardName,$color );
+        $update->UpdateCard($redCardHeadId["id"],$card_HeaderUpdate,$newTimeStamp,$moneyUpdate,$winner_moneyUpdate,$CardName,$color);
         header("Location:?type=cardsStatus");
     }else{
-        $update->UpdateCardCount($_GET['UpdateCard'],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardName);
+        $update->UpdateCardCount($redCardHeadId["id"],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardName);
         header("Location:?type=cardsStatus");
     }
 }
@@ -239,12 +244,13 @@ if (isset($_POST['cardUpdate11'])){
     if (!empty($_POST['dateUpdate'])){
         $dateUpdate = $_POST['dateUpdate'];
     }
+    $color1 = $_POST['color1'];
     $moneyUpdate = $_POST['moneyUpdate'];
     $winner_moneyUpdate = $_POST['winner_moneyUpdate'];
     $winnermoney_head = $_POST['winnermoney_head'];
     $count = $_POST['countUpdate'];
     if (!empty($dateUpdate)){
-        $update->UpdateCardHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$dateUpdate,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head);
+        $update->UpdateCardHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$dateUpdate,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head,$color1);
         header("Location:?type=cardsStatus");
     }else{
         $update->UpdateCardCountHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head);
