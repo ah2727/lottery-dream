@@ -25,10 +25,10 @@ class Update_Database extends db_connect{
 
     }
 
-    function UpdateCard($id,$cardHeader,$times,$Money,$winnermoney,$CardName)
+    function UpdateCard($id,$cardHeader,$times,$Money,$winnermoney,$CardName,$color)
     {
-            $pdo = $this->connect()->prepare("UPDATE cards set cardHeader=?,times=?,Money=?,winnermoney=?,CardName=? where id=?");
-            $pdo->execute([$cardHeader,$times,$Money,$winnermoney,$CardName,$id]);
+            $pdo = $this->connect()->prepare("UPDATE cards set cardHeader=?,times=?,Money=?,winnermoney=?,CardName=?,color=? where id=?");
+            $pdo->execute([$cardHeader,$times,$Money,$winnermoney,$CardName,$color,$id]);
     }
     function UpdateCardCount($id,$cardHeader,$countstamp,$Money,$winnermoney,$CardName)
     {

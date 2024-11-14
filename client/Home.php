@@ -9,39 +9,19 @@
     include_once '../clases/readingData.php';
     $shop = new readingData();
     $Winners = $shop->selWinnerEmail($_SESSION['emailc']);
-
+    $orders = $shop->getallorder($_SESSION['emailc']);
     // Debugging: Print structure to verify data
 
 
-    if (empty($Winners)) {
+    if (empty($orders)) {
         echo "no card.";
-    } else {
-        foreach ($Winners as $res) {
-            if (empty($res['CardName']) && empty($res['BALLS1']) && empty($res['BALLS2']) && empty($res['BALLS3']) && empty($res['BALLS4']) && empty($res['BALLS5']) && empty($res['BALLS6']) && empty($res['WIN_STATUS'])) {
-                echo "No card";
-            } else {
-                // Display card name if it exists
-                if (!empty($res['CardName'])) {
-                    echo "Card Name: " . htmlspecialchars($res['CardName']) . "<br>";
-                }
-
-                // Display balls if available
-                if (!empty($res['BALLS1']) || !empty($res['BALLS2']) || !empty($res['BALLS3']) || !empty($res['BALLS4']) || !empty($res['BALLS5']) || !empty($res['BALLS6'])) {
-                    echo "Balls: " . htmlspecialchars($res['BALLS1']) . '-' . htmlspecialchars($res['BALLS2']) . '-' .
-                         htmlspecialchars($res['BALLS3']) . '-' . htmlspecialchars($res['BALLS4']) . '-' .
-                         htmlspecialchars($res['BALLS5']) . '-' . htmlspecialchars($res['BALLS6']) . "<br>";
-                }
-
-                // Check win status
-                if (!empty($res['WIN_STATUS']) && $res['WIN_STATUS'] === "won") {
-                    echo "Status: Winner";
-                } else {
-                    echo "Status: Haven't won yet";
-                }
-            }
-            echo "<hr>"; // Separator for each record
-        }
+    } else if($Winners) {
+        echo "win";
     }
+        else{
+            echo "wait for wining";
+        }
+    
     ?>
 </div>
 

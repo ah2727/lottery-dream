@@ -194,4 +194,10 @@ class readingData extends db_connect
         // Return the average division value
         return $res['average_division'] ?? null; // Return null if no result
     }
+    function getallorder($email){
+        $pdo = $this->connect()->prepare("select * from ordertable where email=?");
+        $pdo->execute([$email]);
+        $res = $pdo->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
 }

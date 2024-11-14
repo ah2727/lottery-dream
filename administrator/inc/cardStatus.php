@@ -149,6 +149,10 @@ if (isset($_GET['UpdateCard'])){
                 <label for="" class="text-primary size-20">winner money For Game</label>
                 <input type="text" class="form-control mt-2" id="winner" name="winner_money" required value="<?=$res['winnermoney']?>">
             </div>
+            <div class="mt-3">
+                <label for="" class="text-primary size-20">color</label>
+                <input type="text" class="form-control mt-2" id="color" name="color" required value="<?=$res['color']?>">
+            </div>
             <div class="d-flex justify-content-center mt-4">
                 <input type="submit" class="btn btn-outline-success mx-2" value="confirm" name="confirm_Card">
                 <input type="reset" class="btn btn-outline-danger mx-2" value="cancel">
@@ -211,6 +215,7 @@ if (isset($_GET['UpdateCardHead'])){
 if (isset($_POST['confirm_Card'])){
     $CardName = $_POST['CardName'];
     $card_HeaderUpdate =$_POST['card_Header'];
+    $color = $_POST['color'];
     if (!empty($_POST['date'])){
         $newTime = new DateTime($_POST['date']);
         $newTimeStamp =  $newTime->getTimestamp();
@@ -219,7 +224,7 @@ if (isset($_POST['confirm_Card'])){
     $winner_moneyUpdate = $_POST['winner_money'];
     $count = $_POST['count'];
     if (!empty($newTimeStamp)){
-        $update->UpdateCard($_GET['UpdateCard'],$card_HeaderUpdate,$newTimeStamp,$moneyUpdate,$winner_moneyUpdate,$CardName);
+        $update->UpdateCard($_GET['UpdateCard'],$card_HeaderUpdate,$newTimeStamp,$moneyUpdate,$winner_moneyUpdate,$CardName,$color );
         header("Location:?type=cardsStatus");
     }else{
         $update->UpdateCardCount($_GET['UpdateCard'],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardName);
