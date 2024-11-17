@@ -57,23 +57,23 @@ if (isset($_GET['cardName'])){
                                                 <div class="leading-5 font-bold py-1.5">Winning numbers</div>
                                                 <div class="flex flex-col space-y-4">
                                                     <div class="flex gap-1.5 md:gap-2 flex-wrap">
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['BALLS1']?>
                                                         </div>
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['BALLS2']?>
                                                         </div>
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['BALLS3']?>
                                                         </div>
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['BALLS4']?>
                                                         </div>
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
 
                                                             <?=$v_re['BALLS5']?>
                                                         </div>
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['BALLS6']?>
                                                         </div>
                                                     </div>
@@ -83,7 +83,7 @@ if (isset($_GET['cardName'])){
                                                 <div class="leading-5 font-bold py-1.5">Random Kay</div>
                                                 <div class="flex flex-col space-y-4">
                                                     <div class="flex gap-1.5 md:gap-2 flex-wrap">
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl ring-red-800 ring-2 ring-offset-4 mx-0.5 md:mx-auto">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl ring-red-800 ring-2 ring-offset-4 mx-0.5 md:mx-auto">
                                                             <?=$v_re['random']?>
                                                         </div>
                                                     </div>
