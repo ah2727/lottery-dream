@@ -83,7 +83,7 @@ if (isset($_GET['cardName'])){
                                                 <div class="leading-5 font-bold py-1.5">Random Kay</div>
                                                 <div class="flex flex-col space-y-4">
                                                     <div class="flex gap-1.5 md:gap-2 flex-wrap">
-                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl ring-red-800 ring-2 ring-offset-4 mx-0.5 md:mx-auto">
+                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl ring-red-800 ring-2 ring-offset-4 mx-0.5 md:mx-auto" style="background-color:<?php echo $vc['color'] ?>">
                                                             <?=$v_re['random']?>
                                                         </div>
                                                     </div>
