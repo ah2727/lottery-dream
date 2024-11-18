@@ -200,4 +200,34 @@ class readingData extends db_connect
         $res = $pdo->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
+    public function getTransactions() {
+        // Query to select all transactions
+        $query = "SELECT * FROM transaction";
+        $conn = $this->connect();
+        $result = $conn->prepare($query);
+        $result->execute();
+    
+        // Array to store all transactions
+        $transactions = [];
+        if ($result !== false && $result->rowCount() > 0) {
+            while ($result !== false && $row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $transactions[] = $row;
+            }
+        }
+    
+        // Query to get the total count and sum of all transactions
+        $aggregateQuery = "SELECT COUNT(*) AS total_count, SUM(amount) AS total_amount FROM transaction";
+        $aggregateResult = $conn->prepare($aggregateQuery);
+        $aggregateResult->execute();
+        $aggregates = $aggregateResult ? $aggregateResult->fetch(PDO::FETCH_ASSOC) : null;
+    
+        // Return an associative array with transactions, total count, and total amount
+        return [
+            'transactions' => $transactions,
+            'total_count' => isset($aggregates['total_count']) ? $aggregates['total_count'] : 0,
+            'total_amount' => isset($aggregates['total_amount']) ? $aggregates['total_amount'] : 0
+        ];
+    }
+    
+
 }

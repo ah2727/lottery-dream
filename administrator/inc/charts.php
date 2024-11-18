@@ -7,7 +7,10 @@
     <div id="container" class="pt-5"></div>
 </figure>
 
-
+<?php 
+$red=new readingData();
+$transaction = $red->getTransactions()
+?>
 <script>
     const chart = Highcharts.chart('container', {
 
@@ -16,7 +19,7 @@
         },
 
         title: {
-            text: 'Viwe'
+            text: 'count and incomming'
         },
 
 
@@ -41,11 +44,11 @@
         },
 
         series: [{
-            name: 'Day',
-            data: [<?=$dayviwe['count(id)']?>]
+            name: 'count',
+            data: [<?=$transaction['total_count']?>]
         }, {
-            name: 'Month',
-            data: [<?=$mviwe['count(id)']?>]
+            name: 'total',
+            data: [<?=$transaction['total_amount']?>]
         }, {
         }],
 

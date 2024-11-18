@@ -581,6 +581,12 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         foreach ($_SESSION['PayShop'] as $paybu) {
                             $randCode = rand(1000, 9999);
                             $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"] ?? 0);
+                            $winner =$pdob->selWinnerCardName($_GET['CardName']);
+                            if($winner){
+                                $hasError = true;
+                                echo "finish latary time"; 
+                                break;
+                            }
                             if (is_string($order) && str_contains($order, "Error")) {
                                 // If an error message is returned, set error flag and break the loop
                                 $hasError = true;
