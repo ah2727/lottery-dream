@@ -198,7 +198,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                                                     $n = $i;
                                                                 ?>
                                                                     <div
-                                                                        class="self-auto flex font-bold rounded-full justify-center bg-game-daily bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
+                                                                        class="self-auto flex font-bold rounded-full justify-center bg-game-daily bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white  NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                         <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                                             aria-hidden="true" class="sp-1">
                                                                             <?= $val['bal' . $i] ?>
@@ -232,7 +232,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                                                         class="Overlays_modal__X3QSB Overlays_is-open__xwDvf undefined overflow-y-auto"><span
                                                                             data-focus-scope-start="true" hidden=""></span>
                                                                         <div class="relative h-full">
-                                                                            <div class="flex flex-col h-24 md:h-28 lg:rounded-t-lg sticky top-0 z-1 bg-game-daily-light" >
+                                                                            <div class="flex flex-col h-24 md:h-28 lg:rounded-t-lg sticky top-0 z-1 bg-game-daily-light" style="background-image:url('image/CardsImage/<?= $result['bg_Image'] ?>')">
                                                                                 <div class="flex justify-center py-3 relative">
                                                                                     <span class="m-4 absolute top-0 right-0 c-pointer close">
                                                                                         <svg class="transform rotate-45 w-3 h-3" width="14" height="14" viewBox="0 0 14 14"
@@ -246,36 +246,36 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                                                                 <div class="relative text-center">
                                                                                     <div class="relative flex justify-center">
                                                                                         <div class="absolute flex space-x-1">
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm"></span>
                                                                                                 <span aria-hidden="true" class="sp-1"><?= $val['bal1'] ?></span>
                                                                                                 <input type="text" class="num1" hidden name="n1">
                                                                                             </div>
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm "></span>
                                                                                                 <span
                                                                                                     aria-hidden="true" class="sp-2"><?= $val['bal2'] ?></span>
                                                                                                 <input type="text" class="num2" hidden name="n2">
                                                                                             </div>
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm "></span>
                                                                                                 <span aria-hidden="true" class="sp-3"><?= $val['bal3'] ?>
                                                                                                 </span>
                                                                                                 <input type="text" class="num3" hidden name="n3">
                                                                                             </div>
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                                                                     aria-hidden="true"
                                                                                                     class="sp-4"> <?= $val['bal4'] ?></span>
                                                                                                 <input type="text" class="num4" hidden name="n4">
                                                                                             </div>
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                                                                     aria-hidden="true"
                                                                                                     class="sp-5"><?= $val['bal5'] ?></span>
                                                                                                 <input type="text" class="num5" hidden name="n5">
                                                                                             </div>
-                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                                                            <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                                                                 <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                                                                     aria-hidden="true"
                                                                                                     class="sp-6"><?= $val['bal6'] ?></span>
@@ -345,36 +345,36 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                             <button class="relative text-center rounded-full p-2 border border-gray-300 hover:shadow-hover cursor-pointer bg-white w-min" ">
                                         <div class=" inline-flex justify-center z-2 pt-1 mx-1 space-x-1">
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full justify-center bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full justify-center bgs1 items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-1"></span>
                                                 </div>
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full  bgs2 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full  bgs2 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-2">
                                                     </span>
                                                 </div>
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full bgs3 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full bgs3 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-3">
                                                     </span>
                                                 </div>
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full bgs4 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full bgs4 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-4">
                                                     </span>
                                                 </div>
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full bgs5 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full bgs5 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-5">
                                                     </span>
                                                 </div>
                                                 <div style="background-color: unset"
-                                                    class="self-auto flex font-bold rounded-full bgs6 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                                    class="self-auto flex font-bold rounded-full bgs6 justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                                     <span class="absolute opacity-0 w-full h-full text-x-sm "></span><span
                                                         aria-hidden="true" class="sp-6">
                                                     </span>
@@ -466,8 +466,19 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1">💎</span>
                                             </div>
+                                            <?php
+                                            if ($usergems != 0) {
+                                            ?>
+                                                <input type="text" onchange="changeOption(this.value)" class="form-control" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1" value="0" id="gemInput">
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <input type="text" onchange="changeOption(this.value)" class="form-control Disabled readonly" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1" value="0" id="gemInput" disabled>
 
-                                            <input type="text" onchange="changeOption(this.value)" class="form-control" name="gems" placeholder="gems" aria-label="Username" aria-describedby="basic-addon1" value="0" id="gemInput">
+                                            <?php
+                            
+                                            }
+                                            ?>
 
                                             <!-- Increment, Decrement, and Max buttons -->
                                             <div class="input-group-append pl-2">
@@ -476,6 +487,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                                 <button class="btn btn-outline-secondary" type="button" onclick="setMax()">Max</button>
                                             </div>
                                         </div>
+                                        <div><span>gems:<?php echo $usergems; ?></span></div>
                                         <br>
                                     </div>
                                     <script>
@@ -568,7 +580,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         $now = time();
                         foreach ($_SESSION['PayShop'] as $paybu) {
                             $randCode = rand(1000, 9999);
-                            $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"]?? 0);
+                            $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"] ?? 0);
                             if (is_string($order) && str_contains($order, "Error")) {
                                 // If an error message is returned, set error flag and break the loop
                                 $hasError = true;
@@ -581,7 +593,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         }
                         if (!$hasError) {
                             $rgb = count($_SESSION['PayShop']);
-                            $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);                            
+                            $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);
                             $reggg->insertTrak($_SESSION['emailc'], $_SESSION['payy']->trackId, $ordayid);
                             unset($_SESSION['PayShop']);
                             header("Location:" . $_SESSION['payy']->payLink);
@@ -620,35 +632,35 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                             <div class="relative text-center">
                                 <div class="relative flex justify-center">
                                     <div class="absolute flex space-x-1">
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
-                                            <span class="absolute opacity-0 w-full h-full text-x-sm" style="background-color:<?php echo $result["color"] ?>" ></span>
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
+                                            <span class="absolute opacity-0 w-full h-full text-x-sm" style="background-color:<?php echo $result["color"] ?>"></span>
                                             <span aria-hidden="true" class="sp-1"></span>
                                             <input type="text" id="num1" hidden name="n1">
                                         </div>
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                             <span class="absolute opacity-0 w-full h-full text-x-sm " style="background-color:<?php echo $result["color"] ?>"></span>
                                             <span
                                                 aria-hidden="true" class="sp-2"></span>
                                             <input type="text" id="num2" hidden name="n2">
                                         </div>
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                             <span class="absolute opacity-0 w-full h-full text-x-sm " style="background-color:<?php echo $result["color"] ?>"></span>
                                             <span aria-hidden="true" class="sp-3"></span>
                                             <input type="text" id="num3" hidden name="n3">
                                         </div>
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                             <span class="absolute opacity-0 w-full h-full text-x-sm " style="background-color:<?php echo $result["color"] ?>"></span><span
                                                 aria-hidden="true"
                                                 class="sp-4"></span>
                                             <input type="text" id="num4" hidden name="n4">
                                         </div>
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                             <span class="absolute opacity-0 w-full h-full text-x-sm " style="background-color:<?php echo $result["color"] ?>"></span><span
                                                 aria-hidden="true"
                                                 class="sp-5"></span>
                                             <input type="text" id="num5" hidden name="n5">
                                         </div>
-                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw">
+                                        <div class="self-auto flex font-bold rounded-full justify-center items-center relative  w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl text-white bg-game-daily NumberPicker_picked___UxMw" style="background-color:<?php echo $result["color"] ?>">
                                             <span class="absolute opacity-0 w-full h-full text-x-sm " style="background-color:<?php echo $result["color"] ?>"></span><span
                                                 aria-hidden="true"
                                                 class="sp-6"></span>
