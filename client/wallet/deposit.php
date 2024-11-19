@@ -2,7 +2,8 @@
 session_start();
 include_once "../../clases/deposit.php";
 include_once "../../clases/pay.php";
-
+include_once "../../clases/deposit.php";
+include_once "../../clases/gems.php";
 use payment\pay;
 
 // Check if the 'crypto' parameter is present in the URL
@@ -53,9 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $dep->createorder($email,$amount*1.1);
     $_SESSION['payid']= $result;
     $pay = new pay();
+    $gems=new gems();
+    $gems->addGemsRefrral($email);
+    $dep = new deposit();
+    $dep->inserttransaction($email,0,$result);
     $payment = $pay->oxPay($amount*1.1,$email,$result,"test");
     $_SESSION["payy"]=$payment;
-    header(header: "Location: " . $payment->payLink);
+    header(header: "Location: " . "/PaySubmit.php");
 
 }
 

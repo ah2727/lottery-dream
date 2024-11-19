@@ -499,7 +499,7 @@ if (isset($_POST['buynow'])){
             $_SESSION['payy'] = $payyyy->oxPay($_SESSION['money'],$_SESSION['emailc'],$ordayid,'');
             $reggg->insertTrak($_SESSION['emailc'],$ttk,$ordayid);
             unset($_SESSION['payshop']);
-            header("Location:" . $_SESSION['payy']->payLink);
+            header("Location:" . "/PaySubmit.php");
     }
     }else{
         header("Location:login.php");
