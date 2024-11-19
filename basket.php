@@ -7,6 +7,9 @@ ob_start();
 include_once 'inc/header.php';
 include_once 'clases/readingData.php';
 include_once 'clases/register.php';
+include_once 'clases/cart.php';
+$cart = new Cart();
+$cartitem = $cart->selectCartItemsByEmail($_SESSION["emailc"]);
 $reggg= new register();
 $pdob = new readingData();
 $BAS = $pdob->readCards();
@@ -37,16 +40,7 @@ if (isset($_SESSION['PayShop'])){
     }
 }
 if (isset($_GET['DeleteBasket'])){
-    foreach ($_SESSION['PayShop'] as $k1 => $v) {
-        if ($_GET['DeleteBasket'] == $v['CardName']) {
-            unset($_SESSION['PayShop'][$k1]);
-        }
-    }
-    foreach ($_SESSION['payshop'] as $k2 => $v2) {
-        if ($_GET['DeleteBasket'] == $v2) {
-            unset($_SESSION['payshop'][$k2]);
-        }
-    }
+$cart->deleteCartItemById($_GET['DeleteBasket']);
 }
 if (isset($_POST['buynow'])) {
 }
@@ -152,11 +146,11 @@ if (isset($_POST['buynow'])) {
                     <div class="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-3 lg:col-end-11"><h2
                                 class="absolute font-black text-xl">Your basket items</h2>
                         <?php
-                        if (isset($_SESSION['payshop']) && !empty($_SESSION['payshop']) && !empty($_SESSION['PayShop'])){
-                            foreach ($_SESSION['payshop'] as $text) {
-                                $res = $pdob->selCarsWithName($text);
+                        if (isset($cartitem) && !empty($cartitem) && !empty($cartitem)){
+                            foreach ($cartitem as $text) {
+                                $res = $pdob->selCarsWithName($text["CardName"]);
                                 if (empty($res)) {
-                                    $res = $pdob->selCarsWithName1($text);
+                                    $res = $pdob->selCarsWithName1($text["CardName"]);
                                 }
                             ?>
 
@@ -176,7 +170,7 @@ if (isset($_POST['buynow'])) {
                                                           fill="#2D4550"></path>
                                                 </svg>
                                             </a>
-                                            <a href="?DeleteBasket=<?= $res['CardName'] ?>" aria-label="delete">
+                                            <a href="?DeleteBasket=<?= $text['id'] ?>" aria-label="delete">
                                                 <svg class="w-5" viewBox="0 0 20 20" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M7.71412 14.1074C8.06586 14.1074 8.35366 13.8196 8.35366 13.4679V9.31092C8.35366 8.95918 8.06586 8.67139 7.71412 8.67139C7.36238 8.67139 7.07458 8.95918 7.07458 9.31092V13.4679C7.07458 13.8196 7.36238 14.1074 7.71412 14.1074Z"
@@ -194,7 +188,7 @@ if (isset($_POST['buynow'])) {
                                     <div class="bg-white flex items-start justify-between px-4 pt-2 pb-4">
                                         <div><p><?php
                                                 $n=0;
-                                                foreach($_SESSION['PayShop'] as $rwss) {
+                                                foreach($cartitem as $rwss) {
                                                     if ($res['CardName'] == $rwss['CardName']) {
                                                         $n++;
                                                     }
@@ -206,7 +200,7 @@ if (isset($_POST['buynow'])) {
                                                     class="text-dark-blue font-bold">
                                                 <?php
                                                 $n=0;
-                                                foreach($_SESSION['PayShop'] as $rwss) {
+                                                foreach($cartitem as $rwss) {
                                                     if ($res['CardName'] == $rwss['CardName']) {
                                                         $n++;
                                                     }
@@ -231,33 +225,29 @@ if (isset($_POST['buynow'])) {
                                          id=""
                                          style="max-height: 259px; display: none">
                                         <div class="bg-gray-100 px-4 pt-2 pb-3 border-t-1 border-grey-300 rounded-b-md">
-                                            <?php
-                                            foreach($_SESSION['PayShop'] as $rwss) {
-                                                if ($res['CardName'] == $rwss['CardName']) {
 
-                                            ?>
                                             <div class="mb-3 mt-2 self-center flex flex-col items-center">
                                                 <div class="w-auto space-y-6 flex flex-col">
                                                     <div class="flex flex-col">
                                                         <div class="mb-2 flex gap-2">
                                                             <div class="flex gap-1.5 md:gap-2 flex-wrap">
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal1']?>
+                                                                    <?=$text['balls1']?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal2']?>
+                                                                    <?=$text['balls2']?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal3']?>
+                                                                    <?=$text['bals3']?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal4']?>
+                                                                    <?=$text['balls4']?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal5']?>
+                                                                    <?=$text['balls5']?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl">
-                                                                    <?=$rwss['bal6']?>
+                                                                    <?=$rwss['balls6']?>
                                                                 </div>
                                                             </div>
 
@@ -266,21 +256,16 @@ if (isset($_POST['buynow'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                                <?php
-                                            }
-                                            }
-
-                                            ?>
+                    
                                             <section class="flex justify-between text-lg border-t-1 pt-1"><h4
                                                         class="text-dark-blue font-bold">Total</h4><h4
                                                         class="text-dark-blue font-bold">
                                                     <?php
                                                     $n=0;
-                                                    foreach($_SESSION['PayShop'] as $rwss) {
-                                                        if ($res['CardName'] == $rwss['CardName']) {
+                                                        if ($text['CardName'] == $rwss['CardName']) {
                                                         $n++;
                                                         }
-                                                    }
+                                                    
                                                    echo '$'.$res['Money'] * $n;
                                                     ?>
                                                 </h4></section>

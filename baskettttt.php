@@ -12,6 +12,7 @@ include_once 'clases/pay.php';
 include_once 'clases/register.php';
 require_once 'clases/db_connect.php';
 require_once 'clases/gems.php';
+require_once 'clases/cart.php';
 
 $gems = new gems();
 $usergems = $gems->getGems($_SESSION['emailc']);
@@ -19,9 +20,10 @@ $reggg = new register();
 $pdob = new readingData();
 $pay11 = new pay();
 $resssss = $pdob->selAllby();
+$winner =$pdob->selWinnerCardName($_GET['CardName']);
+
 if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
     $result = $pdob->selCarsWithName($_GET['CardName']);
-    print_r($result);
     if (empty($result)) {
         $result = $pdob->selCarsWithName1($_GET['CardName']);
         if (empty($result)) {
@@ -555,6 +557,8 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
         </div>
         <form action="" method="post">
             <div class="justify-between md:justify-end w-full flex flex-row w-full md:w-auto">
+                <?php                             if(!$winner){
+                        ?>
                 <input type="button" value="Back" onclick="showBlock1()"
                     class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-blue-800 bg-white active:bg-green-400"
                     data-selected="false">
@@ -565,6 +569,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                 <input type="submit" name="paysubmit" value="paysubmit" id="submitPay" data-selected="false"
                     class="flex items-center justify-center rounded-full border text-sm transition duration-150 uppercase active font-bold w-full sm:w-44 md:w-48 lg:w-64 h-12 shadow-button hover:shadow-button-hov text-white bg-green-500 border-green-400  hidden">
                 <?php
+                    } 
                 if (isset($_POST['submitPay'])) {
                 }
                 ?>
@@ -580,8 +585,10 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                         $now = time();
                         foreach ($_SESSION['PayShop'] as $paybu) {
                             $randCode = rand(1000, 9999);
-                            $order = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"] ?? 0);
-                            $winner =$pdob->selWinnerCardName($_GET['CardName']);
+                            $cart = new Cart();
+                            $order = $cart->insertcart($_SESSION['emailc'], $paybu['bal1'], $paybu['bal2'], $paybu['bal3'], $paybu['bal4'], $paybu['bal5'], $paybu['bal6'], $ordayid, $randCode, $_GET['CardName'], $_SESSION['pay'], $now, $_COOKIE["selectedOption"], $_COOKIE["inputOption"] ?? 0);
+                            $hasError = false;
+
                             if($winner){
                                 $hasError = true;
                                 echo "finish latary time"; 
@@ -594,7 +601,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                                 break;
                             } else {
                                 // If no error, print the order details for debugging or logging
-                                print_r($order);
+                                print_r(value: $order);
                             }
                         }
                         if (!$hasError) {
@@ -602,7 +609,7 @@ if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
                             $_SESSION['payy'] = $pay11->oxPay($_SESSION['pay'] * $rgb, $_SESSION['emailc'], $ordayid, $_GET['CardName']);
                             $reggg->insertTrak($_SESSION['emailc'], $_SESSION['payy']->trackId, $ordayid);
                             unset($_SESSION['PayShop']);
-                            header("Location:" . $_SESSION['payy']->payLink);
+                            echo "added to cart";
                         }
                     } else {
                         header("Location:login.php");

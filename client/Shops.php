@@ -18,20 +18,7 @@ foreach ($res111 as $alw) {
 $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
 ?>
 
-<table class="table table-bordered mt-4" id="myTable">
-    <thead>
-    <tr>
-        <th class="fw-semibold text-uppercase size-13 text-center">id</th>
-        <th class="fw-semibold text-uppercase size-13 text-center">Date</th>
-        <th class="fw-semibold text-uppercase size-13 text-center">Token</th>
-        <th class="fw-semibold text-uppercase size-13 text-center">Card Name</th>
 
-        <th class="fw-semibold text-uppercase size-13 text-center">order Id</th>
-        <th class="fw-semibold text-uppercase size-13 text-center">Price</th>
-        <th class="fw-semibold text-uppercase size-13 text-center">Order Status</th>
-    </tr>
-    </thead>
-    <tbody>
     <?php
                     foreach ($orders as $ord) {
                         $card = $shop->selCarsWithName($ord["CardName"]);
@@ -183,22 +170,22 @@ $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-center gap-5 pt-4 pb-4">
+                                <div class="d-grid justify-content-center gap-5 pt-4 pb-4">
 
-                                    <div class="d-grid">
-                                        <label>date</label>
+                                    <div class="d-flex">
+                                        <label>date:</label>
                                         <span>
-                                            <?php echo $ord["Datet"] ?>
+                                            <?php echo $date = date("Y-m-d H:i:s", $ord["Datet"]);?>
                                         </span>
                                     </div>
-                                    <div class="d-grid">
-                                        <label>trace id</label>
+                                    <div class="d-flex">
+                                        <label>trace id:</label>
                                         <span>
                                             <?php echo $ord["orderId"] ?>
                                         </span>
                                     </div>
-                                    <div class="d-grid">
-                                        <label>price</label>
+                                    <div class="d-flex">
+                                        <label>price:</label>
                                         <span>
                                             <?php echo $ord["price"] ?>
                                         </span>
