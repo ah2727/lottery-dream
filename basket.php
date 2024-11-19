@@ -262,10 +262,11 @@ if (isset($_POST['buynow'])) {
                                                         class="text-dark-blue font-bold">
                                                     <?php
                                                     $n=0;
-                                                        if ($text['CardName'] == $rwss['CardName']) {
+                                                    foreach($cartitem as $rwss) {
+                                                        if ($res['CardName'] == $rwss['CardName']) {
                                                         $n++;
                                                         }
-                                                    
+                                                    }
                                                    echo '$'.$res['Money'] * $n;
                                                     ?>
                                                 </h4></section>
@@ -449,8 +450,8 @@ if (isset($_POST['buynow'])) {
                                         class="text-3xl font-black lg:ml-1">
                                     <?php
                                     $_SESSION['money'] = 0;
-                                    if (isset($_SESSION['PayShop'])) {
-                                        foreach ($_SESSION['PayShop'] as $Paaay) {
+                                    if (isset($cartitem)) {
+                                        foreach ($cartitem as $Paaay) {
                                             $res = $pdob->selCarsWithName($Paaay['CardName']);
                                             if (empty($res)) {
                                                 $res = $pdob->selCarsWithName1($Paaay['CardName']);
