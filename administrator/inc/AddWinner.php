@@ -65,6 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="avg">Division avg?</label>
                     <span name="avg"><?= $avfwinner ?></span>
                 </div>
+                <div class="px-4 d-grid justify-center items-center">
+                    <label for="avg">Division</label>
+                    <input type="text" class="form-control" name="count" placeholder="Enter count of winner" value="1">
+                </div>
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <input type="submit" class="btn btn-outline-success mt-3 mx-3" value="Random" name="random">

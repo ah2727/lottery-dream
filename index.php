@@ -4,6 +4,7 @@ session_start();
 include_once 'inc/header.php';
 
 include_once 'clases/register.php';
+include_once 'clases/readingData.php';
 
 include_once 'clases/viwe.php';
 
@@ -16,6 +17,8 @@ $res = $pdo->readCards();
 $result1 = $pdo->selCard();
 $now = time();
 $tt = $result1['times'] - $now;
+$pdob = new readingData();
+
 if (!empty($result1)){
     $cnt1= $result1['countstamp'];
 
@@ -124,10 +127,13 @@ if (!empty($result1)) {
                                                 aria-label="Play from €2.50 link"
                                                 class="flex justify-center self-end cursor-pointer transition-colors duration-200 group-hover:text-blue-900 shadow-boxButton hover:shadow-boxButtonHov group-hover:bg-white rounded-full"
                                                 href="baskettttt.php?CardName=<?=$result1['CardName']?>">
+                                                <?php if(!$pdob->selWinnerCardName(CardName: $result1['CardName'])){
+                                                ?>
                                             <div class="m-auto rounded-full border border-solid text-center px-3 py-1.5 border-white text-white group-hover:text-blue-900 bg-blue-900 bg-opacity-20 group-hover:shadow-hover group-hover:bg-white">
                                                 <div class="uppercase text-sm font-bold leading-none xsm:text-sm"><span
                                                             aria-label="play from €2.50" class="ar">Play from $<?=$result1['Money']?></span></div>
                                             </div>
+                                            <?php } ?>
                                         </a></div>
                                     <?php
                                 }
@@ -166,10 +172,13 @@ if (!empty($result1)) {
                                             <a aria-label="Play from €1 link"
                                                class="flex justify-center self-end cursor-pointer transition-colors duration-200 group-hover:text-blue-900 shadow-boxButton hover:shadow-boxButtonHov group-hover:bg-white rounded-full"
                                                href="baskettttt.php?CardName=<?=$result_C['CardName']?>">
+                                               <?php if(!$pdob->selWinnerCardName(CardName: $result_C['CardName'])){
+                                                ?>
                                                 <div class="m-auto rounded-full border border-solid text-center px-3 py-1.5 border-white text-white group-hover:text-blue-900 bg-blue-900 bg-opacity-20 group-hover:shadow-hover group-hover:bg-white">
                                                     <div class="uppercase text-sm font-bold leading-none xsm:text-sm colors " id="cn4">
                                                         <span class="ar" aria-label="play from €1">Play from $<?=$result_C['Money']?></span></div>
                                                 </div>
+                                                <?php } ?>
                                             </a></div>
                                             <?php
                                         }

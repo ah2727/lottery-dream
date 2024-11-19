@@ -26,7 +26,7 @@ $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
                         if ($card) {
 
                 ?>
-                            <div style="background-image: url('/image/CardsImage/<?= htmlspecialchars($card['cardImage']) ?>');">
+                            <div">
                                 <div class="position-relative">
                                     <img class="position-absolute top-0 start-0" width="40px" height="40px" src="/image/CardsImage/<?= $card['cardHeader'] ?>">
                                 </div>

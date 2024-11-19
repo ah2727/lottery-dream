@@ -39,7 +39,13 @@ if (isset($_GET['crypto'])) {
 
 <?php
 $email = $amount = "";
+function getLastPartOfUrl($url) {
+    // Parse the URL to ensure it's properly handled
+    $parsedUrl = parse_url($url);
 
+    // Get the path and use basename to extract the last part
+    return isset($parsedUrl['path']) ? basename($parsedUrl['path']) : null;
+}
 // Check if the form is submitted via POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get and sanitize email and amount from POST data
@@ -57,11 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gems=new gems();
     $gems->addGemsRefrral($email);
     $dep = new deposit();
-    $dep->inserttransaction($email,0,$result);
     $payment = $pay->oxPay($amount*1.1,$email,$result,"test");
+    $trackid = getLastPartOfUrl($payment->payLink);
+    $dep->inserttransaction($email,$trackid,$result);
     $_SESSION["payy"]=$payment;
     header(header: "Location: " . "/PaySubmit.php");
-
+    
 }
 
 ?>
