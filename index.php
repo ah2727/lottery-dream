@@ -48,7 +48,7 @@ if (!empty($result1)) {
                                             src="image/CardsImage/<?=$result1['cardImage']?>" role="img"></div>
                                 <div class="flex-col text-left md:mt-0 w-1/2 md:w-1/3 lg:w-full"
                                      <?php
-                                     if ($cnt1>0 || $tt> 0){
+                                     if ($cnt1>0 || $tt> 1){
                                          ?>
                                      style="text-shadow: rgba(0, 0, 0, 0.3) 1px 1px;"><h1
                                             class="leading-none text-sm md:text-base font-bold"><?=$result1['cardHeader']?></h1>
@@ -85,12 +85,10 @@ if (!empty($result1)) {
                                                         }elseif ($ssss>$sec) {
                                                             echo floor($ssss / (60)) . ' Minute To Go';
                                                         }
-                                                        elseif ($ssss <=0){
+                                                        else {
                                                             echo '<div>Drawing in process</div>';
                                                         }
-                                                        else{
-                                                            echo date("l, ha",$result1['times']);
-                                                        }
+
                                                     }else{
                                                         if ($cnt1 == 0 || $cnt1<0){
                                                             echo 'Drawing in process ...';
@@ -102,7 +100,7 @@ if (!empty($result1)) {
                                                     ?>
                                    </h2>
                                     <?php
-                                    if ($cnt1>0 || $tt> 0){
+                                    if ($cnt1>0 || $tt> 1){
                                         ?>
                                         <h3 class=" pr-1 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black pt-1"
                                             aria-label="€20,000 per month for 30 years*"><span
@@ -118,7 +116,7 @@ if (!empty($result1)) {
                                             *guaranteed</p></div>
                                 </div>
                                 <?php
-                                if ($cnt1>0 || $tt> 0){
+                                if ($cnt1>0 || $tt> 1){
                                     ?>
                                     <div class="flex flex-row w-1/2 md:w-1/3 lg:w-auto md:justify-end lg:justify-start"><a
                                                 aria-label="Play from €2.50 link"
@@ -159,7 +157,7 @@ if (!empty($result1)) {
                                                  src="image/CardsImage/<?=$result_C['cardImage']?>" role="img">
                                         </div>
                                         <?php
-                                        if ($cnt>0 || $time> 0){
+                                        if ($cnt>0 || $time> 1){
                                             ?>
 
                                         <div class="flex flex-start h-auto -mt-3 md:mt-0 bottom-4 w-1/2 md:w-1/3 md:order-last lg:w-auto md:justify-end lg:justify-start lg:absolute false">
@@ -178,7 +176,7 @@ if (!empty($result1)) {
                                             *guaranteed</p>
                                         <div class="flex flex-col space-y-1 w-1/2 md:w-1/3 lg:w-auto">
                                             <div class="flex flex-col">
-                                                <?php if ($cnt>0 ||  $time > 0){
+                                                <?php if ($cnt>0 ||  $time > 1){
                                                     ?>
                                                     <h1 class="text-sm md:text-base shadow-text font-bold text-lg"><?=$result_C['cardHeader']?></h1>
                                                 <?php
@@ -208,23 +206,20 @@ if (!empty($result1)) {
                                                         }elseif ($ssss>$sec) {
                                                             echo floor($ssss / (60)) . ' min To Go';
                                                         }
-                                                        elseif ($ssss <=0){
+                                                        else{
                                                             echo '<div>Drawing in process</div>';
                                                         }
-                                                        else{
-                                                            echo date("l, ha",$result_C['times']);
-                                                        }
+
                                                     }else{
                                                         if ($cnt == 0 || $cnt<0){
                                                             echo '<div>Drawing in process</div>';
                                                         }else{
                                                             echo $cnt .' To go';
-
                                                         }
 
                                                     }
                                                     ?></h2></div>
-                                            <?php if ($cnt>0 ||  $time >  0){
+                                            <?php if ($cnt>0 ||  $time >  1){
                                                 ?>
                                                 <h3 aria-label="1 Million Euro *"
                                                 class="shadow-text break-words text-xl sm:text-2xl md:text-3xl font-black text-lg">
@@ -256,7 +251,6 @@ if (!empty($result1)) {
         </div>
     </section>
 <script src="js/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).ready(function (){
         $('button').mouseenter(function (){
