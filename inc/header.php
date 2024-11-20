@@ -174,12 +174,10 @@ if (!empty($result1)) {
                                                                 }elseif ($ssss>$sec) {
                                                                     echo floor($ssss / (60)) . ' min To Go';
                                                                 }
-                                                                elseif ($ssss <=0){
+                                                                else {
                                                                     echo '<div>Drawing in process</div>';
                                                                 }
-                                                                else{
-                                                                    echo date("l, ha",$result1['times']);
-                                                                }
+                    
                                                             }else{
                                                                 if ($cnt1 == 0 || $cnt1<0){
                                                                     echo 'Drawing in process';
@@ -190,21 +188,18 @@ if (!empty($result1)) {
                                                             }
                                                             ?>
                                                         </h2>
-                                                        <?php
-                                                        if ($cnt1>0 || $tt> 0){
-                                                        ?>
+                                                        
+                                        
                                                         <h3 class="font-black mb-3 shadow-text text-xl"><span
                                                                     aria-hidden="true"
                                                                     class="text-lg md:text-3xl lg:text-xl"><span><?=$selCard['winnermoney']?><?=$selCard['winnermoney_head']?></span></span>
                                                         </h3>
-                                                        <?php
-                                                        }
-                                                        ?>
+                                                        
                                                         <div class="flex flex-col justify-between w-full absolute bottom-0 left-0 p-2">
                                                             <p class="text-white text-x-sm font-bold pb-1">
                                                                 *estimated</p>
                                                             <?php
-                                                            if ($cnt1>0 || $tt> 0){
+                                                            if ($cnt1>0 || $tt> 60){
                                                                 ?>
                                                                 <div class="flex flex-start"><a
                                                                             aria-label="Play from €4 link"
@@ -267,12 +262,10 @@ if (!empty($result1)) {
                                                                 }elseif ($ssss>$sec) {
                                                                     echo floor($ssss / (60)) . ' min To Go';
                                                                 }
-                                                                elseif ($ssss <=0){
+                                                                else{
                                                                     echo '<div>Drawing in process</div>';
                                                                 }
-                                                                else{
-                                                                    echo date("l, ha",$res2['times']);
-                                                                }
+                                    
                                                             } else {
                                                                 if ($cnt == 0 || $cnt < 0) {
                                                                     echo 'Drawing in process';
@@ -284,24 +277,22 @@ if (!empty($result1)) {
 
                                                             ?>
                                                             </h2>
-                                                        <?php
-                                                        if ($cnt>0 || $test> 0){
-                                                            ?>                                                        <h3 class="font-black mb-3 shadow-text text-xl"><span
+                                                    
+                                                                                             <h3 class="font-black mb-3 shadow-text text-xl"><span
                                                                         aria-hidden="true"
                                                                         class="text-lg md:text-3xl lg:text-xl"><span><?=$res2['winnermoney']?></span>
                                                                           <?= $res2['winnermoney_head']?>
                                                                 </span>
                                                             </h3>
 
-                                                        <?php
-                                                        }
-                                                        ?>
+                                            
+                                                    
 
                                                         <div class="flex flex-col justify-between w-full absolute bottom-0 left-0 p-2">
                                                             <p class="text-white text-x-sm font-bold pb-1">
                                                                 *estimated</p>
                                                             <?php
-                                                            if ($cnt>0 || $test> 0){
+                                                            if ($cnt>0 || $test> 60){
                                                                 ?>
                                                             <div class="flex flex-start"><a
                                                                         aria-label="Play from €4 link"
@@ -516,12 +507,10 @@ if (!empty($result1)) {
                                             }elseif ($ssss>$sec) {
                                                 echo floor($ssss / (60)) . ' min To Go';
                                             }
-                                            elseif ($ssss <=0){
+                                            else{
                                                 echo '<div>Drawing in process</div>';
                                             }
-                                            else{
-                                                echo date("l, ha",$result1['times']);
-                                            }
+                                
                                         }else{
                                             if ($cnt1 == 0 || $cnt1<0){
                                                 echo 'Drawing in process';
@@ -576,12 +565,10 @@ if (!empty($result1)) {
                                             }elseif ($ssss>$sec) {
                                                 echo floor($ssss / (60)) . ' min To Go';
                                             }
-                                            elseif ($ssss <=0){
+                                            else{
                                                 echo '<div>Drawing in process</div>';
                                             }
-                                            else{
-                                                echo date("l, ha",$row['times']);
-                                            }
+                                        
                                         }else{
                                             if ($cnt == 0 || $cnt<0){
                                                 echo 'Drawing in process';

@@ -314,12 +314,10 @@ if (isset($_POST['buynow'])) {
                                             }elseif ($ssss>$sec) {
                                                 echo floor($ssss / (60)) . ' min To Go';
                                             }
-                                            elseif ($ssss <=0){
+                                            else{
                                                 echo '<div class="text-white">Drawing in process</div>';
                                             }
-                                            else{
-                                                echo date("l, ha",$selo['times']);
-                                            }
+
                                         }else{
                                             if ($cnt1 == 0 || $cnt1<0){
                                                 echo 'Drawing in process';
@@ -333,7 +331,7 @@ if (isset($_POST['buynow'])) {
                                         </p>
                                     </div>
                                     <?php
-                                    if ($cnt1 >0 || $tt> 0){
+                                    if ($cnt1 >0 || $tt> 60){
                                         ?>
                                         <a aria-label="Play from €2.50 link" class="flex justify-center cursor-pointer"
                                            href="baskettttt.php?CardName=<?= $selo['CardName'] ?>"
@@ -393,12 +391,10 @@ if (isset($_POST['buynow'])) {
                                                         }elseif ($ssss>$sec) {
                                                             echo floor($ssss / (60)) . ' min To Go';
                                                         }
-                                                        elseif ($ssss <=0){
+                                                        else{
                                                             echo '<div class="text-white">Drawing in process</div>';
                                                         }
-                                                        else{
-                                                            echo date("l, ha",$resb['times']);
-                                                        }
+
                                                     }else{
                                                         if ($cnt == 0 || $cnt<0){
                                                             echo 'Drawing in process';
@@ -419,7 +415,7 @@ if (isset($_POST['buynow'])) {
                                         <?php
                                         }
                                         ?>                                                <?php
-                                            if ($cnt > 0 ||   $test > 0){
+                                            if ($cnt > 0 ||   $test > 60){
                                             ?>
 
                                             <div class="m-auto rounded-full border border-solid text-center px-3 py-1.5 border-white text-white group-hover:text-blue-900 bg-blue-900 bg-opacity-20 group-hover:shadow-hover group-hover:bg-white">
