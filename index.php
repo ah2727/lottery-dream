@@ -142,7 +142,6 @@ if (!empty($result1)) {
 
                             $time = $result_C['times'] - $now;
                             $cnt= $result_C['countstamp'];
-                            
                             foreach ($resssss as $allby){
                                 if ($allby['CardName']==$result_C['CardName']){
                                     $cnt--;
@@ -194,9 +193,7 @@ if (!empty($result1)) {
                                                 }?>
 >
                                                     <?php
-                                                    ;
                                                     if ($result_C['times'] != 0){
-                                                        echo $result_C['times'];
                                                         $ssss   = $result_C['times'] - time();
                                                         $wick =7*24*60*60;
                                                         $day = 24*60*60;
@@ -218,7 +215,6 @@ if (!empty($result1)) {
                                                             echo date("l, ha",$result_C['times']);
                                                         }
                                                     }else{
-                                                    
                                                         if ($cnt == 0 || $cnt<0){
                                                             echo '<div>Drawing in process</div>';
                                                         }else{
