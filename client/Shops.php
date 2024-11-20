@@ -26,7 +26,7 @@ $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
                         if ($card) {
 
                 ?>
-                            <div">
+                            <div>
                                 <div class="position-relative">
                                     <img class="position-absolute top-0 start-0" width="40px" height="40px" src="/image/CardsImage/<?= $card['cardHeader'] ?>">
                                 </div>
@@ -101,12 +101,24 @@ $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
                                             <?php echo $ord["price"] ?>
                                         </span>
                                     </div>
+                                    <div class="d-grid">
+                                        <label>gems</label>
+                                        <span>
+                                            <?php echo $ord["gems"] ?>
+                                        </span>
+                                    </div>
+                                    <div class="d-grid">
+                                        <label>division</label>
+                                        <span>
+                                            <?php echo $ord["division"] ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         <?php
                         } else {
                         ?>
-                            <div style="background-image: url('/image/CardsImage/<?= htmlspecialchars($cardhead['cardImage']) ?>');">
+                            <div >
 
                                 <div class="position-relative">
                                     <img class="position-absolute top-0 start-0" width="40px" height="40px" src="/image/CardsImage/<?= $cardhead['cardHeadImage'] ?>">
@@ -170,24 +182,36 @@ $AllShop1 = $shop->ReadShop($_SESSION['emailc']);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-grid justify-content-center gap-5 pt-4 pb-4">
+                                <div class="d-flex justify-content-center gap-5 pt-4 pb-4">
 
-                                    <div class="d-flex">
-                                        <label>date:</label>
+                                <div class="d-grid">
+                                <label>date:</label>
                                         <span>
                                             <?php echo $date = date("Y-m-d H:i:s", $ord["Datet"]);?>
                                         </span>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="d-grid">
                                         <label>trace id:</label>
                                         <span>
                                             <?php echo $ord["orderId"] ?>
                                         </span>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="d-grid">
                                         <label>price:</label>
                                         <span>
                                             <?php echo $ord["price"] ?>
+                                        </span>
+                                    </div>
+                                    <div class="d-grid">
+                                        <label>gems:</label>
+                                        <span>
+                                            <?php echo $ord["gems"] ?>
+                                        </span>
+                                    </div>
+                                    <div class="d-grid">
+                                        <label>division</label>
+                                        <span>
+                                            <?php echo $ord["division"] ?>
                                         </span>
                                     </div>
                                 </div>

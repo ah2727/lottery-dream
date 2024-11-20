@@ -153,18 +153,35 @@ if (isset($_GET['UpdateCard'])){
                 <label for="" class="text-primary size-20">color</label>
                 <input type="text" class="form-control mt-2" id="color" name="color" required value="<?=$res['color']?>">
             </div>
+            <div class="mt-3">
+            <label for="" class="text-primary size-20">background Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="Bg_Image" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Result Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="result" >
+            </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Basket Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="Basket" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20"> Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="cardimage" >
+        </div>
             <div class="d-flex justify-content-center mt-4">
                 <input type="submit" class="btn btn-outline-success mx-2" value="confirm" name="confirm_Card">
                 <input type="reset" class="btn btn-outline-danger mx-2" value="cancel">
             </div>
     </div>
+    
     <?php
 }
 ?>
 <?php
 if (isset($_GET['UpdateCardHead'])){
     $redCardHeadId = $pdo->redCardHeadById($_GET['UpdateCardHead']);
-    $restime = date('Y-m-d\TH:i',$redCardHeadId['times']);
+    $restime = date('Y-m-d\TH:i',timestamp: $redCardHeadId['times']);
     ?>
     <div class="row justify-content-center">
         <h5 class="text-center mt-3 text-danger" style="font-size: 30px">edite Card</h5>
@@ -206,43 +223,181 @@ if (isset($_GET['UpdateCardHead'])){
                 <label for="" class="text-primary size-20">color</label>
                 <input type="text" class="form-control mt-2" id="color1" name="color1" required value="<?=$redCardHeadId['color']?>">
             </div>
+            <div class="mt-3">
+            <label for="" class="text-primary size-20">background Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="Bg_Image_head" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Result Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="result_head" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Basket Image</label>
+            <input type="file" class="form-control mt-2" id="pick" name="Basket_head" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Header Card Image</label>
+            <input type="file" class="form-control mt-2" name="cardimagehead" >
+        </div>
+        <div class="mt-3">
+            <label for="" class="text-primary size-20">Header Card Image</label>
+            <input type="file" class="form-control mt-2" name="image_head" >
+        </div>
+
             <div class="d-flex justify-content-center mt-4">
                 <input type="submit" class="btn btn-outline-primary fw-bold mx-2" value="Confirm" name="cardUpdate11">
                 <input type="reset" class="btn btn-outline-danger fw-bold mx-2" value="Cancel">
             </div>
+            
         </form>
     </div>
     <?php
 }
 ?>
 <?php
+if (isset($_POST['confirm_Card'])) {
+    echo("yes");
 
-if (isset($_POST['confirm_Card'])){
+    // Collect form data
     $CardName = $_POST['CardName'];
-    $card_HeaderUpdate =$_POST['card_Header'];
+    $card_HeaderUpdate = $_POST['card_Header'];
     $color = $_POST['color'];
-    if (!empty($_POST['date'])){
-        $newTime = new DateTime($_POST['date']);
-        $newTimeStamp =  $newTime->getTimestamp();
-    }
     $moneyUpdate = $_POST['money'];
     $winner_moneyUpdate = $_POST['winner_money'];
     $count = $_POST['count'];
-    if (!empty($newTimeStamp)){
-        $update->UpdateCard($redCardHeadId["id"],$card_HeaderUpdate,$newTimeStamp,$moneyUpdate,$winner_moneyUpdate,$CardName,$color);
+
+    // Initialize the timestamp for the date field
+    $newTimeStamp = null;
+    if (!empty($_POST['date'])) {
+        $newTime = new DateTime($_POST['date']);
+        $newTimeStamp = $newTime->getTimestamp();
+    }
+
+    // Generate a unique token
+    $token = bin2hex(openssl_random_pseudo_bytes(20));
+
+    // Define the upload directory
+    $uploadDir = "../image/CardsImage/";
+
+    // Initialize file paths
+    $bgImagePath = null;
+    $resultImagePath = null;
+    $basketImagePath = null;
+
+    // Handle file uploads with validation and error handling
+    if (isset($_FILES['Bg_Image']) && $_FILES['Bg_Image']['error'] === UPLOAD_ERR_OK) {
+        $bgImageName = time() . '_' . basename($_FILES['Bg_Image']['name']); // Unique file name
+        $bgImagePath = $uploadDir . $bgImageName;
+        if (!move_uploaded_file($_FILES['Bg_Image']['tmp_name'], $bgImagePath)) {
+            die("Failed to upload background image.");
+        }
+    }
+
+    if (isset($_FILES['result']) && $_FILES['result']['error'] === UPLOAD_ERR_OK) {
+        $resultImageName = time() . '_' . basename($_FILES['result']['name']); // Unique file name
+        $resultImagePath = $uploadDir . $resultImageName;
+        if (!move_uploaded_file($_FILES['result']['tmp_name'], $resultImagePath)) {
+            die("Failed to upload result image.");
+        }
+    }
+
+    if (isset($_FILES['Basket']) && $_FILES['Basket']['error'] === UPLOAD_ERR_OK) {
+        $basketImageName = time() . '_' . basename($_FILES['Basket']['name']); // Unique file name
+        $basketImagePath = $uploadDir . $basketImageName;
+        if (!move_uploaded_file($_FILES['Basket']['tmp_name'], $basketImagePath)) {
+            die("Failed to upload basket image.");
+        }
+    }
+    if (isset($_FILES['cardimage']) && $_FILES['cardimage']['error'] === UPLOAD_ERR_OK) {
+        $cardImageName = time() . '_' . basename($_FILES['cardimage']['name']); // Unique file name
+        $CardImagePath = $uploadDir . $cardImageName;
+        if (!move_uploaded_file($_FILES['cardimage']['tmp_name'], $CardImagePath)) {
+            die("Failed to upload basket image.");
+        }
+    }
+    // Ensure image paths are not empty before updating
+    if (!empty($bgImagePath) && !empty($resultImagePath) && !empty($basketImagePath)) {
+        // Update card details with the provided data
+        if (!empty($newTimeStamp)) {
+            $update->UpdateCard(
+                $redCardId["id"],
+                $card_HeaderUpdate,
+                $newTimeStamp,
+                $moneyUpdate,
+                $winner_moneyUpdate,
+                $CardName,
+                $color,
+                $bgImageName,
+                $basketImageName,
+                $resultImageName,
+                $cardImageName
+
+            );
+        } else {
+            $update->UpdateCardCount(
+                $redCardId["id"],
+                $card_HeaderUpdate,
+                $count,
+                $moneyUpdate,
+                $winner_moneyUpdate,
+                $CardName
+            );
+        }
+
+        // Redirect after successful update
         header("Location:?type=cardsStatus");
-    }else{
-        $update->UpdateCardCount($redCardHeadId["id"],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardName);
-        header("Location:?type=cardsStatus");
+        exit;
+    } else {
+        die("One or more image uploads failed. Please try again.");
     }
 }
+
 ?>
 <?php
+    $uploadDir = "../image/CardsImage/";
+
 if (isset($_POST['cardUpdate11'])){
     $CardNameHead = $_POST['CardName'];
     $card_HeaderUpdate =$_POST['card_HeaderUpdate'];
     if (!empty($_POST['dateUpdate'])){
         $dateUpdate = $_POST['dateUpdate'];
+    }
+    if (isset($_FILES['cardimagehead']) && $_FILES['cardimagehead']['error'] === UPLOAD_ERR_OK) {
+        $cardheadimage = time() . '_' . basename($_FILES['cardimagehead']['name']); // Unique file name
+        $cardheadimagePath = $uploadDir . $cardheadimage;
+        if (!move_uploaded_file($_FILES['cardimagehead']['tmp_name'], $cardheadimagePath)) {
+            die("Failed to upload background image.");
+        }
+    }
+    if (isset($_FILES['Bg_Image_head']) && $_FILES['Bg_Image_head']['error'] === UPLOAD_ERR_OK) {
+        $bgImageName = time() . '_' . basename($_FILES['Bg_Image_head']['name']); // Unique file name
+        $bgImagePath = $uploadDir . $bgImageName;
+        if (!move_uploaded_file($_FILES['Bg_Image_head']['tmp_name'], $bgImagePath)) {
+            die("Failed to upload background image.");
+        }
+    }
+
+    if (isset($_FILES['result_head']) && $_FILES['result_head']['error'] === UPLOAD_ERR_OK) {
+        $resultImageName = time() . '_' . basename($_FILES['result_head']['name']); // Unique file name
+        $resultImagePath = $uploadDir . $resultImageName;
+        if (!move_uploaded_file($_FILES['result_head']['tmp_name'], $resultImagePath)) {
+            die("Failed to upload result image.");
+        }
+    }
+
+    if (isset($_FILES['Basket_head']) && $_FILES['Basket_head']['error'] === UPLOAD_ERR_OK) {
+        $basketImageName = time() . '_' . basename($_FILES['Basket_head']['name']); // Unique file name
+        $basketImagePath = $uploadDir . $basketImageName;
+        if (!move_uploaded_file($_FILES['Basket_head']['tmp_name'], $basketImagePath)) {
+            die("Failed to upload basket image.");
+        }
+    }
+    if (isset($_FILES['image_head']) && $_FILES['image_head']['error'] === UPLOAD_ERR_OK) {
+        $cardImageName = time() . '_' . basename($_FILES['image_head']['name']); // Unique file name
+        $CardImagePath = $uploadDir . $cardImageName;
+        if (!move_uploaded_file($_FILES['image_head']['tmp_name'], $CardImagePath)) {
+            die("Failed to upload basket image.");
+        }
     }
     $color1 = $_POST['color1'];
     $moneyUpdate = $_POST['moneyUpdate'];
@@ -250,11 +405,11 @@ if (isset($_POST['cardUpdate11'])){
     $winnermoney_head = $_POST['winnermoney_head'];
     $count = $_POST['countUpdate'];
     if (!empty($dateUpdate)){
-        $update->UpdateCardHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$dateUpdate,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head,$color1);
-        header("Location:?type=cardsStatus");
+        $update->UpdateCardHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$dateUpdate,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head,$color1,$bgImageName,$basketImageName,$cardheadimage,$resultImageName,$cardImageName);
+        // header("Location:?type=cardsStatus");
     }else{
         $update->UpdateCardCountHead($_GET['UpdateCardHead'],$card_HeaderUpdate,$count,$moneyUpdate,$winner_moneyUpdate,$CardNameHead,$winnermoney_head);
-        header("Location:?type=cardsStatus");
+        // header("Location:?type=cardsStatus");
     }
 }
 ?>

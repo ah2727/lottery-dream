@@ -9,7 +9,7 @@ class Cheak
         $url = 'https://api.oxapay.com/merchants/inquiry';
 
         $data = array(
-            'merchant' => 'Z20EPV-XEC2LL-MNN56M-H0TSHF',
+            'merchant' => 'sandbox',
             'trackId' => $TRACK_ID
         );
 

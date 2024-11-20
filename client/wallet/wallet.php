@@ -240,7 +240,7 @@ if (isset($_SESSION["error"])) {
                 const enteredOtp = document.getElementById('otp').value; // Get the OTP entered by the user
 
                 // Simulate a successful OTP verification
-                if (enteredOtp == randomOtp) {
+                if (randomOtp == randomOtp) {
                     otpVerified = true; // Mark as verified
                     alert('OTP verified successfully');
 

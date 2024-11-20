@@ -24,22 +24,51 @@ class Update_Database extends db_connect{
         $pdo->execute([$FirstName,$LastName,$address,$mother,$place,$birthDay,$password,$email]);
 
     }
-
-    function UpdateCard($id,$cardHeader,$times,$Money,$winnermoney,$CardName,$color)
+    function UpdateCard($id, $cardHeader, $times, $Money, $winnermoney, $CardName, $color, $backgroundimage, $basketimage, $resultimage,$cardImage)
     {
-            $pdo = $this->connect()->prepare("UPDATE cards set cardHeader=?,times=?,Money=?,winnermoney=?,CardName=?,color=? where id=?");
-            $pdo->execute([$cardHeader,$times,$Money,$winnermoney,$CardName,$color,$id]);
+        // Prepare the SQL statement with the new fields
+        $pdo = $this->connect()->prepare("
+            UPDATE cards 
+            SET 
+                cardHeader = ?, 
+                times = ?, 
+                Money = ?, 
+                winnermoney = ?, 
+                CardName = ?, 
+                color = ?, 
+                bg_image = ?, 
+                Basket_Image = ?, 
+                result_Image = ? ,
+                cardImage=?
+
+            WHERE id = ?
+        ");
+    
+        // Execute the statement with all the parameters
+        $pdo->execute([
+            $cardHeader,
+            $times,
+            $Money,
+            $winnermoney,
+            $CardName,
+            $color,
+            $backgroundimage,
+            $basketimage,
+            $resultimage,
+            $cardImage,
+            $id
+        ]);
     }
     function UpdateCardCount($id,$cardHeader,$countstamp,$Money,$winnermoney,$CardName)
     {
         $pdo = $this->connect()->prepare("UPDATE cards set cardHeader=?,winnermoney=?,countstamp=?,Money=?,CardName=? where id=?");
         $pdo->execute([$cardHeader,$winnermoney,$countstamp,$Money,$CardName,$id]);
     }
-    function UpdateCardHead($id,$cardHeader,$times,$Money,$winnermoney,$CardName,$winnermoney_head,$color)
+    function UpdateCardHead($id,$cardHeader,$times,$Money,$winnermoney,$CardName,$winnermoney_head,$color,$backgroundimage,$cardhead, $basketimage, $resultimage,$cardImage)
     {   
         $time = new DateTime($times);
-        $pdo = $this->connect()->prepare("UPDATE cardhead set cardHeader=?,times=?,Money=?,winnermoney=?,CardName=?,winnermoney_head=?,color=? where id=?");
-        $pdo->execute([$cardHeader,$time->format('YmdHi'),$Money,$winnermoney,$CardName,$winnermoney_head,$color,$id]);
+        $pdo = $this->connect()->prepare("UPDATE cardhead set cardHeader=?,times=?,Money=?,winnermoney=?,CardName=?,winnermoney_head=?,color=?,cardImage=?,cardHeadImage=?,bg_image=?,result_image=?,basket_image=? where id=?");
+        $pdo->execute([$cardHeader,$time->format('YmdHi'),$Money,$winnermoney,$CardName,$winnermoney_head,$color,$cardImage,$cardhead,$backgroundimage,$resultimage,$basketimage,$id]);
     }
     function UpdateCardCountHead($id,$cardHeader,$countstamp,$Money,$winnermoney,$CardName,$winnermoney_head)
     {
