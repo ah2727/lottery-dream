@@ -8,6 +8,8 @@ include_once 'inc/header.php';
 include_once 'clases/readingData.php';
 include_once 'clases/register.php';
 include_once 'clases/cart.php';
+include_once 'clases/wallet.php';
+$wallet = new wallet();
 $cart = new Cart();
 $cartitem = $cart->selectCartItemsByEmail($_SESSION["emailc"]);
 $reggg= new register();
@@ -495,12 +497,11 @@ if (isset($_POST['buynow'])){
                                         unset($_SESSION['PayShop']);
                                     }
                 }
+                $buy = $wallet->buy($_SESSION['emailc'],$_SESSION['pay']);
                 $ttk = $_SESSION['payy']->trackId;
-            $_SESSION['payy'] = $payyyy->oxPay($_SESSION['money'],$_SESSION['emailc'],$ordayid,'');
-            $reggg->insertTrak($_SESSION['emailc'],$ttk,$ordayid);
+                echo "buying complete";
+                header("Location:/");
 
-            unset($_SESSION['payshop']);
-            header("Location:" . "/PaySubmit.php");
     }
     }else{
         header("Location:login.php");
