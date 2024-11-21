@@ -500,7 +500,7 @@ if (isset($_POST['buynow'])){
                 $buy = $wallet->buy($_SESSION['emailc'],$_SESSION['pay']);
                 $ttk = $_SESSION['payy']->trackId;
                 echo "buying complete";
-                header("Location:/");
+                header("Location:/client/index.php?menu=orders");
 
     }
     }else{

@@ -10,7 +10,7 @@ $viwe = new viwe();
 $dayviwe = $viwe->selDay();
 $mviwe = $viwe->selMviwe();
 $readindex = new readingData();
-$userCount=$readindex->counuserName();
+$userCount = $readindex->counuserName();
 $cardsCount = $readindex->counCards();
 $HeadCount = $readindex->councardhead();
 $totalBuy = $readindex->countBuy();
@@ -19,48 +19,48 @@ $res = $online->getOnlineUsers();
 $cnt  = $cardsCount['count(id)'] + $HeadCount['count(id)'];
 
 if (isset($_SESSION['email'])) {
-
 } else {
     header("Location:login.php");
 }
 ?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <!-- Bootstrap css -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <!-- Bootstrap icon -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        <!-- Style . CsS -->
-        <link rel="stylesheet" href="../style.css">
-        <!--    responsive   -->
-        <link rel="stylesheet" href="../css/responsive.css">
-        <!--    Google fonts-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en">
 
-        <!--    0-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
-              rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!-- Style . CsS -->
+    <link rel="stylesheet" href="../style.css">
+    <!--    responsive   -->
+    <link rel="stylesheet" href="../css/responsive.css">
+    <!--    Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap" rel="stylesheet">
 
-<!--        Data tabels -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
-    </head>
-    <body style="font-family: 'Bakbak One'">
+    <!--    0-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+        rel="stylesheet">
+
+    <!--        Data tabels -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+</head>
+
+<body style="font-family: 'Bakbak One'">
     <main>
         <!--Start Container-->
         <div class="container">
             <!--Start Header-->
             <header class="web-header-section-administrator">
                 <nav class="navbar navbar-expand-lg">
-                    <li class="nav-link nav-item  text-primary c-pointer text-center my-dropdown" style="font-size: 25px; width: 150px"><a
-                        ><i class="bi bi-person-circle"></i>
+                    <li class="nav-link nav-item  text-primary c-pointer text-center my-dropdown" style="font-size: 25px; width: 150px"><a><i class="bi bi-person-circle"></i>
                             <span class="size-10"><br>welcome AmirHosein</span>
                         </a>
                         <ul class="my-menu p-2">
@@ -71,28 +71,29 @@ if (isset($_SESSION['email'])) {
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse collapse_administrator" id="navbarSupportedContent" >
-                    <div class="navbar-nav">
+                    <div class="collapse navbar-collapse collapse_administrator" id="navbarSupportedContent">
+                        <div class="navbar-nav">
                             <li><a class="nav-link nav-item text-dark" href="index.php">Home</a></li>
-                        <li class="dropdown"><a class="nav-link nav-item text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">SiteSetting</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item my-2" href="?type=addNewAdmin">Add New Admin</a></li>
-                                <li><a class="dropdown-item my-2" href="?type=adminSetting">Admin Setting</a></li>
-                                <li><a class="dropdown-item my-2" href="?type=AddWinner">Add Winner</a></li>
-                                <li><a class="dropdown-item my-2" href="?type=WinnerStatus">Winner Status</a></li>
+                            <li class="dropdown"><a class="nav-link nav-item text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">SiteSetting</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item my-2" href="?type=addNewAdmin">Add New Admin</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=adminSetting">Admin Setting</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=AddWinner">Add Winner</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=WinnerStatus">Winner Status</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=earning">earning&referral</a></li>
 
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a class="nav-link nav-item text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cards Setting</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item my-2" href="?type=addNewCards">Add New Cards</a></li>
-                                <li><a class="dropdown-item my-2" href="?type=addNewCardsHead">Add New Cards Head</a></li>
-                                <li><a class="dropdown-item my-2" href="?type=cardsStatus">Cards Status</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a class="nav-link nav-item text-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cards Setting</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item my-2" href="?type=addNewCards">Add New Cards</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=addNewCardsHead">Add New Cards Head</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=cardsStatus">Cards Status</a></li>
 
-                            </ul>
-                        </li>
-                        <li><a class="nav-link nav-item text-dark" href="?type=messages">messages</a></li>
-                    </div>
+                                </ul>
+                            </li>
+                            <li><a class="nav-link nav-item text-dark" href="?type=messages">messages</a></li>
+                        </div>
                     </div>
                 </nav>
             </header>
@@ -103,7 +104,7 @@ if (isset($_SESSION['email'])) {
                             <h5 class="pb-1 pt-1 size-13 text-center" style="text-transform: uppercase">UserNames</h5>
                         </div>
                         <div class="card-body py-2 px-3">
-                            <p class="size-15 text-center"><?=$userCount['count(id)']?></p>
+                            <p class="size-15 text-center"><?= $userCount['count(id)'] ?></p>
                         </div>
                     </div>
                     <div class="card mx-1 col-lg-2 bg-warning mt-2">
@@ -111,7 +112,7 @@ if (isset($_SESSION['email'])) {
                             <h5 class="pb-1 pt-1 size-13 text-center" style="text-transform: uppercase">Total Cards</h5>
                         </div>
                         <div class="card-body py-2 px-3">
-                            <p class="size-15 text-center" ><?php echo $cnt ?></p>
+                            <p class="size-15 text-center"><?php echo $cnt ?></p>
                         </div>
                     </div>
                     <div class="card mx-1 col-lg-2 bg-primary mt-2">
@@ -119,7 +120,7 @@ if (isset($_SESSION['email'])) {
                             <h5 class="pb-1 pt-1 size-13 text-center" style="text-transform: uppercase">Total buy</h5>
                         </div>
                         <div class="card-body py-2 px-3">
-                            <p class="size-15 text-center"><?=$totalBuy['count(id)']?></p>
+                            <p class="size-15 text-center"><?= $totalBuy['count(id)'] ?></p>
                         </div>
                     </div>
                     <div class="card mx-1 col-lg-2 bg-success mt-2">
@@ -127,7 +128,7 @@ if (isset($_SESSION['email'])) {
                             <h5 class="pb-1 pt-1 size-13 text-center" style="text-transform: uppercase">Admins Online</h5>
                         </div>
                         <div class="card-body py-2 px-3">
-                            <p class="size-15 text-center" ><?=$res['count(id)']?></p>
+                            <p class="size-15 text-center"><?= $res['count(id)'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -136,8 +137,8 @@ if (isset($_SESSION['email'])) {
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <?php
-                        if (isset($_GET['type'])){
-                            switch ($_GET['type']){
+                        if (isset($_GET['type'])) {
+                            switch ($_GET['type']) {
                                 case "addNewAdmin":
                                     include_once "inc/addNewAdmin.php";
                                     break;
@@ -165,11 +166,15 @@ if (isset($_SESSION['email'])) {
                                 case "WinnerStatus":
                                     include_once "inc/winnerSetting.php";
                                     break;
-                    
+
+                                case "earning":
+                                    include_once "inc/earning.php";
+                                    break;
+
                                 default:
                                     include_once "inc/charts.php";
                             }
-                        }else{
+                        } else {
                             include_once "inc/charts.php";
                         }
                         ?>
@@ -182,7 +187,7 @@ if (isset($_SESSION['email'])) {
             </div>
         </footer>
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="font-family: sans-serif">
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="font-family: sans-serif">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -207,15 +212,16 @@ if (isset($_SESSION['email'])) {
     <script src="../js/jquery-3.6.0.min.js"></script>
     <!-- bootstrap  -->
     <script src="../js/bootstrap.bundle.min.js"></script>
-<!--    Cdn-->
+    <!--    Cdn-->
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script>
-        $(document).ready( function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
-        } );
+        });
     </script>
-    </body>
-    </html>
+</body>
+
+</html>
 
 <?php
 if (isset($_GET['logout'])) {
