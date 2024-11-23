@@ -122,4 +122,19 @@ class withdrawl extends db_connect{
             return "Error: " . $e->getMessage();
         }
     }
+    public function get_all_withdrawal(){
+        // Step 1: Connect to the database
+        $pdo = $this->connect();
+    
+        // Step 2: Prepare and execute the SQL statement to get all withdrawals
+        $stmt = $pdo->prepare("SELECT * FROM transaction WHERE type = ?");
+        $stmt->execute(["withdraw"]);
+    
+        // Step 3: Fetch all rows from the result set
+        $withdrawals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Step 4: Return the fetched data (or handle it as needed)
+        return $withdrawals;
+    }
+    
 }
