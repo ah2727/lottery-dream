@@ -81,7 +81,7 @@ if (isset($_SESSION['email'])) {
                                     <li><a class="dropdown-item my-2" href="?type=AddWinner">Add Winner</a></li>
                                     <li><a class="dropdown-item my-2" href="?type=WinnerStatus">Winner Status</a></li>
                                     <li><a class="dropdown-item my-2" href="?type=earning">earning&referral</a></li>
-                                    <li><a class="dropdown-item my-2" href="?type=earning">withdrawl</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=withdrawal">withdrawal</a></li>
 
 
                                 </ul>
@@ -172,7 +172,9 @@ if (isset($_SESSION['email'])) {
                                 case "earning":
                                     include_once "inc/earning.php";
                                     break;
-
+                                case "withdrawal":
+                                    include_once "inc/withdrawal.php";
+                                    break;
                                 default:
                                     include_once "inc/charts.php";
                             }
