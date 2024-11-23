@@ -81,6 +81,8 @@ if (isset($_SESSION['email'])) {
                                     <li><a class="dropdown-item my-2" href="?type=AddWinner">Add Winner</a></li>
                                     <li><a class="dropdown-item my-2" href="?type=WinnerStatus">Winner Status</a></li>
                                     <li><a class="dropdown-item my-2" href="?type=earning">earning&referral</a></li>
+                                    <li><a class="dropdown-item my-2" href="?type=earning">withdrawl</a></li>
+
 
                                 </ul>
                             </li>
