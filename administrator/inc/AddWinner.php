@@ -115,6 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="hidden" name="balls6" value="<?= $re['balls6'] ?>">
                             <input type="hidden" name="randcode" value="<?= $re['randcode'] ?>">
                             <input type="hidden" name="orderId" value="<?= $re['orderId'] ?>">
+                            <?php
+                            foreach ($selcard as $ssl) {
+                                if ($re['CardName'] === $ssl['CardName']) {
+                                    echo $ssl['winnermoney'];
+                                    break; // Exit the loop as the desired condition is met
+                                } elseif ($re['CardName'] === $cardHead['CardName']) {
+                                    echo $cardHead['winnermoney'];
+                                    break; // Exit the loop if this condition is met
+                                }
+                            }
+                            ?>
                             <button type="submit" name="confirmWinner" class="btn btn-link">
                                 <i class="bi bi-check-circle text-success" style="font-size: 20px"></i>
                             </button>
