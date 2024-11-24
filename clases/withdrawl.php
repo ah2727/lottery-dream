@@ -144,35 +144,47 @@ class withdrawl extends db_connect
         // Step 4: Return the fetched data (or handle it as needed)
         return $withdrawals;
     }
-    function insertWithdrawalConfirmation($amount, $email, $confirmed, $transactionId)
-    {
-        try {
-            // Connect to the database
-            $pdo = $this->connect();
+function insertWithdrawalConfirmation($id, $amount, $email, $confirmed, $transactionId)
+{
+    try {
+        // Connect to the database
+        $pdo = $this->connect();
 
-            // Prepare the SQL statement
-            $sql = "INSERT INTO withdrawalconfirmed (amount, email, confirmed, transactionid) VALUES (?, ?, ?, ?)";
-            $stmt = $pdo->prepare($sql);
+        // Start a transaction
 
-            // Execute the statement with the provided values
-            $stmt->execute([$amount, $email, $confirmed, $transactionId]);
+        // Insert into the withdrawalconfirmed table
+        $sqlInsert = "INSERT INTO withdrawalconfirmed (amount, email, confirmed, transactionid) VALUES (?, ?, ?, ?)";
+        $stmtInsert = $pdo->prepare($sqlInsert);
+        $stmtInsert->execute([$amount, $email, $confirmed, $transactionId]);
 
-            // Output a success message
-            if ($stmt->rowCount() > 0) {
-                echo "Record inserted successfully.";
+        // Check if the insert was successful
+        if ($stmtInsert->rowCount() > 0) {
+            // Update the withdrawal table status to "confirmed"
+            $sqlUpdate = "UPDATE transaction SET success = 'confirmed' WHERE id = ?";
+            $stmtUpdate = $pdo->prepare($sqlUpdate);
+            $stmtUpdate->execute([$id]);
+
+            // Check if the update was successful
+            if ($stmtUpdate->rowCount() > 0) {
+                // Commit the transaction
+                $pdo->commit();
+                echo "Record inserted and status updated successfully.";
             } else {
-                echo "Failed to insert record.";
+                // Rollback the transaction if update fails
+                $pdo->rollBack();
+                echo "Failed to update status in the withdrawal table.";
             }
-        } catch (PDOException $e) {
-            // Handle any errors
-            echo "Error: " . $e->getMessage();
+        } else {
+            // Rollback the transaction if insert fails
+            $pdo->rollBack();
+            echo "Failed to insert record into withdrawalconfirmed.";
         }
+    } catch (PDOException $e) {
+        // Rollback the transaction on error
+        $pdo->rollBack();
+        echo "Error: " . $e->getMessage();
     }
-    public function getWithdrawalWallet($email){
-        $pdo= $this->connect();
-        $stmt=$pdo->prepare("SELECT * FROM withdrawwallet WHERE email =?");
-        $stmt->execute([$email]);
-        $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $wallet;
-    }
+}
+
+
 }

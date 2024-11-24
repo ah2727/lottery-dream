@@ -154,9 +154,12 @@ if (isset($_POST['buynow'])) {
                         class="absolute font-black text-xl">Your basket items</h2>
                     <?php
                     $n1="";
+                    $n2="";
+                    $n3="";
                     if (isset($cartitem) && !empty($cartitem) && !empty($cartitem)) {
                         foreach ($cartitem as $text) {
-                            if($n1==$text["Datet"]){break;}
+                            echo $n3;
+                            if($n1==$text["Datet"] && $text["CardName"]==$n2&&$text["orderId"]==$n3){;continue;}
                             $res = $pdob->selCarsWithName($text["CardName"]);
                             if (empty($res)) {
                                 $res = $pdob->selCarsWithName1($text["CardName"]);
@@ -242,7 +245,7 @@ if (isset($_POST['buynow'])) {
                                         <div class="bg-gray-100 px-4 pt-2 pb-3 border-t-1 border-grey-300 rounded-b-md">
                                         <?php
                                             foreach($cartitem as $text1) {
-                                                if ($res['CardName'] == $text1['CardName']) {
+                                                if ($res['CardName'] == $text1['CardName'] && $text["orderId"]== $text1["orderId"]) {
                                             ?>
                                             <div class="mb-3 mt-2 self-center flex flex-col items-center">
                                                 <div class="w-auto space-y-6 flex flex-col">
@@ -300,6 +303,8 @@ if (isset($_POST['buynow'])) {
                             </div>
                     <?php
                             $n1 = $text["Datet"];
+                            $n2=$text["CardName"];
+                            $n3 = $text["orderId"];
                         }
                 
                     }
