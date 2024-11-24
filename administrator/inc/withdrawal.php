@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $amount = $_POST['amount'];
         try {
             // Insert the withdrawal confirmation into the table
-            $withdrawal->insertWithdrawalConfirmation($amount, $email, 1, $withdrawalId);
+            $withdrawalcls->insertWithdrawalConfirmation($amount, $email, 1, $withdrawalId);
             echo "Withdrawal ID " . htmlspecialchars($withdrawalId) . " confirmed successfully.";
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
