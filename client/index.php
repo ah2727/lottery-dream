@@ -161,28 +161,30 @@ $menu = $_GET['menu'] ?? 'Home';
 <?php
 $update = new Update_Database();
 
-
+foreach ($resTrak as $key => $trak){
+    $ressss = $chek->CheakPay($trak['trackID']);
+    if ($ressss->status == 'Expired'){
+        $update->DeleteTrack($ressss->trackId);
+    }else if ($ressss->status == 'Paid' || $ressss->status == 'Confirming'){
+        $update->UpdateTrack($ressss->trackId);
+    }
+    else{
+     break;
+    }
+ }
 $shop = new readingData();
 $chek = new Cheak();
 $resTrak = $shop->SelTrack($_SESSION['emailc']);
-foreach ($resTrak as $key => $trak){
-   $ressss = $chek->CheakPay($trak['trackID']);
-   if ($ressss->status == 'Expired'){
-       $update->DeleteTrack($ressss->trackId);
-   }else if ($ressss->status == 'Paid' || $ressss->status == 'Confirming'){
-       $update->UpdateTrack($ressss->trackId);
-   }
-   else{
-    return;
-   }
-}
+
 $AllShop = $shop->ReadShop($_SESSION['emailc']);
 $Winners = $shop->selWinnerEmail($_SESSION['emailc']);
 if (!isset($_SESSION['emailc'])){
     header("Location:../login");
 }
 if (isset($_GET['logout'])) {
+    echo "yes";
     session_destroy();
     header("Location:../login.php");
 }
+
 ?>
