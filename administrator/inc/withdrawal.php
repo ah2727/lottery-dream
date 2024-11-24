@@ -1,8 +1,8 @@
 <?php
 include_once "../clases/withdrawl.php";
-$withdrawal = new withdrawl();
-$withdrawals = $withdrawal->get_all_withdrawal_noneconfirmed();
 
+$withdrawalcls = new withdrawl();
+$withdrawals = $withdrawalcls->get_all_withdrawal_noneconfirmed();
 
 
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     exit; // Stop further execution after handling the AJAX request
 }
 ?>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>ID</th>
@@ -33,20 +33,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <th>Email</th>
             <th>Success</th>
             <th>Date/Time</th>
+            <th>wallet</th>
+            <th>crypto</th>
             <th>confirm</th>
         </tr>
     </thead>
     <tbody>
         <?php if (!empty($withdrawals)): ?>
-            <?php foreach ($withdrawals as $withdrawal): ?>
+            <?php foreach ($withdrawals as $withdrawal): 
+                $walletdata = $withdrawalcls->getWithdrawalWallet($withdrawal['email']);
+                ?>
                 <tr>
 
                     <td><?php echo htmlspecialchars($withdrawal['id']); ?></td>
                     <td><?php echo htmlspecialchars($withdrawal['amount']); ?></td>
                     <td><?php echo htmlspecialchars($withdrawal['type']); ?></td>
-                    <td><?php echo htmlspecialchars($withdrawal['email']); ?></td>
+                    <td><?php echo htmlspecialchars(string: $withdrawal['email']); ?></td>
                     <td><?php echo htmlspecialchars($withdrawal['success']); ?></td>
                     <td><?php echo htmlspecialchars($withdrawal['datetime']); ?></td>
+                    <td><?php echo htmlspecialchars($walletdata["address"] ); ?></td>
+                    <td><?php echo htmlspecialchars($walletdata["crypto"] ); ?></td>
+
+
                     <td>
                         <button class="confirm-button" onclick="confirmWithdrawal(<?php echo htmlspecialchars($withdrawal['id']); ?>, '<?php echo htmlspecialchars($withdrawal['email']); ?>', <?php echo htmlspecialchars($withdrawal['amount']); ?>)">
                             Confirm

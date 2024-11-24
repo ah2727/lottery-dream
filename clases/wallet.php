@@ -94,4 +94,11 @@ class wallet extends db_connect{
             return $transactionId; // Return the transaction ID for reference    }
         }
 }
+    public function getWallet($email){
+        $pdo= $this->connect();
+        $stmt=$pdo->prepare("SELECT * FROM wallet WHERE email =?");
+        $stmt->execute([$email]);
+        $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $wallet;
+    }
 }

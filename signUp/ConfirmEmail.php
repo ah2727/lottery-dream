@@ -165,7 +165,10 @@ if (isset($_GET['EditeEmail']))
 <?php
 if (isset($_POST['ConfirmEmail'])) {
     echo "sss";
+    echo $_SESSION['rand'];
+
     $code = $_POST['Code'];
+
     if ($_SESSION['rand'] == $code) {
         $pdo = new register();
         $wallet = new wallet();

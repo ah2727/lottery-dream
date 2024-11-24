@@ -168,4 +168,11 @@ class withdrawl extends db_connect
             echo "Error: " . $e->getMessage();
         }
     }
+    public function getWithdrawalWallet($email){
+        $pdo= $this->connect();
+        $stmt=$pdo->prepare("SELECT * FROM withdrawwallet WHERE email =?");
+        $stmt->execute([$email]);
+        $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $wallet;
+    }
 }

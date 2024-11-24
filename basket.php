@@ -153,8 +153,10 @@ if (isset($_POST['buynow'])) {
                     <h2
                         class="absolute font-black text-xl">Your basket items</h2>
                     <?php
+                    $n1="";
                     if (isset($cartitem) && !empty($cartitem) && !empty($cartitem)) {
                         foreach ($cartitem as $text) {
+                            if($n1==$text["Datet"]){break;}
                             $res = $pdob->selCarsWithName($text["CardName"]);
                             if (empty($res)) {
                                 $res = $pdob->selCarsWithName1($text["CardName"]);
@@ -238,29 +240,32 @@ if (isset($_POST['buynow'])) {
                                         id=""
                                         style="max-height: 259px; display: none">
                                         <div class="bg-gray-100 px-4 pt-2 pb-3 border-t-1 border-grey-300 rounded-b-md">
-
+                                        <?php
+                                            foreach($cartitem as $text1) {
+                                                if ($res['CardName'] == $text1['CardName']) {
+                                            ?>
                                             <div class="mb-3 mt-2 self-center flex flex-col items-center">
                                                 <div class="w-auto space-y-6 flex flex-col">
                                                     <div class="flex flex-col">
                                                         <div class="mb-2 flex gap-2">
                                                             <div class="flex gap-1.5 md:gap-2 flex-wrap">
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>;">
-                                                                    <?= $text['balls1'] ?>
+                                                                    <?= $text1['balls1'] ?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text['balls2'] ?>
+                                                                    <?= $text1['balls2'] ?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text['bals3'] ?>
+                                                                    <?= $text1['bals3'] ?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text['balls4'] ?>
+                                                                    <?= $text1['balls4'] ?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text['balls5'] ?>
+                                                                    <?= $text1['balls5'] ?>
                                                                 </div>
                                                                 <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $rwss['balls6'] ?>
+                                                                    <?= $text1['balls6'] ?>
                                                                 </div>
                                                             </div>
 
@@ -269,7 +274,10 @@ if (isset($_POST['buynow'])) {
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <?php
+                                            }
+                                            }
+                                            ?>
                                             <section class="flex justify-between text-lg border-t-1 pt-1">
                                                 <h4
                                                     class="text-dark-blue font-bold">Total</h4>
@@ -291,8 +299,11 @@ if (isset($_POST['buynow'])) {
                                 </div>
                             </div>
                     <?php
+                            $n1 = $text["Datet"];
                         }
+                
                     }
+                    
                     ?>
                 </div>
                 <div class="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10">
