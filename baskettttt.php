@@ -21,7 +21,13 @@ $pdob = new readingData();
 $pay11 = new pay();
 $resssss = $pdob->selAllby();
 $winner =$pdob->selWinnerCardName($_GET['CardName']);
+if (isset($_COOKIE["inputOption"])) {
+    setcookie("inputOption", "", time() - 3600, "/"); // Unset inputOption cookie
+}
 
+if (isset($_COOKIE["selectedOption"])) {
+    setcookie("selectedOption", "", time() - 3600, "/"); // Unset selectedOption cookie
+}
 if (isset($_GET['CardName']) && !empty($_GET['CardName'])) {
     $result = $pdob->selCarsWithName($_GET['CardName']);
     if (empty($result)) {

@@ -247,8 +247,19 @@ if (isset($_SESSION["error"])) {
                                                 ?>
                                             </p>
                                         </div>
+                                        <div class="bg-blue-100 rounded-md py-1 px-2">
+                                            <p
+                                                class="text-dark-blue font-bold">
+                                                <?php
+                                               
+                                                echo 'gems' . $text['gems'];
+                                                ?>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="border-t-1 bg-white border-grey-300 py-2 px-4 flex flex-col justify-center">
+                                        <div>
+                                        </div>
                                         <button class="flex justify-center cursor-pointer leading-normal text-base font-bold group-hover:text-blue-prompt items-center ShowBasket"
                                             role="button"><span id="details">Show details</span><span
                                                 class="pl-1 pr-2"><svg
@@ -524,7 +535,7 @@ if (isset($_SESSION["error"])) {
     <?php
     include_once 'inc/footer.php';
     ?>
-    
+
 </div>
 
 <script>
@@ -538,37 +549,40 @@ if (isset($_SESSION["error"])) {
 </script>
 <?php
 ?>
-        <?php
-            if (isset($_POST['buynow'])) {
-                if (isset($_SESSION['emailc'])) {
-                    if (isset($_SESSION['money']) && $_SESSION['money'] != 0) {
-                        $ordayid = rand(10000000, 99999999);
-                        $now = time();
-                        foreach ($cartitem as $paybu) {
-                            $randCode = rand(1000, 9999);
+<?php
+if (isset($_POST['buynow'])) {
+    if (isset($_SESSION['emailc'])) {
+        if (isset($_SESSION['money']) && $_SESSION['money'] != 0) {
+            $ordayid = rand(10000000, 99999999);
+            $now = time();
+            $n = 0;
+            foreach ($cartitem as $paybu) {
+                $n += $_SESSION['pay'];
+            }
+            $buy = $wallet->buy($_SESSION['emailc'], $n);
+            echo $buy;
+            foreach ($cartitem as $paybu) {
+                $randCode = rand(1000, 9999);
+                if ($buy != null) {
+                    $trnc = $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['balls1'], $paybu['balls2'], $paybu['bals3'], $paybu['balls4'], $paybu['balls5'], $paybu['balls6'], $ordayid, $randCode, $paybu['CardName'], $_SESSION['pay'], $now, $paybu["division"], $paybu["gems"] ?? 0);
+                    echo $trnc;
+                    $_COOKIE["inputOption"] = "";
+                    $_SESSION["success"] = "buying complete";
+                    header("Location:/client/index.php?menu=orders");
+                    $ttk = $_SESSION['payy']->trackId;
+                    $cart->deleteCartItemById($paybu["id"]);
 
-
-                                $buy = $wallet->buy($_SESSION['emailc'], $_SESSION['pay']);
-                                
-                                if ($buy) {
-                                    $cart->deleteCartItemById($paybu["id"]);
-
-                                    $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['balls1'], $paybu['balls2'], $paybu['bals3'], $paybu['balls4'], $paybu['balls5'], $paybu['balls6'], $ordayid, $randCode, $paybu['CardName'], $_SESSION['pay'], $now, $cartitem["division"], $cartitem["gems"] ?? 0);
-                                    $_COOKIE["inputOption"] = "";
-                                    $_SESSION["success"] = "buying complete";
-                                    header("Location:/client/index.php?menu=orders");
-                                    $ttk = $_SESSION['payy']->trackId;
-                                    unset($_SESSION['PayShop']);
-                                } else {
-                                    $_SESSION["error"]= "no money";
-                                }
-                        }
-                    }
+                    unset($_SESSION['PayShop']);
                 } else {
-                    header("Location:login.php");
+                    $_SESSION["error"] = "no money";
                 }
             }
-            ?>
+        }
+    } else {
+        header("Location:login.php");
+    }
+}
+?>
 <script>
     $(document).ready(function() {
         $('button').mouseenter(function() {
