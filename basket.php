@@ -47,6 +47,27 @@ if (isset($_GET['DeleteBasket'])) {
 if (isset($_POST['buynow'])) {
 }
 ?>
+<?php
+if (isset($_SESSION["success"])) {
+?>
+    <div class="alert alert-primary" role="alert" id="successAlert">
+        <?= htmlspecialchars($_SESSION["success"]); ?>
+    </div>
+<?php
+    $_SESSION["success"] = null;
+}
+?>
+
+<?php
+if (isset($_SESSION["error"])) {
+?>
+    <div class="alert alert-danger" role="alert" id="serrorAlert">
+        <?= htmlspecialchars($_SESSION["error"]); ?>
+    </div>
+<?php
+    $_SESSION["error"] = null;
+}
+?>
 <div id="__next">
     <div class="relative min-h-screen-9/10 flex flex-col">
         <div class="lg:container mx-auto p-4 lg:pl-20 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12">
@@ -153,13 +174,15 @@ if (isset($_POST['buynow'])) {
                     <h2
                         class="absolute font-black text-xl">Your basket items</h2>
                     <?php
-                    $n1="";
-                    $n2="";
-                    $n3="";
+                    $n1 = "";
+                    $n2 = "";
+                    $n3 = "";
                     if (isset($cartitem) && !empty($cartitem) && !empty($cartitem)) {
                         foreach ($cartitem as $text) {
                             echo $n3;
-                            if($n1==$text["Datet"] && $text["CardName"]==$n2&&$text["orderId"]==$n3){;continue;}
+                            if ($n1 == $text["Datet"] && $text["CardName"] == $n2 && $text["orderId"] == $n3) {;
+                                continue;
+                            }
                             $res = $pdob->selCarsWithName($text["CardName"]);
                             if (empty($res)) {
                                 $res = $pdob->selCarsWithName1($text["CardName"]);
@@ -243,42 +266,42 @@ if (isset($_POST['buynow'])) {
                                         id=""
                                         style="max-height: 259px; display: none">
                                         <div class="bg-gray-100 px-4 pt-2 pb-3 border-t-1 border-grey-300 rounded-b-md">
-                                        <?php
-                                            foreach($cartitem as $text1) {
-                                                if ($res['CardName'] == $text1['CardName'] && $text["orderId"]== $text1["orderId"]) {
+                                            <?php
+                                            foreach ($cartitem as $text1) {
+                                                if ($res['CardName'] == $text1['CardName'] && $text["orderId"] == $text1["orderId"]) {
                                             ?>
-                                            <div class="mb-3 mt-2 self-center flex flex-col items-center">
-                                                <div class="w-auto space-y-6 flex flex-col">
-                                                    <div class="flex flex-col">
-                                                        <div class="mb-2 flex gap-2">
-                                                            <div class="flex gap-1.5 md:gap-2 flex-wrap">
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>;">
-                                                                    <?= $text1['balls1'] ?>
-                                                                </div>
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text1['balls2'] ?>
-                                                                </div>
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text1['bals3'] ?>
-                                                                </div>
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text1['balls4'] ?>
-                                                                </div>
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text1['balls5'] ?>
-                                                                </div>
-                                                                <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
-                                                                    <?= $text1['balls6'] ?>
+                                                    <div class="mb-3 mt-2 self-center flex flex-col items-center">
+                                                        <div class="w-auto space-y-6 flex flex-col">
+                                                            <div class="flex flex-col">
+                                                                <div class="mb-2 flex gap-2">
+                                                                    <div class="flex gap-1.5 md:gap-2 flex-wrap">
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>;">
+                                                                            <?= $text1['balls1'] ?>
+                                                                        </div>
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
+                                                                            <?= $text1['balls2'] ?>
+                                                                        </div>
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
+                                                                            <?= $text1['bals3'] ?>
+                                                                        </div>
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
+                                                                            <?= $text1['balls4'] ?>
+                                                                        </div>
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
+                                                                            <?= $text1['balls5'] ?>
+                                                                        </div>
+                                                                        <div class="flex font-bold rounded-full justify-center items-center relative text-white bg-red-800 w-7 md:w-10 h-7 md:h-10 text-base md:text-2xl" style="background-color: <?php echo $res['color'] ?>">
+                                                                            <?= $text1['balls6'] ?>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="flex gap-1.5 md:gap-2 flex-wrap"></div>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="flex gap-1.5 md:gap-2 flex-wrap"></div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
                                             <?php
-                                            }
+                                                }
                                             }
                                             ?>
                                             <section class="flex justify-between text-lg border-t-1 pt-1">
@@ -303,12 +326,11 @@ if (isset($_POST['buynow'])) {
                             </div>
                     <?php
                             $n1 = $text["Datet"];
-                            $n2=$text["CardName"];
+                            $n2 = $text["CardName"];
                             $n3 = $text["orderId"];
                         }
-                
                     }
-                    
+
                     ?>
                 </div>
                 <div class="col-start-1 col-end-5 md:col-start-2 md:col-end-8 lg:col-start-4 lg:col-end-10">
@@ -502,40 +524,9 @@ if (isset($_POST['buynow'])) {
     <?php
     include_once 'inc/footer.php';
     ?>
+    
 </div>
-<?php
-if (isset($_POST['buynow'])) {
-    if (isset($_SESSION['emailc'])) {
-        if (isset($_SESSION['money']) && $_SESSION['money'] != 0) {
-            $ordayid = rand(10000000, 99999999);
-            $now = time();
-            foreach ($cartitem as $paybu) {
-                $randCode = rand(1000, 9999);
-                foreach ($cartitem as $e) {
 
-
-                    $buy = $wallet->buy($_SESSION['emailc'], $_SESSION['pay']);
-                    if($_SESSION["success"]=="success"){
-                    $cart->deleteCartItemById($e["id"]);
-
-                    $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['balls1'], $paybu['balls2'], $paybu['bals3'], $paybu['balls4'], $paybu['balls5'], $paybu['balls6'], $ordayid, $randCode, $paybu['CardName'], $_SESSION['pay'], $now, $e["division"], $e["gems"] ?? 0);
-                    $_COOKIE["inputOption"] = "";
-                    echo "buying complete";
-                    header("Location:/client/index.php?menu=orders");
-                    $ttk = $_SESSION['payy']->trackId;
-                    unset($_SESSION['PayShop']);
-                    unset($_SESSION["success"]);
-                }else{
-                    echo "no money";
-                }
-                }
-            }
-        }
-    } else {
-        header("Location:login.php");
-    }
-}
-?>
 <script>
     $(document).ready(function() {
         $('.ShowBasket').click(function() {
@@ -547,7 +538,37 @@ if (isset($_POST['buynow'])) {
 </script>
 <?php
 ?>
+        <?php
+            if (isset($_POST['buynow'])) {
+                if (isset($_SESSION['emailc'])) {
+                    if (isset($_SESSION['money']) && $_SESSION['money'] != 0) {
+                        $ordayid = rand(10000000, 99999999);
+                        $now = time();
+                        foreach ($cartitem as $paybu) {
+                            $randCode = rand(1000, 9999);
 
+
+                                $buy = $wallet->buy($_SESSION['emailc'], $_SESSION['pay']);
+                                
+                                if ($buy) {
+                                    $cart->deleteCartItemById($paybu["id"]);
+
+                                    $reggg->InsertOrderTabel($_SESSION['emailc'], $paybu['balls1'], $paybu['balls2'], $paybu['bals3'], $paybu['balls4'], $paybu['balls5'], $paybu['balls6'], $ordayid, $randCode, $paybu['CardName'], $_SESSION['pay'], $now, $cartitem["division"], $cartitem["gems"] ?? 0);
+                                    $_COOKIE["inputOption"] = "";
+                                    $_SESSION["success"] = "buying complete";
+                                    header("Location:/client/index.php?menu=orders");
+                                    $ttk = $_SESSION['payy']->trackId;
+                                    unset($_SESSION['PayShop']);
+                                } else {
+                                    $_SESSION["error"]= "no money";
+                                }
+                        }
+                    }
+                } else {
+                    header("Location:login.php");
+                }
+            }
+            ?>
 <script>
     $(document).ready(function() {
         $('button').mouseenter(function() {
